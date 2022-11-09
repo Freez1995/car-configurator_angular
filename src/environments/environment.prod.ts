@@ -1,13 +1,13 @@
 export const environment = {
   firebase: {
-    projectId: 'carconfigapp-804c6',
-    appId: '1:665515613528:web:8ba547ec7aca6b25d7992d',
-    databaseURL: 'https://carconfigapp-804c6-default-rtdb.europe-west1.firebasedatabase.app',
-    storageBucket: 'carconfigapp-804c6.appspot.com',
-    locationId: 'europe-west',
-    apiKey: 'AIzaSyBOLux7AlwTyDrcgslmKNoFGA0jCn4kp4o',
-    authDomain: 'carconfigapp-804c6.firebaseapp.com',
-    messagingSenderId: '665515613528',
+    projectId: process.env['NG_APP_PROJECT_ID'],
+    appId: process.env['NG_APP_APP_ID'],
+    databaseURL: process.env['NG_APP_DATABASE_URL'],
+    storageBucket: process.env['NG_APP_STORAGE_BUCKET'],
+    locationId: process.env['NG_APP_LOCATION_ID'],
+    apiKey: process.env['NG_APP_API_KEY'],
+    authDomain: process.env['NG_APP_AUTH_DOMAIN'],
+    messagingSenderId: process.env['NG_APP_MESSAGING_SENDER_ID'],
   },
-  production: true
+  production: true,
 };
