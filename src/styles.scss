@@ -26,7 +26,7 @@ $car-configurator-theme: mat.define-light-theme((
     primary: $car-configurator-primary,
     accent: $car-configurator-accent,
     warn: $car-configurator-warn,
-  )
+  ),
 ));
 
 // Include theme styles for core and each component used in your app.
@@ -40,12 +40,16 @@ $car-configurator-theme: mat.define-light-theme((
 @import url(http://fonts.cdnfonts.com/css/optician-sans);
 @import url(//db.onlinewebfonts.com/c/8f2a9d487bbbc60974cd132fc3a63862?family=Aeonik);
 
-$custom-typography: mat-typography-config($font-family: '"Inter", sans-serif;');
-@include mat.core($custom-typography);
 
-html, body { height: 100%; }
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+html { height: 100%; }
+
+body {
+  height: 100%;
+  font-family: 'Inter', 'Optician Sans', sans-serif;
 }

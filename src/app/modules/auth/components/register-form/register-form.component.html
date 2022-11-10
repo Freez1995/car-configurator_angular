@@ -1,0 +1,27 @@
+<form class="registerForm" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+  <h1>Register</h1>
+  <mat-form-field appearance="fill">
+    <mat-label>Email</mat-label>
+    <input matInput placeholder="example@gmail.com" formControlName="email">
+    <mat-error *ngIf="registerForm.controls.email.hasError('email') && !registerForm.controls.email.hasError('required')">
+      Please enter a valid email address
+    </mat-error>
+    <mat-error *ngIf="registerForm.controls.email.hasError('required')">
+      Email is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Password</mat-label>
+    <input matInput formControlName="password">
+    <ng-container *ngIf="registerForm.controls.password.errors">
+      <mat-error *ngFor="let error of registerForm.controls.password.errors">
+        {{error}}
+      </mat-error>
+    </ng-container>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Password confirm</mat-label>
+     <input matInput formControlName="passwordConfirm">
+  </mat-form-field>
+  <button mat-raised-button color="primary" >Primary</button>
+</form>
