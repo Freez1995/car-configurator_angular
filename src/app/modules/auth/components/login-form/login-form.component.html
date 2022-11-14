@@ -1,0 +1,19 @@
+<form class="login-form">
+  <h1>SIGN IN</h1>
+  <mat-form-field appearance="fill">
+    <mat-label>Email</mat-label>
+    <input matInput placeholder="example@gmail.com">
+  </mat-form-field>
+  <mat-form-field  appearance="fill">
+    <mat-label>Password</mat-label>
+    <input matInput>
+    <mat-icon matSuffix>visibility</mat-icon>
+  </mat-form-field>
+  <button mat-raised-button class="login-form-button" color="primary" type="submit">SIGN IN</button>
+  <app-google-button label="Sign in with Google"></app-google-button>
+  <hr />
+  <div class="link-container">
+    <p>Don't have an account?</p>
+    <a href="/sign-up">Sign up</a>
+  </div>
+</form>

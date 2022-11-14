@@ -1,27 +1,43 @@
-<form class="registerForm" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-  <h1>Register</h1>
+<form class="register-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+  <h1>SIGN UP</h1>
   <mat-form-field appearance="fill">
     <mat-label>Email</mat-label>
     <input matInput placeholder="example@gmail.com" formControlName="email">
-    <mat-error *ngIf="registerForm.controls.email.hasError('email') && !registerForm.controls.email.hasError('required')">
+    <mat-error *ngIf="email?.hasError('email') && !email?.hasError('required')">
       Please enter a valid email address
     </mat-error>
-    <mat-error *ngIf="registerForm.controls.email.hasError('required')">
-      Email is <strong>required</strong>
+    <mat-error *ngIf="email?.hasError('required')">
+      This field is <strong>required</strong>
     </mat-error>
   </mat-form-field>
-  <mat-form-field appearance="fill">
+  <mat-form-field  appearance="fill">
     <mat-label>Password</mat-label>
-    <input matInput formControlName="password">
-    <ng-container *ngIf="registerForm.controls.password.errors">
-      <mat-error *ngFor="let error of registerForm.controls.password.errors">
-        {{error}}
-      </mat-error>
-    </ng-container>
+    <input matInput [type]="passwordShown ? 'text' : 'password'" formControlName="password">
+    <mat-icon matSuffix (click)="passwordShown = !passwordShown">{{passwordShown ? 'visibility' : 'visibility_off'}}</mat-icon>
+    <mat-error *ngIf="password?.hasError('required')">
+      This field is <strong>required</strong>
+    </mat-error>
+    <mat-error *ngIf="password?.hasError('passwordError') && !password?.hasError('required')">
+      {{password?.getError('passwordError')}}
+    </mat-error>
   </mat-form-field>
   <mat-form-field appearance="fill">
     <mat-label>Password confirm</mat-label>
-     <input matInput formControlName="passwordConfirm">
+    <input matInput [type]="passwordShown ? 'text' : 'password'" formControlName="passwordConfirm">
+    <mat-icon matSuffix (click)="passwordShown = !passwordShown">{{passwordShown ? 'visibility' : 'visibility_off'}}</mat-icon>
+    <mat-error *ngIf="passwordConfirm?.hasError('required')">
+      This field is <strong>required</strong>
+    </mat-error>
+    <mat-error *ngIf="passwordConfirm?.hasError('passwordConfirmError') && !passwordConfirm?.hasError('required')">
+      {{password?.getError('passwordConfirmError')}}
+    </mat-error>
   </mat-form-field>
-  <button mat-raised-button color="primary" >Primary</button>
+  <button mat-raised-button class="register-form-button" color="primary" type="submit">SIGN UP</button>
+  <app-google-button label="Sign up with google"></app-google-button>
+  <button mat-raised-button class="register-form-button" color="primary" (click)="onLogout(); $event.preventDefault()">LOGOUT</button>
+  <hr />
+  <div class="link-container">
+    <p>Already have an account?</p>
+    <a href="/sign-in">Sign in</a>
+  </div>
 </form>

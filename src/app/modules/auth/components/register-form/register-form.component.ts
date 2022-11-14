@@ -1,53 +1,51 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, ValidationErrors, Validators } from '@angular/forms';
-
+import { AbstractControl, FormBuilder, FormControl, ValidationErrors, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth-service.service';
 
 @Component({
   selector: 'app-register-form',
   templateUrl: './register-form.component.html',
   styleUrls: ['./register-form.component.scss']
 })
+
 export class RegisterFormComponent {
 
-  registerForm = this.fb.group({
-    email: ['', [Validators.email, Validators.required]],
-    password: ['', [this.validatePasswordSymbol,
-      this.validatePasswordNumber,
-      this.validatePasswordLowercaseLetter,
-      this.validatePasswordUppercaseLetter]],
-    passwordConfirm: ['']
+  registerForm = this.fb.nonNullable.group({
+    email: ['',  [Validators.email, Validators.required]],
+    password: ['', [this.passwordValidation,
+      Validators.required]],
+    passwordConfirm: ['', [Validators.required]]
   })
+  public passwordShown = false
 
-  constructor(private fb: FormBuilder) { }
+  get email(){
+    return this.registerForm.get('email')
+  }
+
+  get password(){
+    return this.registerForm.get('password')
+  }
+
+  get passwordConfirm() {
+    return this.registerForm.get('passwordConfirm')
+  }
+
+  constructor(private fb: FormBuilder, private auth: AuthService){}
 
   onSubmit(){
-    //console.log(this.registerForm.value)
-    //console.log(this.registerForm.controls.email.hasError('email'))
-    //console.log(this.registerForm.controls.email.errors)
-    console.log(this.registerForm.controls.password.errors)
+    this.auth.handleSignUp(this.email!, this.password!)
   }
 
-  log(value:any){
-    console.log(value)
+  onLogout(){
+    this.auth.handleSignOut()
   }
 
-  validatePasswordSymbol(control: FormControl): ValidationErrors | boolean{
-    const pattern = /[-._!"`'#%&,:;<>=@{}~\$\(\)\*\+\/\\\?\[\]\^\|]+/;
-    return (pattern.test(control.value) || {passwordCheckSymbol : 'Password must contain at least 1 special character'});
+  passwordValidation(control: FormControl): ValidationErrors | boolean {
+    const pattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/
+    return (pattern.test(control.value)) || {passwordError: 'Password must be at least 8 characters long, must contain 1 number, uppecase and lowercase letter.'}
   }
 
-  validatePasswordNumber(control: FormControl): ValidationErrors | boolean{
-    const pattern = /(?=.*?[0-9])/;
-    return (pattern.test(control.value)|| {passwordCheckNumber : 'Password must contain at least 1 number'});
-  }
-
-  validatePasswordLowercaseLetter(control: FormControl): ValidationErrors | boolean{
-    const pattern = /(?=.*?[a-z])/;
-    return (pattern.test(control.value) || {passwordCheckLowercase : 'Password must contain at least 1 lowercase letter'});
-  }
-
-  validatePasswordUppercaseLetter(control: FormControl): ValidationErrors | boolean{
-    const pattern = /(?=.*?[A-Z])/;
-    return (pattern.test(control.value) || {passwordCheckUppercase : 'Password must contain at least 1 capital letter'});
+  matchPasswordValidation(control: FormControl , controlConfirm: FormControl) : void | boolean {
+    return control?.value !== controlConfirm?.value || this.passwordConfirm?.setErrors({passwordConfirmError: 'Passwords must match'})
   }
 }

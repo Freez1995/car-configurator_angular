@@ -6,19 +6,27 @@ import { RegisterComponent } from './views/register/register.component';
 import {MatInputModule} from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { GoogleButtonComponent } from './components/google-button/google-button.component';
+import { LoginFormComponent } from './components/login-form/login-form.component';
+import { LoginComponent } from './views/login/login.component';
 
 
 @NgModule({
   declarations: [
     RegisterFormComponent,
-    RegisterComponent
+    RegisterComponent,
+    GoogleButtonComponent,
+    LoginFormComponent,
+    LoginComponent
   ],
   imports: [
     CommonModule,
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
-    MatButtonModule
+    MatButtonModule,
+    MatIconModule
   ],
   exports: [
     RegisterComponent,
