@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { AbstractControl } from '@angular/forms';
 import firebase from 'firebase/compat/app';
 
+export interface AuthnData {
+  email: string,
+  password: string
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -18,8 +21,12 @@ export class AuthService {
     });
   }
 
-  handleSignUp(email: AbstractControl, password: AbstractControl){
-    this.auth.createUserWithEmailAndPassword(email.value, password.value)
+  handleSignUp({email, password}: AuthnData){
+    return this.auth.createUserWithEmailAndPassword(email, password)
+  }
+
+  handleSignIn({email, password}: AuthnData){
+    return this.auth.signInWithEmailAndPassword(email, password)
   }
 
   handleGoogleAuthentication(){

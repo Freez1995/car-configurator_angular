@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { AuthnData, AuthService } from '../../services/auth-service.service';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  templateUrl: './login.component.html'
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
-  constructor() { }
+  constructor(private firebaseAuth: AuthService) {}
 
-  ngOnInit(): void {
+  handleLoginUser({email, password}: AuthnData){
+    this.firebaseAuth.handleSignIn({email: email, password:password})
   }
-
 }

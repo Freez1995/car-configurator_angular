@@ -1,4 +1,4 @@
-<form class="register-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+<form class="register-form" [formGroup]="registerForm" (submit)="sendRegistrationData()">
   <h1>SIGN UP</h1>
   <mat-form-field appearance="fill">
     <mat-label>Email</mat-label>
@@ -29,10 +29,10 @@
       This field is <strong>required</strong>
     </mat-error>
     <mat-error *ngIf="passwordConfirm?.hasError('passwordConfirmError') && !passwordConfirm?.hasError('required')">
-      {{password?.getError('passwordConfirmError')}}
+      {{passwordConfirm?.getError('passwordConfirmError')}}
     </mat-error>
   </mat-form-field>
-  <button mat-raised-button class="register-form-button" color="primary" type="submit">SIGN UP</button>
+  <button mat-raised-button class="register-form-button" color="primary" type="submit" [disabled]="!registerForm.valid">SIGN UP</button>
   <app-google-button label="Sign up with google"></app-google-button>
   <button mat-raised-button class="register-form-button" color="primary" (click)="onLogout(); $event.preventDefault()">LOGOUT</button>
   <hr />
