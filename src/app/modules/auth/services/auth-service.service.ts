@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import firebase from 'firebase/compat/app';
 
-export interface AuthnData {
+export interface AuthData {
   email: string;
   password: string;
 }
@@ -10,21 +10,13 @@ export interface AuthnData {
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(public auth: AngularFireAuth) {
-    this.auth.onAuthStateChanged((user) => {
-      if (user) {
-        console.log('Logged in as: ', user);
-      } else {
-        console.log('Please login');
-      }
-    });
-  }
+  constructor(public auth: AngularFireAuth) {}
 
-  handleSignUp({ email, password }: AuthnData) {
+  handleSignUp({ email, password }: AuthData) {
     return this.auth.createUserWithEmailAndPassword(email, password);
   }
 
-  handleSignIn({ email, password }: AuthnData) {
+  handleSignIn({ email, password }: AuthData) {
     return this.auth.signInWithEmailAndPassword(email, password);
   }
 

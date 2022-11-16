@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { AuthnData } from '../../services/auth-service.service';
+import { AuthData } from '../../services/auth-service.service';
 
 @Component({
   selector: 'app-login-form',
@@ -14,7 +14,7 @@ export class LoginFormComponent {
   });
   public passwordShown = false;
 
-  @Output() onSubmit: EventEmitter<AuthnData> = new EventEmitter();
+  @Output() onSubmit: EventEmitter<AuthData> = new EventEmitter();
   sendLoginData() {
     if (this.email?.value && this.password?.value) {
       this.onSubmit.emit({

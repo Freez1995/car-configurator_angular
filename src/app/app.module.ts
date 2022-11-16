@@ -11,9 +11,12 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { AuthService } from './modules/auth/services/auth-service.service';
+import { CustomSpinnerDirective } from './modules/shared/custom-spinner-directive/custom-spinner.directive';
+import { LayoutComponent } from './modules/shared/components/layout/layout.component';
+import { AngularFireAuthGuardModule } from '@angular/fire/compat/auth-guard';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, CustomSpinnerDirective, LayoutComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -24,6 +27,7 @@ import { AuthService } from './modules/auth/services/auth-service.service';
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireDatabaseModule,
+    AngularFireAuthGuardModule,
   ],
   providers: [AuthService],
   bootstrap: [AppComponent],

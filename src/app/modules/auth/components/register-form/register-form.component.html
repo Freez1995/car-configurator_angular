@@ -59,17 +59,12 @@
     type="submit"
     [disabled]="!registerForm.valid"
   >
-    SIGN UP
+    <mat-icon *ngIf="isLoading"
+      ><mat-spinner appCustomSpinner color="accent" diameter="20"> </mat-spinner
+    ></mat-icon>
+    <span *ngIf="!isLoading">SIGN UP</span>
   </button>
   <app-google-button label="Sign up with google"></app-google-button>
-  <button
-    mat-raised-button
-    class="register-form-button"
-    color="primary"
-    (click)="onLogout(); $event.preventDefault()"
-  >
-    LOGOUT
-  </button>
   <hr />
   <div class="link-container">
     <p>Already have an account?</p>

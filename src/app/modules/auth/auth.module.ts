@@ -29,6 +29,6 @@ import { LoginComponent } from './views/login/login.component';
     MatIconModule,
     MatProgressSpinnerModule,
   ],
-  exports: [RegisterComponent],
+  exports: [RegisterComponent, LoginComponent],
 })
 export class AuthModule {}

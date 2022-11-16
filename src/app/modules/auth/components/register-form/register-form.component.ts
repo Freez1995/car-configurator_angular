@@ -1,16 +1,18 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
   ValidationErrors,
   Validators,
 } from '@angular/forms';
-import { AuthnData, AuthService } from '../../services/auth-service.service';
+import { CustomSpinnerDirective } from 'src/app/modules/shared/custom-spinner-directive/custom-spinner.directive';
+import { AuthData, AuthService } from '../../services/auth-service.service';
 
 @Component({
   selector: 'app-register-form',
   templateUrl: './register-form.component.html',
   styleUrls: ['./register-form.component.scss'],
+  viewProviders: [CustomSpinnerDirective],
 })
 export class RegisterFormComponent {
   registerForm = this.fb.nonNullable.group(
@@ -23,7 +25,7 @@ export class RegisterFormComponent {
   );
   public passwordShown = false;
 
-  @Output() onSubmit: EventEmitter<AuthnData> = new EventEmitter();
+  @Output() onSubmit: EventEmitter<AuthData> = new EventEmitter();
   sendRegistrationData() {
     if (this.email?.value && this.password?.value) {
       this.onSubmit.emit({
@@ -32,6 +34,7 @@ export class RegisterFormComponent {
       });
     }
   }
+  @Input() isLoading: boolean = false;
 
   get email() {
     return this.registerForm.get('email');
@@ -46,10 +49,6 @@ export class RegisterFormComponent {
   }
 
   constructor(private fb: FormBuilder, private auth: AuthService) {}
-
-  onLogout() {
-    this.auth.handleSignOut();
-  }
 
   passwordValidation(control: AbstractControl): ValidationErrors | null {
     const password = control.value;
