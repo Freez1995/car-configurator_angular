@@ -1,0 +1,10 @@
+<span matSnackBarLabel>
+  {{data}}
+</span>
+<button
+  mat-button
+  class="close-button"
+  (click)="snackBarRef.dismissWithAction()"
+>
+  <img src="assets/shared/cancelIcon.svg" class="close-button-image" />
+</button>

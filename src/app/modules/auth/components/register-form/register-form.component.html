@@ -60,11 +60,14 @@
     [disabled]="!registerForm.valid"
   >
     <mat-icon *ngIf="isLoading"
-      ><mat-spinner appCustomSpinner color="accent" diameter="20"> </mat-spinner
+      ><mat-spinner color="accent" diameter="20"> </mat-spinner
     ></mat-icon>
     <span *ngIf="!isLoading">SIGN UP</span>
   </button>
-  <app-google-button label="Sign up with google"></app-google-button>
+  <app-google-button
+    label="Sign up with google"
+    [isLoading]="isLoading"
+  ></app-google-button>
   <hr />
   <div class="link-container">
     <p>Already have an account?</p>

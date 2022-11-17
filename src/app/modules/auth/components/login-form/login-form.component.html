@@ -31,9 +31,15 @@
     type="submit"
     [disabled]="!loginForm.valid"
   >
-    SIGN IN
+    <mat-icon *ngIf="isLoading"
+      ><mat-spinner color="accent" diameter="20"> </mat-spinner
+    ></mat-icon>
+    <span *ngIf="!isLoading">SIGN IN</span>
   </button>
-  <app-google-button label="Sign in with Google"></app-google-button>
+  <app-google-button
+    label="Sign in with Google"
+    [isLoading]="isLoading"
+  ></app-google-button>
   <hr />
   <div class="link-container">
     <p>Don't have an account?</p>

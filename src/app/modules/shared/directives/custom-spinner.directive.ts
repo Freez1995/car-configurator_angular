@@ -4,16 +4,15 @@ import { AfterViewInit, Directive, ElementRef, Input } from '@angular/core';
   selector: '[appCustomSpinner]',
 })
 export class CustomSpinnerDirective implements AfterViewInit {
-  @Input() color: string = '';
+  @Input() myColor: string = '';
 
   constructor(private elem: ElementRef) {}
 
   ngAfterViewInit() {
-    console.log(this.color);
-    if (!!this.color) {
+    if (!!this.myColor) {
       const element = this.elem.nativeElement;
       const circle = element.querySelector('circle');
-      circle.style.stroke = this.color;
+      circle.style.stroke = this.myColor;
     }
   }
 }

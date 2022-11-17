@@ -7,10 +7,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { GoogleButtonComponent } from './components/google-button/google-button.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RegisterFormComponent } from './components/register-form/register-form.component';
 import { RegisterComponent } from './views/register/register.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { LoginComponent } from './views/login/login.component';
+import { AuthRoutingModule } from './auth-routing.module';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,8 @@ import { LoginComponent } from './views/login/login.component';
     MatButtonModule,
     MatIconModule,
     MatProgressSpinnerModule,
+    AuthRoutingModule,
+    MatSnackBarModule,
   ],
   exports: [RegisterComponent, LoginComponent],
 })

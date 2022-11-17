@@ -1,1 +1,4 @@
-<app-login-form (onSubmit)="handleLoginUser($event)"></app-login-form>
+<app-login-form
+  [isLoading]="isLoading"
+  (sendData)="handleLoginUser($event)"
+></app-login-form>

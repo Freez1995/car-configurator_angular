@@ -5,7 +5,8 @@ import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { HomeEmptyStateComponent } from './home-empty-state/home-empty-state.component';
+import { HomeEmptyStateComponent } from './components/home-empty-state/home-empty-state.component';
+import { HomeRoutingModule } from './home-routing.module';
 
 @NgModule({
   declarations: [HomeEmptyStateComponent],
@@ -16,7 +17,8 @@ import { HomeEmptyStateComponent } from './home-empty-state/home-empty-state.com
     ReactiveFormsModule,
     MatButtonModule,
     MatIconModule,
+    HomeRoutingModule,
   ],
-  exports: [HomeEmptyStateComponent],
+  exports: [],
 })
 export class HomeModule {}

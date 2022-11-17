@@ -5,7 +5,7 @@ import {
   ValidationErrors,
   Validators,
 } from '@angular/forms';
-import { CustomSpinnerDirective } from 'src/app/modules/shared/custom-spinner-directive/custom-spinner.directive';
+import { CustomSpinnerDirective } from 'src/app/modules/shared/directives/custom-spinner.directive';
 import { AuthData, AuthService } from '../../services/auth-service.service';
 
 @Component({
@@ -15,6 +15,12 @@ import { AuthData, AuthService } from '../../services/auth-service.service';
   viewProviders: [CustomSpinnerDirective],
 })
 export class RegisterFormComponent {
+  @Input() isLoading: boolean = false;
+
+  @Output() sendData: EventEmitter<AuthData> = new EventEmitter();
+
+  public passwordShown = false;
+
   registerForm = this.fb.nonNullable.group(
     {
       email: ['', [Validators.email, Validators.required]],
@@ -23,18 +29,8 @@ export class RegisterFormComponent {
     },
     { validators: this.matchPasswordValidation }
   );
-  public passwordShown = false;
 
-  @Output() onSubmit: EventEmitter<AuthData> = new EventEmitter();
-  sendRegistrationData() {
-    if (this.email?.value && this.password?.value) {
-      this.onSubmit.emit({
-        email: this.email.value,
-        password: this.password.value,
-      });
-    }
-  }
-  @Input() isLoading: boolean = false;
+  constructor(private fb: FormBuilder, private auth: AuthService) {}
 
   get email() {
     return this.registerForm.get('email');
@@ -48,7 +44,14 @@ export class RegisterFormComponent {
     return this.registerForm.get('passwordConfirm');
   }
 
-  constructor(private fb: FormBuilder, private auth: AuthService) {}
+  sendRegistrationData() {
+    if (this.email?.value && this.password?.value) {
+      this.sendData.emit({
+        email: this.email.value,
+        password: this.password.value,
+      });
+    }
+  }
 
   passwordValidation(control: AbstractControl): ValidationErrors | null {
     const password = control.value;
@@ -66,11 +69,12 @@ export class RegisterFormComponent {
     const password = control.get('password');
     const passwordConfirm = control.get('passwordConfirm');
 
-    if (password?.value !== passwordConfirm?.value)
+    if (password?.value !== passwordConfirm?.value) {
       passwordConfirm?.setErrors({
         ...passwordConfirm.errors,
         passwordConfirmError: 'Passwords must match',
       });
+    }
 
     return password?.value &&
       passwordConfirm?.value &&

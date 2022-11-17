@@ -21,10 +21,10 @@ export class AuthService {
   }
 
   handleGoogleAuthentication() {
-    this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+    return this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
   }
 
   handleSignOut() {
-    this.auth.signOut();
+    return this.auth.signOut();
   }
 }

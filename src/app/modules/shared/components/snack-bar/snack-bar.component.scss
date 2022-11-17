@@ -1,0 +1,15 @@
+:host {
+  display: flex;
+  justify-content: space-between;
+}
+
+.close-button {
+  display: flex;
+  background-color: transparent;
+  border: none;
+}
+
+.close-button-image {
+  width: 20px;
+  height: 20px;
+}

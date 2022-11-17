@@ -11,17 +11,17 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { AuthService } from './modules/auth/services/auth-service.service';
-import { CustomSpinnerDirective } from './modules/shared/custom-spinner-directive/custom-spinner.directive';
-import { LayoutComponent } from './modules/shared/components/layout/layout.component';
 import { AngularFireAuthGuardModule } from '@angular/fire/compat/auth-guard';
+import { SharedModule } from './modules/shared/shared.module';
 
 @NgModule({
-  declarations: [AppComponent, CustomSpinnerDirective, LayoutComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     AuthModule,
+    SharedModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,

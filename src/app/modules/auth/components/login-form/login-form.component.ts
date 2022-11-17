@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthData } from '../../services/auth-service.service';
 
@@ -8,21 +8,18 @@ import { AuthData } from '../../services/auth-service.service';
   styleUrls: ['./login-form.component.scss'],
 })
 export class LoginFormComponent {
+  @Input() isLoading: boolean = false;
+
+  @Output() sendData: EventEmitter<AuthData> = new EventEmitter();
+
+  public passwordShown = false;
+
   loginForm = this.fb.nonNullable.group({
     email: ['', [Validators.email, Validators.required]],
     password: ['', [Validators.required]],
   });
-  public passwordShown = false;
 
-  @Output() onSubmit: EventEmitter<AuthData> = new EventEmitter();
-  sendLoginData() {
-    if (this.email?.value && this.password?.value) {
-      this.onSubmit.emit({
-        email: this.email.value,
-        password: this.password.value,
-      });
-    }
-  }
+  constructor(private fb: FormBuilder) {}
 
   get email() {
     return this.loginForm.get('email');
@@ -32,5 +29,12 @@ export class LoginFormComponent {
     return this.loginForm.get('password');
   }
 
-  constructor(private fb: FormBuilder) {}
+  sendLoginData() {
+    if (this.email?.value && this.password?.value) {
+      this.sendData.emit({
+        email: this.email.value,
+        password: this.password.value,
+      });
+    }
+  }
 }

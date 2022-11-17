@@ -2,31 +2,27 @@ import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { SnackBarComponent } from 'src/app/modules/shared/components/snack-bar/snack-bar.component';
-import { AuthData, AuthService } from '../../services/auth-service.service';
+import { AuthService } from '../../../auth/services/auth-service.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
+  selector: 'app-home-empty-state',
+  templateUrl: './home-empty-state.component.html',
+  styleUrls: ['./home-empty-state.component.scss'],
 })
-export class LoginComponent {
-  public isLoading = false;
-
+export class HomeEmptyStateComponent {
   constructor(
-    private firebaseAuth: AuthService,
+    private auth: AuthService,
     private router: Router,
     private _snackBar: MatSnackBar
   ) {}
 
-  handleLoginUser({ email, password }: AuthData) {
-    this.isLoading = true;
-    this.firebaseAuth
-      .handleSignIn({ email, password })
+  onLogout() {
+    this.auth
+      .handleSignOut()
       .then(() => {
-        this.isLoading = false;
-        this.router.navigate(['home']);
+        this.router.navigate(['sign-in']);
       })
       .catch((error) => {
-        this.isLoading = false;
         this._snackBar.openFromComponent(SnackBarComponent, {
           duration: 4000,
           data: error,
