@@ -1,9 +1,10 @@
-
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
-@use '@angular/material' as mat;
-@import '@angular/material/theming';
+@use "@angular/material" as mat;
+@import "@angular/material/theming";
 // Plus imports for other components in your app.
+
+@import "./app/styles/mat-form-field.overrides";
 
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
@@ -13,21 +14,31 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
+//$car-configurator-primary: mat.define-palette(mat.$indigo-palette)
+
 $car-configurator-primary: mat.define-palette(mat.$indigo-palette);
-$car-configurator-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+$car-configurator-accent: mat.define-palette(
+  mat.$pink-palette,
+  A200,
+  A100,
+  A400
+);
 
 // The warn palette is optional (defaults to red).
 $car-configurator-warn: mat.define-palette(mat.$red-palette);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
-$car-configurator-theme: mat.define-light-theme((
-  color: (
-    primary: $car-configurator-primary,
-    accent: $car-configurator-accent,
-    warn: $car-configurator-warn,
+$car-configurator-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $car-configurator-primary,
+      accent: $car-configurator-accent,
+      warn: $car-configurator-warn,
+    ),
   )
-));
+);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
@@ -40,12 +51,18 @@ $car-configurator-theme: mat.define-light-theme((
 @import url(http://fonts.cdnfonts.com/css/optician-sans);
 @import url(//db.onlinewebfonts.com/c/8f2a9d487bbbc60974cd132fc3a63862?family=Aeonik);
 
-$custom-typography: mat-typography-config($font-family: '"Inter", sans-serif;');
-@include mat.core($custom-typography);
-
-html, body { height: 100%; }
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  font-family: "Inter", "Optician Sans", sans-serif;
+  background-color: #e5e5e5;
 }

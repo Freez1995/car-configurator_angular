@@ -1,0 +1,29 @@
+<mat-toolbar color="primary" class="main-toolbar">
+  <mat-toolbar-row class="main-toolbar-row">
+    <img src="assets/shared/logoIcon.svg" class="google-image" />
+    <div class="main-toolbar-button-container">
+      <button mat-button class="main-toolbar-button">
+        Configure a car
+      </button>
+      <button
+        mat-button
+        class="hamburger-button"
+        [matMenuTriggerFor]="menu"
+        aria-label="Example icon-button with menu icon"
+      >
+        <mat-icon class="hamburger-button-image">menu</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu" class="hamburger-button-dropdown">
+        <button mat-menu-item color="primary">
+          My saved configurations
+        </button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item color="primary" (click)="onLogout()">
+          Logout
+        </button>
+      </mat-menu>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<router-outlet></router-outlet>

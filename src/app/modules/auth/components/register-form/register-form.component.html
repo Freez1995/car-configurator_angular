@@ -1,0 +1,80 @@
+<div class="form-container">
+  <form
+    class="register-form"
+    [formGroup]="registerForm"
+    (submit)="sendRegistrationData()"
+  >
+    <h1>SIGN UP</h1>
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput placeholder="example@gmail.com" formControlName="email" />
+      <mat-error
+        *ngIf="email?.hasError('email') && !email?.hasError('required')"
+      >
+        Please enter a valid email address
+      </mat-error>
+      <mat-error *ngIf="email?.hasError('required')">
+        This field is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Password</mat-label>
+      <input
+        matInput
+        [type]="passwordShown ? 'text' : 'password'"
+        formControlName="password"
+      />
+      <mat-icon matSuffix (click)="passwordShown = !passwordShown"
+        >{{passwordShown ? 'visibility' : 'visibility_off'}}</mat-icon
+      >
+      <mat-error *ngIf="password?.hasError('required')">
+        This field is <strong>required</strong>
+      </mat-error>
+      <mat-error
+        *ngIf="password?.hasError('passwordError') && !password?.hasError('required')"
+      >
+        {{password?.getError('passwordError')}}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Password confirm</mat-label>
+      <input
+        matInput
+        [type]="passwordShown ? 'text' : 'password'"
+        formControlName="passwordConfirm"
+      />
+      <mat-icon matSuffix (click)="passwordShown = !passwordShown"
+        >{{passwordShown ? 'visibility' : 'visibility_off'}}</mat-icon
+      >
+      <mat-error *ngIf="passwordConfirm?.hasError('required')">
+        This field is <strong>required</strong>
+      </mat-error>
+      <mat-error
+        *ngIf="passwordConfirm?.hasError('passwordConfirmError') && !passwordConfirm?.hasError('required')"
+      >
+        {{passwordConfirm?.getError('passwordConfirmError')}}
+      </mat-error>
+    </mat-form-field>
+    <button
+      mat-raised-button
+      class="register-form-button"
+      color="primary"
+      type="submit"
+      [disabled]="!registerForm.valid"
+    >
+      <mat-icon *ngIf="isLoading"
+        ><mat-spinner color="accent" diameter="20"> </mat-spinner
+      ></mat-icon>
+      <span *ngIf="!isLoading">SIGN UP</span>
+    </button>
+    <app-google-button
+      label="Sign up with google"
+      [isLoading]="isLoading"
+    ></app-google-button>
+    <hr />
+    <div class="link-container">
+      <p>Already have an account?</p>
+      <a href="/sign-in">Sign in</a>
+    </div>
+  </form>
+</div>

@@ -13,7 +13,6 @@ export const environment = {
     authDomain: process.env['NG_APP_AUTH_DOMAIN'],
     messagingSenderId: process.env['NG_APP_MESSAGING_SENDER_ID'],
   },
-  someEnvOfMine: process.env['NG_APP_API_URL'],
   production: false,
 };
 
