@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { SnackBarComponent } from 'src/app/modules/shared/components/snack-bar/snack-bar.component';
-import { AuthData, AuthService } from '../../services/auth-service.service';
+import { ErrorTransformPipe } from 'src/app/modules/shared/pipes/error-transform.pipe';
+import { UserAuthCredentials } from '../../models/UserAuthCredentials';
+import { AuthService } from '../../services/auth-service.service';
 
 @Component({
   selector: 'app-login',
@@ -14,10 +15,11 @@ export class LoginComponent {
   constructor(
     private firebaseAuth: AuthService,
     private router: Router,
-    private _snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private errorTransform: ErrorTransformPipe
   ) {}
 
-  handleLoginUser({ email, password }: AuthData) {
+  handleLoginUser({ email, password }: UserAuthCredentials) {
     this.isLoading = true;
     this.firebaseAuth
       .handleSignIn({ email, password })
@@ -27,9 +29,8 @@ export class LoginComponent {
       })
       .catch((error) => {
         this.isLoading = false;
-        this._snackBar.openFromComponent(SnackBarComponent, {
-          duration: 4000,
-          data: error,
+        this.snackBar.open(this.errorTransform.transform(error), 'Cancel', {
+          duration: 5000,
         });
       });
   }

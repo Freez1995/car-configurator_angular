@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { AuthData } from '../../services/auth-service.service';
+import { UserAuthCredentials } from '../../models/UserAuthCredentials';
 
 @Component({
   selector: 'app-login-form',
@@ -8,9 +8,9 @@ import { AuthData } from '../../services/auth-service.service';
   styleUrls: ['./login-form.component.scss'],
 })
 export class LoginFormComponent {
-  @Input() isLoading: boolean = false;
+  @Input() isLoading = false;
 
-  @Output() sendData: EventEmitter<AuthData> = new EventEmitter();
+  @Output() sendData = new EventEmitter<UserAuthCredentials>();
 
   public passwordShown = false;
 

@@ -5,19 +5,17 @@ import {
   ValidationErrors,
   Validators,
 } from '@angular/forms';
-import { CustomSpinnerDirective } from 'src/app/modules/shared/directives/custom-spinner.directive';
-import { AuthData, AuthService } from '../../services/auth-service.service';
+import { UserAuthCredentials } from '../../models/UserAuthCredentials';
 
 @Component({
   selector: 'app-register-form',
   templateUrl: './register-form.component.html',
   styleUrls: ['./register-form.component.scss'],
-  viewProviders: [CustomSpinnerDirective],
 })
 export class RegisterFormComponent {
-  @Input() isLoading: boolean = false;
+  @Input() isLoading = false;
 
-  @Output() sendData: EventEmitter<AuthData> = new EventEmitter();
+  @Output() sendData = new EventEmitter<UserAuthCredentials>();
 
   public passwordShown = false;
 
@@ -30,7 +28,7 @@ export class RegisterFormComponent {
     { validators: this.matchPasswordValidation }
   );
 
-  constructor(private fb: FormBuilder, private auth: AuthService) {}
+  constructor(private fb: FormBuilder) {}
 
   get email() {
     return this.registerForm.get('email');

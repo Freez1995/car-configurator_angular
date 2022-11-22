@@ -1,0 +1,41 @@
+.main-toolbar {
+  background-color: #2e2e38;
+  padding: 22px 40px 18px;
+}
+
+.main-toolbar-row {
+  display: flex;
+  justify-content: space-between;
+  height: max-content;
+  padding: 0;
+}
+
+.main-toolbar-button-container {
+  display: flex;
+  align-items: center;
+}
+
+.main-toolbar-button {
+  color: #f1f1f4;
+  background-color: transparent;
+  border: 1px solid #505062;
+  padding: 8px 16px;
+  margin-right: 40px;
+  line-height: normal;
+}
+
+.hamburger-button {
+  min-width: 40px;
+  height: 40px;
+  background-color: transparent;
+  border: none;
+  color: white;
+  padding: 0;
+}
+
+.hamburger-button-image {
+  width: 100%;
+  height: 100%;
+  font-size: 40px;
+  line-height: normal;
+}

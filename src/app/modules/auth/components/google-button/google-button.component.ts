@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { SnackBarComponent } from 'src/app/modules/shared/components/snack-bar/snack-bar.component';
+import { ErrorTransformPipe } from 'src/app/modules/shared/pipes/error-transform.pipe';
 import { AuthService } from '../../services/auth-service.service';
 
 @Component({
@@ -16,7 +16,8 @@ export class GoogleButtonComponent {
   constructor(
     private firebaseAuth: AuthService,
     private router: Router,
-    private _snackBar: MatSnackBar
+    private errorTransform: ErrorTransformPipe,
+    private snackBar: MatSnackBar
   ) {}
 
   handleOnSubmit() {
@@ -29,9 +30,8 @@ export class GoogleButtonComponent {
       })
       .catch((error) => {
         this.isLoading = false;
-        this._snackBar.openFromComponent(SnackBarComponent, {
-          duration: 4000,
-          data: error,
+        this.snackBar.open(this.errorTransform.transform(error), 'Cancel', {
+          duration: 5000,
         });
       });
   }

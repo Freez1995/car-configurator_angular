@@ -1,0 +1,8 @@
+<div class="home-screen">
+  <div *ngFor="let configuration of savedConfigurations">
+    <section class="image-container">
+      <img class="image" src="{{configuration.carSideImage}}" />
+    </section>
+    <p>{{configuration.car.carId}}</p>
+  </div>
+</div>

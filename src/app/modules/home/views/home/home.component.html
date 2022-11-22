@@ -1,0 +1,8 @@
+<ng-container *ngIf="isLoading || savedConfigurations.length; else emptyState">
+  <app-home-saved-configurations
+    [savedConfigurations]="savedConfigurations"
+  ></app-home-saved-configurations>
+</ng-container>
+<ng-template #emptyState>
+  <app-home-empty-state></app-home-empty-state>
+</ng-template>

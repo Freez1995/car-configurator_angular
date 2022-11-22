@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeEmptyStateComponent } from './components/home-empty-state/home-empty-state.component';
+import { HomeComponent } from './views/home/home.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: HomeEmptyStateComponent,
+    component: HomeComponent,
   },
 ];
 

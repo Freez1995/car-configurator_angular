@@ -13,6 +13,7 @@ import { RegisterComponent } from './views/register/register.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { LoginComponent } from './views/login/login.component';
 import { AuthRoutingModule } from './auth-routing.module';
+import { ErrorTransformPipe } from '../shared/pipes/error-transform.pipe';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,9 @@ import { AuthRoutingModule } from './auth-routing.module';
     MatProgressSpinnerModule,
     AuthRoutingModule,
     MatSnackBarModule,
+    MatSnackBarModule,
   ],
   exports: [RegisterComponent, LoginComponent],
+  providers: [ErrorTransformPipe],
 })
 export class AuthModule {}

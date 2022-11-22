@@ -1,22 +1,27 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import firebase from 'firebase/compat/app';
+import { UserAuthCredentials } from '../models/UserAuthCredentials';
 
-export interface AuthData {
-  email: string;
-  password: string;
-}
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(public auth: AngularFireAuth) {}
+  userId = '';
 
-  handleSignUp({ email, password }: AuthData) {
+  constructor(public auth: AngularFireAuth) {
+    this.auth.onAuthStateChanged((user) => {
+      if (user) {
+        this.userId = user.uid;
+      }
+    });
+  }
+
+  handleSignUp({ email, password }: UserAuthCredentials) {
     return this.auth.createUserWithEmailAndPassword(email, password);
   }
 
-  handleSignIn({ email, password }: AuthData) {
+  handleSignIn({ email, password }: UserAuthCredentials) {
     return this.auth.signInWithEmailAndPassword(email, password);
   }
 
