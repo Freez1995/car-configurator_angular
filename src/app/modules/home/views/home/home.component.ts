@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SavedCarConfiguration } from 'src/app/modules/shared/models/SavedConfiguration';
 import { ErrorTransformPipe } from 'src/app/modules/shared/pipes/error-transform.pipe';
@@ -18,6 +19,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(
     private configurationService: CarConfigurationService,
+    private router: Router,
     private snackBar: MatSnackBar,
     private errorTransform: ErrorTransformPipe
   ) {}
@@ -42,5 +44,24 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
+  }
+
+  handleDeleteDocumentById(documentId: string) {
+    this.configurationService
+      .deleteDocumentById(documentId)
+      .then(() =>
+        this.snackBar.open('Configuration successfully deleted.', 'Cancel', {
+          duration: 5000,
+        })
+      )
+      .catch((error) =>
+        this.snackBar.open(this.errorTransform.transform(error), 'Cancel', {
+          duration: 5000,
+        })
+      );
+  }
+
+  handleNavigateCarSelector() {
+    this.router.navigate(['select-car']);
   }
 }

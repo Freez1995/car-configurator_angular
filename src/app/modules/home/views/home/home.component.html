@@ -1,8 +1,25 @@
-<ng-container *ngIf="isLoading || savedConfigurations.length; else emptyState">
-  <app-home-saved-configurations
-    [savedConfigurations]="savedConfigurations"
-  ></app-home-saved-configurations>
-</ng-container>
-<ng-template #emptyState>
-  <app-home-empty-state></app-home-empty-state>
-</ng-template>
+<div class="home-page">
+  <div class="home-page-heading-container">
+    <h2 class="home-page-heading">My saved configurations</h2>
+    <button
+      mat-button
+      color="primary"
+      class="home-page-heading-button"
+      (click)="handleNavigateCarSelector()"
+    >
+      Configure a car
+    </button>
+  </div>
+  <ng-container
+    *ngIf="isLoading || savedConfigurations.length; else emptyState"
+  >
+    <app-home-saved-configurations
+      class="home-page-configurations-screen"
+      [savedConfigurations]="savedConfigurations"
+      (onDeleteDocumentById)="handleDeleteDocumentById($event)"
+    ></app-home-saved-configurations>
+  </ng-container>
+  <ng-template #emptyState>
+    <app-home-empty-state></app-home-empty-state>
+  </ng-template>
+</div>

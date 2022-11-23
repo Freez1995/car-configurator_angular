@@ -16,4 +16,11 @@ export class CarConfigurationService {
         ref.where('userId', '==', this.auth.userId).orderBy('createdAt', 'desc')
     );
   }
+
+  deleteDocumentById(documentId: string) {
+    return this.firestore
+      .collection('savedConfigurations')
+      .doc(documentId)
+      .delete();
+  }
 }
