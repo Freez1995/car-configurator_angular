@@ -1,0 +1,41 @@
+.home-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 0px 156px;
+}
+
+.home-page-heading-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 76px;
+  align-items: center;
+}
+
+.home-page-heading {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.home-page-heading-button {
+  padding: 12px 20px;
+  background-color: #1e1ed2;
+  border: none;
+  color: white;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.home-page-configurations-screen {
+  width: 100%;
+  margin-top: 48px;
+}

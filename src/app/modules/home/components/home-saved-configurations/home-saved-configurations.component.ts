@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { SavedCarConfiguration } from 'src/app/modules/shared/models/SavedConfiguration';
 
 @Component({
@@ -9,5 +9,13 @@ import { SavedCarConfiguration } from 'src/app/modules/shared/models/SavedConfig
 export class HomeSavedConfigurationsComponent {
   @Input() savedConfigurations: SavedCarConfiguration[] = [];
 
+  @Output() onDeleteDocumentById = new EventEmitter<string>();
+
   constructor() {}
+
+  getConfigurationDocumentId(documentId: string) {
+    if (documentId.length) {
+      this.onDeleteDocumentById.emit(documentId);
+    }
+  }
 }

@@ -1,8 +1,40 @@
-<div class="home-screen">
-  <div *ngFor="let configuration of savedConfigurations">
-    <section class="image-container">
-      <img class="image" src="{{configuration.carSideImage}}" />
-    </section>
-    <p>{{configuration.car.carId}}</p>
+<div
+  *ngFor="let configuration of savedConfigurations"
+  class="configuration-card"
+>
+  <img class="configuration-image" src="{{ configuration.carSideImage }}" />
+  <div class="configuration-details">
+    <div>
+      <p class="configuration-details-year">{{ configuration.car.carYear }}</p>
+      <h2 class="configuration-details-car">
+        {{ configuration.car.carModel }}
+      </h2>
+      <p class="configuration-details-color">
+        {{ configuration.color.colorName }}
+      </p>
+      <p class="configuration-details-timestamp">
+        Created {{ configuration.createdAt | dateTransform }}
+      </p>
+    </div>
+    <button
+      mat-icon-button
+      class="configuration-dropdown-icon"
+      [matMenuTriggerFor]="menu"
+    >
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu" xPosition="before">
+      <button mat-menu-item class="configuration-dropdown-button">
+        <span>Edit configuration</span>
+      </button>
+      <mat-divider class="divider"></mat-divider>
+      <button
+        mat-menu-item
+        class="configuration-dropdown-button"
+        (click)="getConfigurationDocumentId(configuration.documentId!)"
+      >
+        <span>Delete</span>
+      </button>
+    </mat-menu>
   </div>
 </div>

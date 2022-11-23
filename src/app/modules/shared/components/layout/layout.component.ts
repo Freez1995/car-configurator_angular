@@ -30,5 +30,13 @@ export class LayoutComponent implements OnInit {
       });
   }
 
+  handleNavigateHome() {
+    this.router.navigate(['home']);
+  }
+
+  handleNavigateCarSelector() {
+    this.router.navigate(['select-car']);
+  }
+
   ngOnInit(): void {}
 }
