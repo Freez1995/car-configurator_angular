@@ -6,6 +6,7 @@
         mat-button
         class="main-toolbar-button"
         (click)="handleNavigateCarSelector()"
+        *ngIf="configureCarButtonShown"
       >
         Configure a car
       </button>
