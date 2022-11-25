@@ -4,5 +4,8 @@
     <p class="subheading">Pick your favorite model and start configuring.</p>
   </section>
 
-  <app-card-slider [carData]="carCollection"></app-card-slider>
+  <app-card-slider
+    [carData]="carCollection"
+    (onCarSelect)="handleCarSelect($event)"
+  ></app-card-slider>
 </div>

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/modules/auth/services/auth-service.service';
-import { NavigationBarOptions } from '../../models/ISharedService';
+import { NavigationBarOptions } from '../../models';
 import { ErrorTransformPipe } from '../../pipes/error-transform.pipe';
 import { SharedService } from '../../services/shared.service';
 

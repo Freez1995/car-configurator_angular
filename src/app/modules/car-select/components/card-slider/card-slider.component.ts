@@ -1,5 +1,11 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
-import { Car } from 'src/app/modules/shared/models/Car';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  ViewEncapsulation,
+} from '@angular/core';
+import { Car, CarCollection } from 'src/app/modules/shared/models';
 import SwiperCore, { Scrollbar, FreeMode } from 'swiper';
 
 SwiperCore.use([FreeMode, Scrollbar]);
@@ -11,5 +17,10 @@ SwiperCore.use([FreeMode, Scrollbar]);
   encapsulation: ViewEncapsulation.None,
 })
 export class CardSliderComponent {
-  @Input() carData: Car[] = [];
+  @Input() carData: CarCollection[] = [];
+  @Output() onCarSelect = new EventEmitter<Car>();
+
+  emitSelectCarData(selectedCar: Car) {
+    this.onCarSelect.emit(selectedCar);
+  }
 }

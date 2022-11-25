@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { SavedCarConfiguration } from 'src/app/modules/shared/models/SavedConfiguration';
+import { SavedCarConfiguration } from 'src/app/modules/shared/models';
 
 @Component({
   selector: 'app-home-saved-configurations',

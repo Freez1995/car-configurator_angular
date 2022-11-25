@@ -9,7 +9,19 @@
       <div class="slide-car-details-container">
         <p class="slide-car-year">{{ car.carYear }}</p>
         <p class="slide-car-model">{{ car.carModel }}</p>
-        <button mat-button class="slide-button" color="primary">
+        <button
+          mat-button
+          class="slide-button"
+          color="primary"
+          (click)="
+            emitSelectCarData({
+              carId: car.carId,
+              carModel: car.carModel,
+              carPrice: car.carPrice,
+              carYear: car.carYear
+            })
+          "
+        >
           Configure Now
         </button>
       </div>
