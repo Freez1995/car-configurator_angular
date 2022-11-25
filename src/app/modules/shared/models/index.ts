@@ -5,4 +5,3 @@ export * from './Exterior';
 export * from './Interior';
 export * from './SavedConfiguration';
 export * from './Wheels';
-export * from './ISharedService';

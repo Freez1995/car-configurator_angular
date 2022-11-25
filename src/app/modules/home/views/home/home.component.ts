@@ -1,11 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SavedCarConfiguration } from 'src/app/modules/shared/models';
-import { NavigationBarOptions } from 'src/app/modules/shared/models';
 import { ErrorTransformPipe } from 'src/app/modules/shared/pipes/error-transform.pipe';
-import { SharedService } from 'src/app/modules/shared/services/shared.service';
 import { CarConfigurationService } from '../../services/car-configuration.service';
 
 @Component({
@@ -13,7 +11,7 @@ import { CarConfigurationService } from '../../services/car-configuration.servic
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit {
   isLoading = true;
   error?: string;
   savedConfigurations: SavedCarConfiguration[] = [];
@@ -21,13 +19,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(
     private configurationService: CarConfigurationService,
-    private sharedService: SharedService<NavigationBarOptions>,
     private router: Router,
     private snackBar: MatSnackBar,
     private errorTransform: ErrorTransformPipe
-  ) {
-    this.sharedService.next({ isButtonShown: true });
-  }
+  ) {}
 
   ngOnInit(): void {
     this.subscription = this.configurationService
@@ -45,11 +40,6 @@ export class HomeComponent implements OnInit, OnDestroy {
           });
         }
       );
-  }
-
-  ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
-    this.sharedService.next({ isButtonShown: false });
   }
 
   handleDeleteDocumentById(documentId: string) {
