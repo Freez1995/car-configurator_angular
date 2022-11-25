@@ -11,15 +11,17 @@
   padding: 0;
 }
 
+.configuration-header-button {
+  padding: 0;
+}
+
 .conigurator-header-button-back {
   display: grid;
   grid-template-columns: auto auto auto;
+  align-items: center;
   gap: 12px;
   border: none;
   background-color: transparent;
-}
-
-.header-button-back-image {
 }
 
 .header-button-back-text {

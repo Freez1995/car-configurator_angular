@@ -9,7 +9,7 @@ const routes: Routes = [
     component: ConfiguratorHeaderComponent,
     children: [
       {
-        path: 'details',
+        path: '',
         component: DetailsPageComponent,
       },
     ],
