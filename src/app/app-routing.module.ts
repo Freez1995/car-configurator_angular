@@ -35,6 +35,13 @@ const routes: Routes = [
             (m) => m.CarSelectModule
           ),
       },
+      {
+        path: 'configurator',
+        loadChildren: () =>
+          import('./modules/car-configurator/car-configurator.module').then(
+            (m) => m.CarConfiguratorModule
+          ),
+      },
     ],
   },
 ];
