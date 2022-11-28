@@ -19,26 +19,30 @@ export class CarSelectService {
   }
 
   getColorsByCarId(carId: string) {
-    return this.firestore.collection<Color>('colors', (ref) =>
-      ref.where('carId', '==', carId)
-    );
+    return this.firestore
+      .collection<Color>('colors', (ref) => ref.where('carId', '==', carId))
+      .valueChanges({ idField: 'colorId' });
   }
 
   getWheelsByCarId(carId: string) {
-    return this.firestore.collection<Wheels>('wheels', (ref) =>
-      ref.where('carId', '==', carId)
-    );
+    return this.firestore
+      .collection<Wheels>('wheels', (ref) => ref.where('carId', '==', carId))
+      .valueChanges({ idField: 'wheelsId' });
   }
 
   getInteriorByCarId(carId: string) {
-    return this.firestore.collection<Interior>('interiors', (ref) =>
-      ref.where('carId', '==', carId)
-    );
+    return this.firestore
+      .collection<Interior>('interiors', (ref) =>
+        ref.where('carId', '==', carId)
+      )
+      .valueChanges({ idField: 'interiorId' });
   }
 
   getImagesByCarId(carId: string) {
-    return this.firestore.collection<Exterior>('exteriorImages', (ref) =>
-      ref.where('carId', '==', carId)
-    );
+    return this.firestore
+      .collection<Exterior>('exteriorImages', (ref) =>
+        ref.where('carId', '==', carId)
+      )
+      .valueChanges({ idField: 'exteriorId' });
   }
 }
