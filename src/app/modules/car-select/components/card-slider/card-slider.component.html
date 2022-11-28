@@ -1,0 +1,30 @@
+<div>
+  <swiper
+    [slidesPerView]="'auto'"
+    [scrollbar]="{ draggable: true }"
+    [freeMode]="true"
+  >
+    <ng-template swiperSlide class="number-slide1" *ngFor="let car of carData">
+      <img class="slide-image" src="{{ car.carFrontImg }}" />
+      <div class="slide-car-details-container">
+        <p class="slide-car-year">{{ car.carYear }}</p>
+        <p class="slide-car-model">{{ car.carModel }}</p>
+        <button
+          mat-button
+          class="slide-button"
+          color="primary"
+          (click)="
+            emitSelectCarData({
+              carId: car.carId,
+              carModel: car.carModel,
+              carPrice: car.carPrice,
+              carYear: car.carYear
+            })
+          "
+        >
+          Configure Now
+        </button>
+      </div>
+    </ng-template>
+  </swiper>
+</div>

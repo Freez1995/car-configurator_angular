@@ -1,0 +1,11 @@
+<div class="car-select-page" *ngIf="!isLoading">
+  <section class="heading-container">
+    <h1 class="heading">Configure a car</h1>
+    <p class="subheading">Pick your favorite model and start configuring.</p>
+  </section>
+
+  <app-card-slider
+    [carData]="carCollection"
+    (onCarSelect)="handleCarSelect($event)"
+  ></app-card-slider>
+</div>

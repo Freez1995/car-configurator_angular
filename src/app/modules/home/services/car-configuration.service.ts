@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AuthService } from '../../auth/services/auth-service.service';
-import { SavedCarConfiguration } from '../../shared/models/SavedConfiguration';
+import { SavedCarConfiguration } from '../../shared/models';
 
 @Injectable({
   providedIn: 'root',
