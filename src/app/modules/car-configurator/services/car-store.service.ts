@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { catchError, forkJoin, tap, throwError } from 'rxjs';
-import { Store } from '../../shared/classes/Store.class';
+import { catchError, forkJoin, take, tap, throwError } from 'rxjs';
+import { Store } from '../../shared/classes/store.class';
 import {
   Color,
   Exterior,
@@ -33,6 +33,13 @@ const initialState: CarConfigurationStore = {
   providedIn: 'root',
 })
 export class CarStoreService extends Store<CarConfigurationStore> {
+  selectedConfiguration$ = this.select((state) => state.selectedConfiguration);
+  colors$ = this.select((state) => state.colors);
+  wheels$ = this.select((state) => state.wheels);
+  interiors$ = this.select((state) => state.interiors);
+  carImages$ = this.select((state) => state.carImages);
+  isLoading$ = this.select((state) => state.isLoading);
+
   constructor(
     private carSelectService: CarSelectService,
     private errorTransform: ErrorTransformPipe
@@ -42,10 +49,10 @@ export class CarStoreService extends Store<CarConfigurationStore> {
 
   getInitialData(carId: string) {
     return forkJoin([
-      this.carSelectService.getColorsByCarId(carId),
-      this.carSelectService.getWheelsByCarId(carId),
-      this.carSelectService.getInteriorByCarId(carId),
-      this.carSelectService.getImagesByCarId(carId),
+      this.carSelectService.getColorsByCarId(carId).pipe(take(1)),
+      this.carSelectService.getWheelsByCarId(carId).pipe(take(1)),
+      this.carSelectService.getInteriorByCarId(carId).pipe(take(1)),
+      this.carSelectService.getImagesByCarId(carId).pipe(take(1)),
     ]).pipe(
       tap(([colors, wheels, interiors, carImages]) => {
         this.setState({
@@ -54,6 +61,11 @@ export class CarStoreService extends Store<CarConfigurationStore> {
           interiors,
           carImages,
           isLoading: false,
+        });
+        this.setSelectedConfiguration({
+          color: colors[0],
+          wheels: wheels[0],
+          interior: interiors[0],
         });
       }),
       catchError((error) => {
@@ -68,9 +80,11 @@ export class CarStoreService extends Store<CarConfigurationStore> {
   }
 
   setSelectedConfiguration(carProps: Partial<SavedCarConfiguration>) {
-    const currentState = this.state.selectedConfiguration;
     this.setState({
-      selectedConfiguration: { ...currentState, ...carProps },
+      selectedConfiguration: {
+        ...this.state.selectedConfiguration,
+        ...carProps,
+      },
     });
   }
 }

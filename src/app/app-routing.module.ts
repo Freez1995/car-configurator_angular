@@ -29,13 +29,6 @@ const routes: Routes = [
           import('./modules/home/home.module').then((m) => m.HomeModule),
       },
       {
-        path: 'select-car',
-        loadChildren: () =>
-          import('./modules/car-select/car-select.module').then(
-            (m) => m.CarSelectModule
-          ),
-      },
-      {
         path: 'configurator',
         loadChildren: () =>
           import('./modules/car-configurator/car-configurator.module').then(

@@ -1,15 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
+import { SavedCarConfiguration } from 'src/app/modules/shared/models';
 
 @Component({
   selector: 'app-configurator-header',
   templateUrl: './configurator-header.component.html',
-  styleUrls: ['./configurator-header.component.scss']
+  styleUrls: ['./configurator-header.component.scss'],
 })
-export class ConfiguratorHeaderComponent implements OnInit {
+export class ConfiguratorHeaderComponent {
+  @Input() selectedConfiguration? = <SavedCarConfiguration>{};
 
-  constructor() { }
+  constructor(private router: Router) {}
 
-  ngOnInit(): void {
+  handleNavigateBack() {
+    this.router.navigate(['/configurator']);
   }
 
+  handleNavigateConfiguration() {}
+
+  handleDelete() {
+    this.router.navigate(['/home']);
+  }
 }
