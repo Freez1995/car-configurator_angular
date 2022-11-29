@@ -1,0 +1,11 @@
+<p>details-page works!</p>
+
+<ng-container *ngIf="!(isLoading$ | async)">
+  <div
+    *ngFor="
+      let carConfig of (selectedConfiguration$ | async)?.color?.colorPrice
+        | keyvalue
+    "
+  ></div>
+  <p>{{ (selectedConfiguration$ | async)?.color?.colorPrice }}</p>
+</ng-container>

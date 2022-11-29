@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Router } from '@angular/router';
 import firebase from 'firebase/compat/app';
+import { CarStoreService } from '../../car-configurator/services/car-store.service';
 import { UserAuthCredentials } from '../models/UserAuthCredentials';
 
 @Injectable({
@@ -9,11 +11,17 @@ import { UserAuthCredentials } from '../models/UserAuthCredentials';
 export class AuthService {
   userId = '';
 
-  constructor(public auth: AngularFireAuth) {
+  constructor(
+    public auth: AngularFireAuth,
+    private carStoreService: CarStoreService,
+    private router: Router
+  ) {
     this.auth.onAuthStateChanged((user) => {
       if (user) {
         this.userId = user.uid;
+        this.carStoreService.setSelectedConfiguration({ userId: user.uid });
       }
+      this.router.navigate(['/']);
     });
   }
 

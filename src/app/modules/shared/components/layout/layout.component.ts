@@ -51,6 +51,6 @@ export class LayoutComponent implements OnInit, OnDestroy {
   }
 
   handleNavigateCarSelector() {
-    this.router.navigate(['select-car']);
+    this.router.navigate(['configurator']);
   }
 }

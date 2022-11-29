@@ -58,6 +58,6 @@ export class HomeComponent implements OnInit {
   }
 
   handleNavigateCarSelector() {
-    this.router.navigate(['select-car']);
+    this.router.navigate(['configurator']);
   }
 }

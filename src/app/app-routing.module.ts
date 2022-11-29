@@ -29,10 +29,10 @@ const routes: Routes = [
           import('./modules/home/home.module').then((m) => m.HomeModule),
       },
       {
-        path: 'select-car',
+        path: 'configurator',
         loadChildren: () =>
-          import('./modules/car-select/car-select.module').then(
-            (m) => m.CarSelectModule
+          import('./modules/car-configurator/car-configurator.module').then(
+            (m) => m.CarConfiguratorModule
           ),
       },
     ],

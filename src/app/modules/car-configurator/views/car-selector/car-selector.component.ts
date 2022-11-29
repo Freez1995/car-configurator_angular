@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
+import { pipe, Subscription } from 'rxjs';
 import { Car, CarCollection } from 'src/app/modules/shared/models';
 import { ErrorTransformPipe } from 'src/app/modules/shared/pipes/error-transform.pipe';
 import { CarSelectService } from '../../services/car-select.service';
@@ -19,6 +20,7 @@ export class CarSelectorComponent implements OnInit, OnDestroy {
   constructor(
     private carSelectService: CarSelectService,
     private carStoreService: CarStoreService,
+    private router: Router,
     private snackBar: MatSnackBar,
     private errorTransform: ErrorTransformPipe
   ) {}
@@ -43,8 +45,10 @@ export class CarSelectorComponent implements OnInit, OnDestroy {
     this.subscription?.unsubscribe();
   }
 
-  async handleCarSelect(data: Car) {
-    this.carStoreService.setSelectedConfiguration({ car: data });
+  async handleCarSelect(car: Car) {
+    this.carStoreService.setSelectedConfiguration({ car });
+    this.carStoreService.getInitialData(car.carId).subscribe();
+    this.router.navigate(['/configurator/view']);
   }
 
   handleServiceError(error: string) {

@@ -1,0 +1,34 @@
+<mat-toolbar class="configurator-header">
+  <mat-toolbar-row class="configurator-header-row">
+    <button
+      mat-button
+      class="configuration-header-button"
+      (click)="handleNavigateBack()"
+    >
+      <div class="conigurator-header-button-back">
+        <img src="assets/configurator/backArrowIcon.svg" />
+        <p class="header-button-back-text car-year">
+          {{ selectedConfiguration?.car?.carYear }}
+        </p>
+        <p class="header-button-back-text car-model">
+          {{ selectedConfiguration?.car?.carModel }}
+        </p>
+      </div>
+    </button>
+    <div class="configurator-header-container">
+      <button
+        mat-button
+        class="configuration-header-button header-container button-edit"
+      >
+        Edit configuration
+      </button>
+      <button
+        mat-button
+        class="configuration-header-button header-container button-delete"
+        (click)="handleDelete()"
+      >
+        Delete
+      </button>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
