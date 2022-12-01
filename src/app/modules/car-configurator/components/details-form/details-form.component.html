@@ -1,0 +1,51 @@
+<app-card-slider
+  [isCardSlider]="false"
+  [exteriorImages]="
+    exteriors!
+      | filterCarExteriors
+        : selectedConfiguration?.color?.colorId!
+        : selectedConfiguration?.wheels?.wheelsId!
+  "
+></app-card-slider>
+<div class="details-form-heading-container">
+  <div>
+    <h2 class="heading-car-model">
+      {{ selectedConfiguration!.car.carModel }}
+    </h2>
+    <p class="heading-car-year">{{ selectedConfiguration!.car.carYear }}</p>
+  </div>
+  <app-price-container [totalPrice]="getTotalPrice()"></app-price-container>
+</div>
+<div class="configuration-details-container">
+  <p class="configuration-details-heading">Your configuration details</p>
+  <div class="configuration-details-content-container">
+    <p class="configuration-details-content-heading">Exterior</p>
+    <app-configuration-detail-card
+      [carImage]="selectedConfiguration?.color?.iconUrl"
+      [carName]="selectedConfiguration?.color?.colorName"
+      [carPrice]="selectedConfiguration?.color?.colorPrice"
+    ></app-configuration-detail-card>
+
+    <app-configuration-detail-card
+      [carImage]="selectedConfiguration?.wheels?.iconUrl!"
+      [carName]="selectedConfiguration?.wheels?.wheelsModel!"
+      [carPrice]="selectedConfiguration?.wheels?.wheelsPrice!"
+    ></app-configuration-detail-card>
+
+    <p class="configuration-details-content-heading">Interior</p>
+    <app-configuration-detail-card
+      [carImage]="selectedConfiguration?.interior?.iconUrl!"
+      [carName]="selectedConfiguration?.interior?.interiorName!"
+      [carPrice]="selectedConfiguration?.interior?.interiorPrice!"
+    ></app-configuration-detail-card>
+
+    <div class="configuration-details-price-container">
+      <p class="configuration-details-price-text">Total</p>
+      <p
+        class="configuration-details-price-text configuration-details-price-amount"
+      >
+        {{ getTotalPrice() | priceTransform }}
+      </p>
+    </div>
+  </div>
+</div>

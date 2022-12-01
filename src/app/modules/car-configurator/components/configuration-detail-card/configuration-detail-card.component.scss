@@ -1,0 +1,34 @@
+.card-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.card-figure-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.card-figure-image {
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  margin-right: 20px;
+}
+
+.card-figure-text {
+  font-family: "Inter";
+  font-size: 20px;
+  line-height: 28px;
+  color: #2e2e38;
+}
+
+.configuration-price-text {
+  font-family: "Inter";
+  font-size: 20px;
+  line-height: 28px;
+  color: #73738c;
+}

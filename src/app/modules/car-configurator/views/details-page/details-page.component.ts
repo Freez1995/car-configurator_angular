@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Subscription, take, tap } from 'rxjs';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { CarStoreService } from '../../services/car-store.service';
 
 @Component({
@@ -7,11 +7,19 @@ import { CarStoreService } from '../../services/car-store.service';
   templateUrl: './details-page.component.html',
   styleUrls: ['./details-page.component.scss'],
 })
-export class DetailsPageComponent implements OnInit {
+export class DetailsPageComponent {
   selectedConfiguration$ = this.carStoreService.selectedConfiguration$;
-  isLoading$ = this.carStoreService.isLoading$;
+  isLoadingDetailsPageData$ = this.carStoreService.isLoadingDetailsPageData$;
+  detailsPageDataError$ = this.carStoreService.detailsPageDataError$;
 
-  constructor(private carStoreService: CarStoreService) {}
+  exteriors$ = this.carStoreService.exteriors$;
 
-  ngOnInit(): void {}
+  constructor(
+    private carStoreService: CarStoreService,
+    private readonly router: Router
+  ) {}
+
+  handleNavigateHome() {
+    this.router.navigate(['']);
+  }
 }

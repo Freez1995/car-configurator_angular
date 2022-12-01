@@ -1,10 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { pipe, Subscription } from 'rxjs';
-import { Car, CarCollection } from 'src/app/modules/shared/models';
-import { ErrorTransformPipe } from 'src/app/modules/shared/pipes/error-transform.pipe';
-import { CarSelectService } from '../../services/car-select.service';
+import { Car } from 'src/app/modules/shared/models';
 import { CarStoreService } from '../../services/car-store.service';
 
 @Component({
@@ -12,48 +8,29 @@ import { CarStoreService } from '../../services/car-store.service';
   templateUrl: './car-selector.component.html',
   styleUrls: ['./car-selector.component.scss'],
 })
-export class CarSelectorComponent implements OnInit, OnDestroy {
-  carCollection: CarCollection[] = [];
-  isLoading = true;
-  subscription?: Subscription;
+export class CarSelectorComponent implements OnInit {
+  carCollection$ = this.carStoreService.carCollection$;
+  isLoadingCarCollection$ = this.carStoreService.isLoadingCarCollection$;
+  carCollectionError$ = this.carStoreService.carCollectionError$;
+
+  isLoadingDetailsPageData$ = this.carStoreService.isLoadingDetailsPageData$;
 
   constructor(
-    private carSelectService: CarSelectService,
     private carStoreService: CarStoreService,
-    private router: Router,
-    private snackBar: MatSnackBar,
-    private errorTransform: ErrorTransformPipe
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.subscription = this.carSelectService
-      .getCarCollection()
-      .valueChanges({ idField: 'carId' })
-      .subscribe({
-        next: (carCollectionData) => {
-          this.carCollection = carCollectionData;
-          this.isLoading = false;
-        },
-        error: (error) => {
-          this.handleServiceError(error);
-          this.isLoading = false;
-        },
-      });
+    this.carStoreService.getCarCollection().subscribe();
   }
 
-  ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
-  }
-
-  async handleCarSelect(car: Car) {
-    this.carStoreService.setSelectedConfiguration({ car });
-    this.carStoreService.getInitialData(car.carId).subscribe();
-    this.router.navigate(['/configurator/view']);
-  }
-
-  handleServiceError(error: string) {
-    this.snackBar.open(this.errorTransform.transform(error), 'Cancel', {
-      duration: 5000,
+  async onCarSelected(car: Car) {
+    this.carStoreService.getDetailsPageData(car).subscribe(() => {
+      this.router.navigate(['/configurator/view']);
     });
+  }
+
+  handleNavigateHome() {
+    this.router.navigate(['']);
   }
 }

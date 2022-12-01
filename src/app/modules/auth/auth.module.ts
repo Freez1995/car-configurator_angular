@@ -33,7 +33,6 @@ import { ErrorTransformPipe } from '../shared/pipes/error-transform.pipe';
     MatProgressSpinnerModule,
     AuthRoutingModule,
     MatSnackBarModule,
-    MatSnackBarModule,
   ],
   exports: [RegisterComponent, LoginComponent],
   providers: [ErrorTransformPipe],

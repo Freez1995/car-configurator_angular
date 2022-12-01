@@ -1,0 +1,9 @@
+<div class="card-container">
+  <figure class="card-figure-container">
+    <img class="card-figure-image" src="{{ carImage }}" />
+    <figcaption class="card-figure-text">{{ carName }}</figcaption>
+  </figure>
+  <p class="configuration-price-text">
+    {{ carPrice! | priceTransform }}
+  </p>
+</div>

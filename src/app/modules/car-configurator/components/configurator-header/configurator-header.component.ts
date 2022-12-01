@@ -8,7 +8,7 @@ import { SavedCarConfiguration } from 'src/app/modules/shared/models';
   styleUrls: ['./configurator-header.component.scss'],
 })
 export class ConfiguratorHeaderComponent {
-  @Input() selectedConfiguration? = <SavedCarConfiguration>{};
+  @Input() selectedConfiguration?: SavedCarConfiguration;
 
   constructor(private router: Router) {}
 
