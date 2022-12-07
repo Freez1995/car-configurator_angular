@@ -30,7 +30,7 @@ export class ConfigureExteriorComponent {
 
   handleToggleColorPicker() {
     if (this.colorPickerComponent) {
-      this.colorPickerComponent.handleToggleColorPicker();
+      this.colorPickerComponent.colorPickerShown = 'shown';
     }
   }
 

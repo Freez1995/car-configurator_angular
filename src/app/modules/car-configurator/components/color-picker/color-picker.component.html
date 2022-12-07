@@ -2,10 +2,7 @@
   <div class="color-picker-items-container">
     <div class="color-picker-header">
       <p class="color-picker-header-text">Paint color</p>
-      <button
-        class="color-picker-header-button"
-        (click)="handleToggleColorPicker()"
-      >
+      <button class="color-picker-header-button" (click)="close(false)">
         <img src="assets/configurator/closeIcon.svg" />
       </button>
     </div>
@@ -27,7 +24,7 @@
         [selectedConfiguration]="selectedConfiguration"
       ></app-price-container>
     </div>
-    <button mat-button class="drawer-button" (click)="handleSaveColor()">
+    <button mat-button class="drawer-button" (click)="close(true)">
       <span class="drawer-button-text">Done</span>
     </button>
   </div>

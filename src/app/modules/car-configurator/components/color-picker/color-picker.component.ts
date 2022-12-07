@@ -5,16 +5,7 @@ import {
   transition,
   animate,
 } from '@angular/animations';
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  Output,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Color, SavedCarConfiguration } from 'src/app/modules/shared/models';
 
 @Component({
@@ -24,50 +15,45 @@ import { Color, SavedCarConfiguration } from 'src/app/modules/shared/models';
   animations: [
     trigger('slideInOut', [
       state(
-        'in',
+        'shown',
         style({
           transform: 'translate3d(0,0,0)',
         })
       ),
       state(
-        'out',
+        'hidden',
         style({
           transform: 'translate3d(100%, 0, 0)',
         })
       ),
-      transition('in => out', animate('400ms ease-in-out')),
-      transition('out => in', animate('400ms ease-in-out')),
+      transition('shown => hidden', animate('400ms ease-in-out')),
+      transition('hidden => shown', animate('400ms ease-in-out')),
     ]),
   ],
 })
-export class ColorPickerComponent implements OnChanges {
+export class ColorPickerComponent implements OnInit {
   @Input() carColors?: Color[];
   @Input() selectedConfiguration?: SavedCarConfiguration;
   @Output() onSelectColor = new EventEmitter<Color>();
-  colorPickerShown: string = 'out';
-  currentColor?: Color;
-  previousColor?: Color;
+  colorPickerShown: 'shown' | 'hidden' = 'hidden';
+  colorOnPickerOpen?: Color;
 
-  handleToggleColorPicker() {
-    this.colorPickerShown = this.colorPickerShown === 'out' ? 'in' : 'out';
-    if (this.previousColor) {
-      this.onSelectColor.emit(this.previousColor);
-    }
+  ngOnInit(): void {
+    this.colorOnPickerOpen = { ...this.selectedConfiguration?.color! };
   }
 
   handleSelectColor(color: Color) {
     this.onSelectColor.emit(color);
-    this.currentColor = color;
   }
 
-  handleSaveColor() {
-    this.onSelectColor.emit(this.currentColor);
-    this.colorPickerShown = 'out';
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (this.colorPickerShown == 'out') {
-      this.previousColor = this.selectedConfiguration?.color;
+  close(isSaveNeeded: boolean) {
+    if (isSaveNeeded) {
+      this.colorOnPickerOpen = { ...this.selectedConfiguration?.color! };
+      this.onSelectColor.emit(this.colorOnPickerOpen);
+      this.colorPickerShown = 'hidden';
+      return;
     }
+    this.onSelectColor.emit(this.colorOnPickerOpen);
+    this.colorPickerShown = 'hidden';
   }
 }
