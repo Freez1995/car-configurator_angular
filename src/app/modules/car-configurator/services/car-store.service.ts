@@ -24,6 +24,7 @@ export interface CarConfigurationStore {
   selectedConfiguration: SavedCarConfiguration;
   isLoadingDetailsPageData: boolean;
   detailsPageDataError: string;
+  currentRoute: string;
 }
 
 const initialState: CarConfigurationStore = {
@@ -37,6 +38,7 @@ const initialState: CarConfigurationStore = {
   selectedConfiguration: <SavedCarConfiguration>{},
   isLoadingDetailsPageData: false,
   detailsPageDataError: '',
+  currentRoute: '',
 };
 
 @Injectable({
@@ -59,6 +61,8 @@ export class CarStoreService extends Store<CarConfigurationStore> {
     (state) => state.isLoadingDetailsPageData
   );
   detailsPageDataError$ = this.select((state) => state.detailsPageDataError);
+
+  currentRoute$ = this.select((state) => state.currentRoute);
 
   constructor(
     private carSelectService: CarSelectService,
@@ -141,6 +145,12 @@ export class CarStoreService extends Store<CarConfigurationStore> {
         ...this.state.selectedConfiguration,
         ...carProps,
       },
+    });
+  }
+
+  setCurrentRoute(currentRoute: string) {
+    this.setState({
+      currentRoute: currentRoute,
     });
   }
 }

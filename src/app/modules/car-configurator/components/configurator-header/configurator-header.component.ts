@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { SavedCarConfiguration } from 'src/app/modules/shared/models';
+import { CarStoreService } from '../../services/car-store.service';
 
 @Component({
   selector: 'app-configurator-header',
@@ -10,13 +11,20 @@ import { SavedCarConfiguration } from 'src/app/modules/shared/models';
 export class ConfiguratorHeaderComponent {
   @Input() selectedConfiguration?: SavedCarConfiguration;
 
-  constructor(private router: Router) {}
+  currentRoute$ = this.carStoreService.currentRoute$;
+
+  constructor(
+    private router: Router,
+    private readonly carStoreService: CarStoreService
+  ) {}
 
   handleNavigateBack() {
     this.router.navigate(['/configurator']);
   }
 
-  handleNavigateConfiguration() {}
+  handleNavigateConfigureExterior() {
+    this.router.navigate(['configurator/configure-exterior']);
+  }
 
   handleDelete() {
     this.router.navigate(['/home']);

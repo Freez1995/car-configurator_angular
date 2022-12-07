@@ -1,0 +1,34 @@
+<div [@slideInOut]="colorPickerShown" class="sidebar">
+  <div class="color-picker-items-container">
+    <div class="color-picker-header">
+      <p class="color-picker-header-text">Paint color</p>
+      <button
+        class="color-picker-header-button"
+        (click)="handleToggleColorPicker()"
+      >
+        <img src="assets/configurator/closeIcon.svg" />
+      </button>
+    </div>
+    <div class="color-picker-card-container">
+      <app-drawer-item
+        *ngFor="let color of carColors"
+        [itemImage]="color.iconUrl"
+        [itemName]="color.colorName"
+        [itemPrice]="color.colorPrice"
+        [isSelected]="color.colorId === selectedConfiguration?.color?.colorId"
+        (click)="handleSelectColor(color)"
+      ></app-drawer-item>
+    </div>
+  </div>
+  <div>
+    <div class="price-container-wrapper">
+      <app-price-container
+        containerDirection="row"
+        [selectedConfiguration]="selectedConfiguration"
+      ></app-price-container>
+    </div>
+    <button mat-button class="drawer-button" (click)="handleSaveColor()">
+      <span class="drawer-button-text">Done</span>
+    </button>
+  </div>
+</div>

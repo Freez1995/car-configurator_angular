@@ -1,0 +1,35 @@
+<div [@slideInOut]="wheelsPickerShown" class="sidebar">
+  <div class="wheels-picker-items-container">
+    <div class="wheels-picker-header">
+      <p class="wheels-picker-header-text">Wheels</p>
+      <button
+        class="wheels-picker-header-button"
+        (click)="handleToggleWheelsPicker()"
+      >
+        <img src="assets/configurator/closeIcon.svg" />
+      </button>
+    </div>
+    <div class="wheels-picker-card-container">
+      <app-drawer-item
+        *ngFor="let wheels of carWheels"
+        [itemImage]="wheels.iconUrl"
+        [itemName]="wheels.wheelsModel"
+        [itemPrice]="wheels.wheelsPrice"
+        [isSelected]="
+          wheels.wheelsId === selectedConfiguration?.wheels?.wheelsId
+        "
+      ></app-drawer-item>
+    </div>
+  </div>
+  <div>
+    <div class="price-container-wrapper">
+      <app-price-container
+        containerDirection="row"
+        [selectedConfiguration]="selectedConfiguration"
+      ></app-price-container>
+    </div>
+    <button mat-button class="drawer-button">
+      <span class="drawer-button-text">Done</span>
+    </button>
+  </div>
+</div>

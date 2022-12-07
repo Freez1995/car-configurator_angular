@@ -19,6 +19,11 @@ import { PriceTransformPipe } from './pipes/price-transform.pipe';
 import { FilterCarExteriorsPipe } from './pipes/filter-car-exteriors.pipe';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ConfigureExteriorComponent } from './views/configure-exterior/configure-exterior.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { DrawerItemComponent } from './components/drawer-item/drawer-item.component';
+import { ColorPickerComponent } from './components/color-picker/color-picker.component';
+import { WheelsPickerComponent } from './components/wheels-picker/wheels-picker.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +37,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     ConfigurationDetailCardComponent,
     PriceTransformPipe,
     FilterCarExteriorsPipe,
+    ConfigureExteriorComponent,
+    DrawerItemComponent,
+    ColorPickerComponent,
+    WheelsPickerComponent,
   ],
   imports: [
     CommonModule,
@@ -44,6 +53,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     SwiperModule,
     MatIconModule,
     MatProgressSpinnerModule,
+    MatSidenavModule,
   ],
   providers: [ErrorTransformPipe, PriceTransformPipe, FilterCarExteriorsPipe],
 })

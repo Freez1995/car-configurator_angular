@@ -3,6 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/modules/auth/services/auth-service.service';
+import { CarStoreService } from 'src/app/modules/car-configurator/services/car-store.service';
 import { ErrorTransformPipe } from '../../pipes/error-transform.pipe';
 
 @Component({
@@ -18,7 +19,8 @@ export class LayoutComponent implements OnInit, OnDestroy {
     private auth: AuthService,
     private router: Router,
     private errorTransform: ErrorTransformPipe,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private readonly carStoreService: CarStoreService
   ) {}
 
   ngOnInit(): void {
@@ -26,6 +28,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
       .pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
       .subscribe((e) => {
         this.currentRoute = e.url;
+        this.carStoreService.setCurrentRoute(e.url);
       });
   }
 

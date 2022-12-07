@@ -1,0 +1,67 @@
+<mat-sidenav-container>
+  <mat-sidenav
+    mode="side"
+    opened
+    [position]="'end'"
+    class="sidebar-content-container"
+  >
+    <div class="mat-drawer-inner-container">
+      <div class="drawer-inner-container">
+        <app-drawer-item
+          (click)="handleToggleColorPicker()"
+          itemImage="{{ (selectedConfiguration$ | async)!.color.iconUrl }}"
+          itemName="{{ (selectedConfiguration$ | async)!.color.colorName }}"
+          itemType="paint color"
+          [isSelected]="true"
+        ></app-drawer-item>
+        <app-drawer-item
+          (click)="handleToggleWheelsPicker()"
+          itemImage="{{ (selectedConfiguration$ | async)!.wheels.iconUrl }}"
+          itemName="{{ (selectedConfiguration$ | async)!.wheels.wheelsModel }}"
+          itemType="wheels"
+          [isSelected]="true"
+        ></app-drawer-item>
+      </div>
+
+      <div>
+        <div class="price-container-wrapper">
+          <app-price-container
+            containerDirection="row"
+            [selectedConfiguration]="(selectedConfiguration$ | async)!"
+          ></app-price-container>
+        </div>
+        <button mat-button class="drawer-button">
+          <span class="drawer-button-text">Interior</span>
+          <img
+            class="drawer-button-image"
+            src="assets/configurator/backArrowIcon.svg"
+          />
+        </button>
+      </div>
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="content">
+    <app-card-slider
+      [isCardSlider]="false"
+      [exteriorImages]="
+        (exteriors$ | async)!
+          | filterCarExteriors
+            : (selectedConfiguration$ | async)!.color.colorId
+            : (selectedConfiguration$ | async)!.wheels.wheelsId
+      "
+    ></app-card-slider>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<app-color-picker
+  #colorPickerComponent
+  [carColors]="(colors$ | async)!"
+  [selectedConfiguration]="(selectedConfiguration$ | async)!"
+  (onSelectColor)="handleSelectColor($event)"
+></app-color-picker>
+<app-wheels-picker
+  #wheelsPickerComponent
+  [carWheels]="(wheels$ | async)!"
+  [selectedConfiguration]="(selectedConfiguration$ | async)!"
+></app-wheels-picker>
