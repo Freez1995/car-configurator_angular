@@ -1,6 +1,7 @@
 .configurator-header {
   background-color: #fcfcfd;
-  padding: 22px 40px;
+  border-bottom: 1px solid #c7c7d1;
+  padding: 24px 40px;
 }
 
 .configurator-header-row {
@@ -59,4 +60,29 @@
 
 .button-delete {
   color: #d2341e;
+}
+
+.navbar-link-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 40px;
+}
+
+.navbar-link-number {
+  font-family: "Inter";
+  font-size: 16px;
+  line-height: 24px;
+  color: #9d9daf;
+  text-decoration: none;
+}
+
+.navbar-link-text {
+  font-family: "Inter";
+  font-size: 16px;
+  line-height: 24px;
+  color: #2e2e38;
+}
+
+.navbar-link-active {
+  font-weight: bold;
 }

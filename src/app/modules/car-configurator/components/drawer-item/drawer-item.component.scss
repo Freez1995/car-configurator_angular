@@ -1,0 +1,56 @@
+.item-container {
+  display: flex;
+  align-items: center;
+  border: none;
+  background-color: transparent;
+  gap: 20px;
+  cursor: pointer;
+}
+
+.item-image-container {
+  position: relative;
+  width: 60px;
+  height: 60px;
+}
+
+.item-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 30px;
+}
+
+.item-image-selected {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.item-inner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.item-header {
+  font-family: "Inter";
+  font-size: 16px;
+  line-height: 24px;
+  margin-bottom: 4px;
+  color: #2e2e38;
+}
+
+.item-description {
+  font-family: "Inter";
+  font-size: 11px;
+  line-height: 16px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #73738c;
+}
+
+.item-description-price {
+  font-family: "Inter";
+  font-size: 14px;
+  line-height: 20px;
+  color: #73738c;
+}

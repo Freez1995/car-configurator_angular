@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { SavedCarConfiguration } from 'src/app/modules/shared/models';
 
 @Component({
   selector: 'app-price-container',
@@ -7,5 +8,19 @@ import { Component, Input } from '@angular/core';
 })
 export class PriceContainerComponent {
   @Input() containerDirection = 'column';
-  @Input() totalPrice = 0;
+  @Input() selectedConfiguration?: SavedCarConfiguration;
+
+  getTotalPrice() {
+    let totalPrice = 0;
+    if (this.selectedConfiguration) {
+      const { car, color, wheels, interior } = this.selectedConfiguration;
+      totalPrice +=
+        car.carPrice +
+        color.colorPrice +
+        wheels.wheelsPrice +
+        interior.interiorPrice;
+      return totalPrice;
+    }
+    return totalPrice;
+  }
 }

@@ -1,0 +1,17 @@
+<button class="item-container">
+  <div class="item-image-container">
+    <img class="item-image" src="{{ itemImage }}" />
+    <img
+      *ngIf="isSelected"
+      class="item-image-selected"
+      src="assets/configurator/selectedIcon.svg"
+    />
+  </div>
+
+  <div class="item-inner-container">
+    <p class="item-header">{{ itemName }}</p>
+    <p [ngClass]="itemType ? 'item-description' : 'item-description-price'">
+      {{ itemType ? itemType : (itemPrice! | priceTransform: true) }}
+    </p>
+  </div>
+</button>

@@ -1,64 +1,63 @@
-<div>
-  <swiper
-    [slidesPerView]="isCardSlider ? 'auto' : 1"
-    [scrollbar]="{ draggable: true }"
-    [freeMode]="isCardSlider"
-    [loop]="!isCardSlider"
-    (realIndexChange)="onSlideChange($event)"
-    [ngClass]="{ 'swiper-container-padding': isCardSlider }"
-  >
-    <ng-container *ngIf="isCardSlider; else imageSlider">
+<swiper
+  [slidesPerView]="isCardSlider ? 'auto' : 1"
+  [scrollbar]="{ draggable: true }"
+  [freeMode]="isCardSlider"
+  [loop]="!isCardSlider"
+  [allowTouchMove]="isCardSlider"
+  (realIndexChange)="onSlideChange($event)"
+  [ngClass]="{ 'swiper-container-padding': isCardSlider }"
+>
+  <ng-container *ngIf="isCardSlider; else imageSlider">
+    <ng-template
+      swiperSlide
+      class="card-slide"
+      *ngFor="let car of carCollection"
+    >
+      <img class="slide-image" src="{{ car.carFrontImg }}" />
+      <div class="slide-car-details-container">
+        <p class="slide-car-year">{{ car.carYear }}</p>
+        <p class="slide-car-model">{{ car.carModel }}</p>
+        <button
+          mat-button
+          class="slide-button"
+          color="primary"
+          (click)="
+            emitSelectedCarData({
+              carId: car.carId,
+              carModel: car.carModel,
+              carPrice: car.carPrice,
+              carYear: car.carYear
+            })
+          "
+        >
+          Configure Now
+        </button>
+      </div>
+    </ng-template>
+  </ng-container>
+  <ng-template #imageSlider>
+    <ng-container>
       <ng-template
         swiperSlide
-        class="card-slide"
-        *ngFor="let car of carCollection"
+        class="image-slide"
+        *ngFor="let image of exteriorImages"
       >
-        <img class="slide-image" src="{{ car.carFrontImg }}" />
-        <div class="slide-car-details-container">
-          <p class="slide-car-year">{{ car.carYear }}</p>
-          <p class="slide-car-model">{{ car.carModel }}</p>
-          <button
-            mat-button
-            class="slide-button"
-            color="primary"
-            (click)="
-              emitSelectedCarData({
-                carId: car.carId,
-                carModel: car.carModel,
-                carPrice: car.carPrice,
-                carYear: car.carYear
-              })
-            "
-          >
-            Configure Now
-          </button>
-        </div>
+        <img class="swiper-image" src="{{ image }}" />
       </ng-template>
     </ng-container>
-    <ng-template #imageSlider>
-      <ng-container>
-        <ng-template
-          swiperSlide
-          class="image-slide"
-          *ngFor="let image of exteriorImages"
-        >
-          <img class="swiper-image" src="{{ image }}" />
-        </ng-template>
-      </ng-container>
-    </ng-template>
-  </swiper>
-  <div class="slider-nav-container" *ngIf="!isCardSlider">
-    <button class="slider-nav-button" (click)="navPrev()">
-      <img src="assets/configurator/sliderButtonIcon.svg" />
-    </button>
-    <p class="swiper-nav-pagination-container">
-      {{ currentIndex
-      }}<span class="swiper-nav-pagination-length-color">
-        / {{ exteriorImages?.length }}</span
-      >
-    </p>
-    <button class="slider-nav-button rotate-nav-button" (click)="navNext()">
-      <img src="assets/configurator/sliderButtonIcon.svg" />
-    </button>
-  </div>
+  </ng-template>
+</swiper>
+<div class="slider-nav-container" *ngIf="!isCardSlider">
+  <button class="slider-nav-button" (click)="navPrev()">
+    <img src="assets/configurator/sliderButtonIcon.svg" />
+  </button>
+  <p class="swiper-nav-pagination-container">
+    {{ currentIndex
+    }}<span class="swiper-nav-pagination-length-color">
+      / {{ exteriorImages?.length }}</span
+    >
+  </p>
+  <button class="slider-nav-button rotate-nav-button" (click)="navNext()">
+    <img src="assets/configurator/sliderButtonIcon.svg" />
+  </button>
 </div>

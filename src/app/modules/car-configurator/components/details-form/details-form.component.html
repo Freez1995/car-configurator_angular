@@ -14,7 +14,9 @@
     </h2>
     <p class="heading-car-year">{{ selectedConfiguration!.car.carYear }}</p>
   </div>
-  <app-price-container [totalPrice]="getTotalPrice()"></app-price-container>
+  <app-price-container
+    [selectedConfiguration]="selectedConfiguration"
+  ></app-price-container>
 </div>
 <div class="configuration-details-container">
   <p class="configuration-details-heading">Your configuration details</p>

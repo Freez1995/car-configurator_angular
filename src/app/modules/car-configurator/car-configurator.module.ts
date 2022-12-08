@@ -19,6 +19,12 @@ import { PriceTransformPipe } from './pipes/price-transform.pipe';
 import { FilterCarExteriorsPipe } from './pipes/filter-car-exteriors.pipe';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ConfigureExteriorComponent } from './views/configure-exterior/configure-exterior.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { DrawerItemComponent } from './components/drawer-item/drawer-item.component';
+import { ConfigurationSidebarPicker } from './components/configuration-sidebar-picker/configuration-sidebar-picker.component';
+import { ConfigureInteriorComponent } from './views/configure-interior/configure-interior.component';
+import { ConfigurationSummaryComponent } from './views/configuration-summary/configuration-summary.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +38,11 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     ConfigurationDetailCardComponent,
     PriceTransformPipe,
     FilterCarExteriorsPipe,
+    ConfigureExteriorComponent,
+    DrawerItemComponent,
+    ConfigurationSidebarPicker,
+    ConfigureInteriorComponent,
+    ConfigurationSummaryComponent,
   ],
   imports: [
     CommonModule,
@@ -44,6 +55,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     SwiperModule,
     MatIconModule,
     MatProgressSpinnerModule,
+    MatSidenavModule,
   ],
   providers: [ErrorTransformPipe, PriceTransformPipe, FilterCarExteriorsPipe],
 })
