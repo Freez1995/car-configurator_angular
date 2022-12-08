@@ -3,12 +3,14 @@ import {
   EventEmitter,
   Input,
   Output,
+  ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
 import { Car, CarCollection } from 'src/app/modules/shared/models';
-import SwiperCore, { Scrollbar, FreeMode } from 'swiper';
+import SwiperCore, { Scrollbar, FreeMode, Navigation } from 'swiper';
+import { EventsParams, SwiperComponent } from 'swiper/angular';
 
-SwiperCore.use([FreeMode, Scrollbar]);
+SwiperCore.use([FreeMode, Scrollbar, Navigation]);
 
 @Component({
   selector: 'app-card-slider',
@@ -17,10 +19,31 @@ SwiperCore.use([FreeMode, Scrollbar]);
   encapsulation: ViewEncapsulation.None,
 })
 export class CardSliderComponent {
-  @Input() carData: CarCollection[] = [];
-  @Output() onCarSelect = new EventEmitter<Car>();
+  @Input() carCollection: CarCollection[] = [];
+  @Input() isCardSlider = true;
+  @Input() exteriorImages?: string[];
+  @Output() carSelected = new EventEmitter<Car>();
 
-  emitSelectCarData(selectedCar: Car) {
-    this.onCarSelect.emit(selectedCar);
+  @ViewChild(SwiperComponent) swiper?: SwiperComponent;
+
+  currentIndex = 1;
+
+  emitSelectedCarData(selectedCar: Car) {
+    this.carSelected.emit(selectedCar);
+  }
+
+  navNext() {
+    this.swiper?.swiperRef.slideNext();
+  }
+
+  navPrev() {
+    this.swiper?.swiperRef.slidePrev();
+  }
+
+  onSlideChange(params: EventsParams['realIndexChange']) {
+    if (!this.isCardSlider) {
+      const [swiper] = params;
+      this.currentIndex = swiper.realIndex + 1;
+    }
   }
 }

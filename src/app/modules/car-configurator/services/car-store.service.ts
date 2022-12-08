@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { catchError, forkJoin, take, tap, throwError } from 'rxjs';
 import { Store } from '../../shared/classes/store.class';
 import {
+  Car,
+  CarCollection,
   Color,
   Exterior,
   Interior,
@@ -12,33 +14,51 @@ import { ErrorTransformPipe } from '../../shared/pipes/error-transform.pipe';
 import { CarSelectService } from './car-select.service';
 
 export interface CarConfigurationStore {
+  carCollection: CarCollection[];
+  isLoadingCarCollection: boolean;
+  carCollectionError: string;
   colors: Color[];
   wheels: Wheels[];
   interiors: Interior[];
-  carImages: Exterior[];
+  exteriors: Exterior[];
   selectedConfiguration: SavedCarConfiguration;
-  isLoading: boolean;
+  isLoadingDetailsPageData: boolean;
+  detailsPageDataError: string;
 }
 
 const initialState: CarConfigurationStore = {
+  carCollection: [],
+  isLoadingCarCollection: false,
+  carCollectionError: '',
   colors: [],
   wheels: [],
   interiors: [],
-  carImages: [],
+  exteriors: [],
   selectedConfiguration: <SavedCarConfiguration>{},
-  isLoading: true,
+  isLoadingDetailsPageData: false,
+  detailsPageDataError: '',
 };
 
 @Injectable({
   providedIn: 'root',
 })
 export class CarStoreService extends Store<CarConfigurationStore> {
-  selectedConfiguration$ = this.select((state) => state.selectedConfiguration);
+  carCollection$ = this.select((state) => state.carCollection);
+  isLoadingCarCollection$ = this.select(
+    (state) => state.isLoadingCarCollection
+  );
+  carCollectionError$ = this.select((state) => state.carCollectionError);
+
   colors$ = this.select((state) => state.colors);
   wheels$ = this.select((state) => state.wheels);
   interiors$ = this.select((state) => state.interiors);
-  carImages$ = this.select((state) => state.carImages);
-  isLoading$ = this.select((state) => state.isLoading);
+  exteriors$ = this.select((state) => state.exteriors);
+
+  selectedConfiguration$ = this.select((state) => state.selectedConfiguration);
+  isLoadingDetailsPageData$ = this.select(
+    (state) => state.isLoadingDetailsPageData
+  );
+  detailsPageDataError$ = this.select((state) => state.detailsPageDataError);
 
   constructor(
     private carSelectService: CarSelectService,
@@ -47,30 +67,66 @@ export class CarStoreService extends Store<CarConfigurationStore> {
     super(initialState);
   }
 
-  getInitialData(carId: string) {
+  getCarCollection() {
+    this.setState({
+      isLoadingCarCollection: true,
+    });
+
+    return this.carSelectService
+      .getCarCollection()
+      .valueChanges({ idField: 'carId' })
+      .pipe(
+        tap((carCollection) => {
+          this.setState({
+            carCollection,
+            isLoadingCarCollection: false,
+          });
+        }),
+        catchError((error) => {
+          this.setState({
+            carCollectionError:
+              'Failed to load configuration page, please try again later.',
+            isLoadingCarCollection: false,
+          });
+          return throwError(
+            () => new Error(this.errorTransform.transform(error))
+          );
+        })
+      );
+  }
+
+  getDetailsPageData(car: Car) {
+    this.setState({
+      isLoadingDetailsPageData: true,
+    });
+
     return forkJoin([
-      this.carSelectService.getColorsByCarId(carId).pipe(take(1)),
-      this.carSelectService.getWheelsByCarId(carId).pipe(take(1)),
-      this.carSelectService.getInteriorByCarId(carId).pipe(take(1)),
-      this.carSelectService.getImagesByCarId(carId).pipe(take(1)),
+      this.carSelectService.getColorsByCarId(car.carId).pipe(take(1)),
+      this.carSelectService.getWheelsByCarId(car.carId).pipe(take(1)),
+      this.carSelectService.getInteriorByCarId(car.carId).pipe(take(1)),
+      this.carSelectService.getImagesByCarId(car.carId).pipe(take(1)),
     ]).pipe(
-      tap(([colors, wheels, interiors, carImages]) => {
+      tap(([colors, wheels, interiors, exteriors]) => {
         this.setState({
           colors,
           wheels,
           interiors,
-          carImages,
-          isLoading: false,
-        });
-        this.setSelectedConfiguration({
-          color: colors[0],
-          wheels: wheels[0],
-          interior: interiors[0],
+          exteriors,
+          selectedConfiguration: {
+            ...this.state.selectedConfiguration,
+            color: colors[0],
+            wheels: wheels[0],
+            interior: interiors[0],
+            car,
+          },
+          isLoadingDetailsPageData: false,
         });
       }),
       catchError((error) => {
         this.setState({
-          isLoading: false,
+          isLoadingDetailsPageData: false,
+          detailsPageDataError:
+            'Failed to load configuration details, please try again later.',
         });
         return throwError(
           () => new Error(this.errorTransform.transform(error))

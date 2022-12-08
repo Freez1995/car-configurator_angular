@@ -13,6 +13,12 @@ import { CarSelectorComponent } from './views/car-selector/car-selector.componen
 import { CardSliderComponent } from './components/card-slider/card-slider.component';
 import { CarConfiguratorComponent } from './views/car-configurator/car-configurator.component';
 import { PriceContainerComponent } from './components/price-container/price-container.component';
+import { DetailsFormComponent } from './components/details-form/details-form.component';
+import { ConfigurationDetailCardComponent } from './components/configuration-detail-card/configuration-detail-card.component';
+import { PriceTransformPipe } from './pipes/price-transform.pipe';
+import { FilterCarExteriorsPipe } from './pipes/filter-car-exteriors.pipe';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -22,6 +28,10 @@ import { PriceContainerComponent } from './components/price-container/price-cont
     CardSliderComponent,
     CarConfiguratorComponent,
     PriceContainerComponent,
+    DetailsFormComponent,
+    ConfigurationDetailCardComponent,
+    PriceTransformPipe,
+    FilterCarExteriorsPipe,
   ],
   imports: [
     CommonModule,
@@ -32,7 +42,9 @@ import { PriceContainerComponent } from './components/price-container/price-cont
     MatToolbarModule,
     MatButtonModule,
     SwiperModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
   ],
-  providers: [ErrorTransformPipe],
+  providers: [ErrorTransformPipe, PriceTransformPipe, FilterCarExteriorsPipe],
 })
 export class CarConfiguratorModule {}

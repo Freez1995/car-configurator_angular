@@ -1,11 +1,58 @@
-<div class="car-select-page" *ngIf="!isLoading">
-  <section class="heading-container">
-    <h1 class="heading">Configure a car</h1>
-    <p class="subheading">Pick your favorite model and start configuring.</p>
-  </section>
-
-  <app-card-slider
-    [carData]="carCollection"
-    (onCarSelect)="handleCarSelect($event)"
-  ></app-card-slider>
-</div>
+<ng-container
+  *ngIf="
+    (isLoadingCarCollection$ | async) || (isLoadingDetailsPageData$ | async);
+    else showContent
+  "
+>
+  <div class="centered-container">
+    <mat-spinner color="primary" diameter="80"> </mat-spinner>
+    <p
+      class="loading-container-message"
+      *ngIf="isLoadingCarCollection$ | async"
+    >
+      Loading configurations, please wait...
+    </p>
+    <p
+      class="loading-container-message"
+      *ngIf="isLoadingDetailsPageData$ | async"
+    >
+      Loading configuration details, please wait...
+    </p>
+  </div>
+</ng-container>
+<ng-template #showContent>
+  <ng-container *ngIf="carCollectionError$ | async; else showSelector">
+    <div class="centered-container">
+      <p class="subheading">{{ carCollectionError$ | async }}</p>
+      <button mat-button class="button-link" (click)="handleNavigateHome()">
+        Go back to Home
+      </button>
+    </div>
+  </ng-container>
+  <ng-template #showSelector>
+    <ng-container *ngIf="(carCollection$ | async)?.length; else showEmptyState">
+      <div class="car-select-page">
+        <section class="heading-container">
+          <h1 class="heading">Configure a car</h1>
+          <p class="subheading">
+            Pick your favorite model and start configuring.
+          </p>
+        </section>
+        <app-card-slider
+          [carCollection]="(carCollection$ | async)!"
+          (carSelected)="onCarSelected($event)"
+        ></app-card-slider>
+      </div>
+    </ng-container>
+    <ng-template #showEmptyState>
+      <div class="centered-container">
+        <p class="subheading">
+          There are no cars currently available for configuration.
+        </p>
+        <button mat-button class="button-link" (click)="handleNavigateHome()">
+          Go back to Home
+        </button>
+      </div>
+    </ng-template>
+  </ng-template>
+</ng-template>

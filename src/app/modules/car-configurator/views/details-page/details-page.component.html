@@ -1,11 +1,16 @@
-<p>details-page works!</p>
-
-<ng-container *ngIf="!(isLoading$ | async)">
-  <div
-    *ngFor="
-      let carConfig of (selectedConfiguration$ | async)?.color?.colorPrice
-        | keyvalue
-    "
-  ></div>
-  <p>{{ (selectedConfiguration$ | async)?.color?.colorPrice }}</p>
+<ng-container *ngIf="detailsPageDataError$ | async; else showContent">
+  <div class="centered-container">
+    <p class="error-text">{{ detailsPageDataError$ | async }}</p>
+    <button mat-button class="button-link" (click)="handleNavigateHome()">
+      Go back to Home
+    </button>
+  </div>
 </ng-container>
+<ng-template #showContent>
+  <div class="content-container">
+    <app-details-form
+      [selectedConfiguration]="(selectedConfiguration$ | async)!"
+      [exteriors]="(exteriors$ | async)!"
+    ></app-details-form>
+  </div>
+</ng-template>

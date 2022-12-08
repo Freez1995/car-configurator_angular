@@ -6,7 +6,18 @@
   height: 100%;
 }
 
+.swiper-container-padding {
+  padding-left: 156px;
+  padding-bottom: 50px;
+}
+
 .swiper-slide {
+  width: 100%;
+  height: 400px;
+  background-color: white;
+}
+
+.card-slide {
   max-width: 548px;
   min-height: 600px;
   display: flex;
@@ -58,4 +69,44 @@
   line-height: 20px;
   color: #f1f1f4 !important;
   margin-top: 16px;
+}
+
+.slider-nav-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 46px;
+}
+
+.swiper-nav-pagination-container {
+  margin: 0 20px;
+  font-family: "Inter";
+  font-size: 20px;
+  line-height: 28px;
+  color: #2e2e38;
+}
+
+.swiper-image {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-nav-pagination-length-color {
+  color: #c7c7d1;
+}
+
+.image-slide {
+  background-color: transparent;
+}
+
+.slider-nav-button {
+  display: flex;
+  align-items: center;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.rotate-nav-button {
+  rotate: 180deg;
 }

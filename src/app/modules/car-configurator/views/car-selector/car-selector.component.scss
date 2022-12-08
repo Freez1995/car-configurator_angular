@@ -1,11 +1,12 @@
 .car-select-page {
   width: 100%;
-  height: max-content;
-  padding-left: 156px;
+  height: 100%;
+  // padding: 0 0 136px 156px;
+  // margin-bottom: 136px;
 }
 
 .heading-container {
-  margin: 80px 0 60px;
+  margin: 80px 0 60px 156px;
 }
 
 .heading {
@@ -25,4 +26,27 @@
   font-size: 14px;
   line-height: 20px;
   color: #73738c;
+}
+
+.centered-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading-container-message {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #73738c;
+  margin-top: 30px;
+}
+
+.button-link {
+  margin-top: 20px;
 }

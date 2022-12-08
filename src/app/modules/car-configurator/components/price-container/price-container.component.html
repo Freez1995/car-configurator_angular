@@ -1,1 +1,13 @@
-<p>price-container works!</p>
+<div
+  [ngClass]="
+    containerDirection == 'column' ? 'container-column' : 'container-row'
+  "
+>
+  <figure class="figure-container">
+    <figcaption class="figure-container-text">TOTAL</figcaption>
+    <img src="assets/configurator/infoIcon.svg" />
+  </figure>
+  <p class="price-text">
+    {{ totalPrice | priceTransform }}
+  </p>
+</div>
