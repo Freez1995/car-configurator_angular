@@ -6,7 +6,7 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { Car, CarCollection } from 'src/app/modules/shared/models';
+import { Car, CarCollection, Interior } from 'src/app/modules/shared/models';
 import SwiperCore, { Scrollbar, FreeMode, Navigation } from 'swiper';
 import { EventsParams, SwiperComponent } from 'swiper/angular';
 
@@ -22,11 +22,13 @@ export class CardSliderComponent {
   @Input() carCollection: CarCollection[] = [];
   @Input() isCardSlider = true;
   @Input() exteriorImages?: string[];
+  @Input() interior?: Interior;
   @Output() carSelected = new EventEmitter<Car>();
 
   @ViewChild(SwiperComponent) swiper?: SwiperComponent;
 
   currentIndex = 1;
+  images?: string[];
 
   emitSelectedCarData(selectedCar: Car) {
     this.carSelected.emit(selectedCar);

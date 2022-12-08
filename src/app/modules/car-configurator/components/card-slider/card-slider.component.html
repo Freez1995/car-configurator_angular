@@ -36,7 +36,7 @@
     </ng-template>
   </ng-container>
   <ng-template #imageSlider>
-    <ng-container>
+    <ng-container *ngIf="exteriorImages?.length; else interiorImages">
       <ng-template
         swiperSlide
         class="image-slide"
@@ -45,6 +45,15 @@
         <img class="swiper-image" src="{{ image }}" />
       </ng-template>
     </ng-container>
+    <ng-template #interiorImages>
+      <ng-template
+        swiperSlide
+        class="image-interior-slide"
+        *ngFor="let image of interior?.imgUrl"
+      >
+        <img class="swiper-interior-image" src="{{ image }}" />
+      </ng-template>
+    </ng-template>
   </ng-template>
 </swiper>
 <div class="slider-nav-container" *ngIf="!isCardSlider">
@@ -54,7 +63,7 @@
   <p class="swiper-nav-pagination-container">
     {{ currentIndex
     }}<span class="swiper-nav-pagination-length-color">
-      / {{ exteriorImages?.length }}</span
+      / {{ exteriorImages?.length || interior?.imgUrl?.length }}</span
     >
   </p>
   <button class="slider-nav-button rotate-nav-button" (click)="navNext()">

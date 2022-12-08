@@ -1,0 +1,52 @@
+<mat-sidenav-container>
+  <mat-sidenav
+    mode="side"
+    opened
+    [position]="'end'"
+    class="sidebar-content-container"
+  >
+    <div class="mat-drawer-inner-container">
+      <div class="drawer-inner-container">
+        <app-drawer-item
+          (click)="handleToggleConfiguratorPicker()"
+          itemImage="{{ (selectedConfiguration$ | async)!.interior.iconUrl }}"
+          itemName="{{
+            (selectedConfiguration$ | async)!.interior.interiorName
+          }}"
+          itemType="color"
+          [isSelected]="true"
+        ></app-drawer-item>
+      </div>
+
+      <div>
+        <div class="price-container-wrapper">
+          <app-price-container
+            containerDirection="row"
+            [selectedConfiguration]="(selectedConfiguration$ | async)!"
+          ></app-price-container>
+        </div>
+        <button mat-button class="drawer-button" (click)="navigateSummary()">
+          <span class="drawer-button-text">Summary</span>
+          <img
+            class="drawer-button-image"
+            src="assets/configurator/backArrowIcon.svg"
+          />
+        </button>
+      </div>
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="content">
+    <app-card-slider
+      [isCardSlider]="false"
+      [interior]="(selectedConfiguration$ | async)!.interior"
+    ></app-card-slider>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<app-configuration-sidebar-picker
+  #configurationSidebarPickerComponent
+  [carInteriors]="(interiors$ | async)!"
+  [selectedConfiguration]="(selectedConfiguration$ | async)!"
+  (onUpdateConfiguration)="handleUpdateConfiguration($event)"
+></app-configuration-sidebar-picker>
