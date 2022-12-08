@@ -22,8 +22,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ConfigureExteriorComponent } from './views/configure-exterior/configure-exterior.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { DrawerItemComponent } from './components/drawer-item/drawer-item.component';
-import { ColorPickerComponent } from './components/color-picker/color-picker.component';
-import { WheelsPickerComponent } from './components/wheels-picker/wheels-picker.component';
+import { ConfigurationSidebarPicker } from './components/configuration-sidebar-picker/configuration-sidebar-picker.component';
+import { ConfigureInteriorComponent } from './views/configure-interior/configure-interior.component';
+import { ConfigurationSummaryComponent } from './views/configuration-summary/configuration-summary.component';
 
 @NgModule({
   declarations: [
@@ -39,8 +40,9 @@ import { WheelsPickerComponent } from './components/wheels-picker/wheels-picker.
     FilterCarExteriorsPipe,
     ConfigureExteriorComponent,
     DrawerItemComponent,
-    ColorPickerComponent,
-    WheelsPickerComponent,
+    ConfigurationSidebarPicker,
+    ConfigureInteriorComponent,
+    ConfigurationSummaryComponent,
   ],
   imports: [
     CommonModule,

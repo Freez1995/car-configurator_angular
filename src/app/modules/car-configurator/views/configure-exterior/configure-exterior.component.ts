@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
-import { Color } from 'src/app/modules/shared/models';
-import { ColorPickerComponent } from '../../components/color-picker/color-picker.component';
-import { WheelsPickerComponent } from '../../components/wheels-picker/wheels-picker.component';
+import { Router } from '@angular/router';
+import { SavedCarConfiguration } from 'src/app/modules/shared/models';
+import { ConfigurationSidebarPicker } from '../../components/configuration-sidebar-picker/configuration-sidebar-picker.component';
 import { CarStoreService } from '../../services/car-store.service';
 
 @Component({
@@ -10,31 +10,32 @@ import { CarStoreService } from '../../services/car-store.service';
   styleUrls: ['./configure-exterior.component.scss'],
 })
 export class ConfigureExteriorComponent {
-  @ViewChild('wheelsPickerComponent', { static: false })
-  wheelsPickerComponent?: WheelsPickerComponent;
-  @ViewChild('colorPickerComponent', { static: false })
-  colorPickerComponent?: ColorPickerComponent;
+  @ViewChild('configurationSidebarPickerComponent', { static: false })
+  configuratorSidebarPickerComponent?: ConfigurationSidebarPicker;
 
   selectedConfiguration$ = this.carStoreService.selectedConfiguration$;
   colors$ = this.carStoreService.colors$;
   wheels$ = this.carStoreService.wheels$;
   exteriors$ = this.carStoreService.exteriors$;
 
-  constructor(private readonly carStoreService: CarStoreService) {}
+  constructor(
+    private readonly carStoreService: CarStoreService,
+    private router: Router
+  ) {}
 
-  handleToggleWheelsPicker() {
-    if (this.wheelsPickerComponent) {
-      this.wheelsPickerComponent.handleToggleWheelsPicker();
+  handleToggleConfiguratorPicker(configurationPickerType: 'color' | 'wheels') {
+    if (this.configuratorSidebarPickerComponent) {
+      this.configuratorSidebarPickerComponent.configurationPickerType =
+        configurationPickerType;
+      this.configuratorSidebarPickerComponent.sidebarPickerShown = 'shown';
     }
   }
 
-  handleToggleColorPicker() {
-    if (this.colorPickerComponent) {
-      this.colorPickerComponent.colorPickerShown = 'shown';
-    }
+  handleUpdateConfiguration(configuration: SavedCarConfiguration) {
+    this.carStoreService.setSelectedConfiguration(configuration);
   }
 
-  handleSelectColor(color: Color) {
-    this.carStoreService.setSelectedConfiguration({ color });
+  navigateConfigureInterior() {
+    this.router.navigate(['configurator/configure-interior']);
   }
 }
