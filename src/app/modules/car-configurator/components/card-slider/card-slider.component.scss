@@ -86,11 +86,24 @@
   height: 100%;
 }
 
+.swiper-interior-image {
+  height: 440px;
+  width: 100%;
+  object-fit: cover;
+  object-position: left;
+}
+
 .swiper-nav-pagination-length-color {
   color: #c7c7d1;
 }
 
 .image-slide {
+  background-color: transparent;
+}
+
+.image-interior-slide {
+  min-height: 440px;
+  width: 100%;
   background-color: transparent;
 }
 
