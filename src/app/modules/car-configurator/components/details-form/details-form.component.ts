@@ -9,6 +9,7 @@ import { Exterior, SavedCarConfiguration } from 'src/app/modules/shared/models';
 export class DetailsFormComponent {
   @Input() selectedConfiguration?: SavedCarConfiguration;
   @Input() exteriors?: Exterior[];
+  @Input() editLinkShown?: boolean;
 
   getTotalPrice() {
     let totalPrice = 0;

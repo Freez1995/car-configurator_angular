@@ -21,7 +21,15 @@
 <div class="configuration-details-container">
   <p class="configuration-details-heading">Your configuration details</p>
   <div class="configuration-details-content-container">
-    <p class="configuration-details-content-heading">Exterior</p>
+    <div class="configuration-details-heading-container">
+      <p class="configuration-details-content-heading">Exterior</p>
+      <a
+        class="configuration-details-heading-link"
+        *ngIf="editLinkShown"
+        routerLink="/configurator/configure-exterior"
+        >Edit</a
+      >
+    </div>
     <app-configuration-detail-card
       [carImage]="selectedConfiguration?.color?.iconUrl"
       [carName]="selectedConfiguration?.color?.colorName"
@@ -34,7 +42,15 @@
       [carPrice]="selectedConfiguration?.wheels?.wheelsPrice!"
     ></app-configuration-detail-card>
 
-    <p class="configuration-details-content-heading">Interior</p>
+    <div class="configuration-details-heading-container">
+      <p class="configuration-details-content-heading">Interior</p>
+      <a
+        class="configuration-details-heading-link"
+        *ngIf="editLinkShown"
+        routerLink="/configurator/configure-interior"
+        >Edit</a
+      >
+    </div>
     <app-configuration-detail-card
       [carImage]="selectedConfiguration?.interior?.iconUrl!"
       [carName]="selectedConfiguration?.interior?.interiorName!"

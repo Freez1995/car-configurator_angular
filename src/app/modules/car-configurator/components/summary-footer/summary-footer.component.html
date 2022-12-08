@@ -1,0 +1,21 @@
+<mat-toolbar color="primary" class="summary-footer">
+  <mat-toolbar-row class="footer-container">
+    <div class="footer-car-details-container">
+      <p class="footer-car-year">
+        {{ (selectedConfiguration$ | async)!.car.carYear }}
+      </p>
+      <p class="footer-car-name">
+        {{ (selectedConfiguration$ | async)!.car.carModel }}
+      </p>
+    </div>
+    <div class="footer-button-container">
+      <div class="price-container">
+        <app-price-container
+          containerDirection="row"
+          [selectedConfiguration]="(selectedConfiguration$ | async)!"
+        ></app-price-container>
+      </div>
+      <button mat-button class="footer-button">Save your configuration</button>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>

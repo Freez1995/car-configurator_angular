@@ -1,0 +1,12 @@
+<div class="summary-container">
+  <div>
+    <h1 class="heading">Almost done!</h1>
+    <p class="subheading">Review your configuration and save your car.</p>
+  </div>
+  <app-details-form
+    [selectedConfiguration]="(selectedConfiguration$ | async)!"
+    [exteriors]="(exteriors$ | async)!"
+    [editLinkShown]="true"
+  ></app-details-form>
+</div>
+<app-summary-footer></app-summary-footer>
