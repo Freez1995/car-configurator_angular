@@ -13,7 +13,7 @@ export class CarSelectorComponent implements OnInit {
   isLoadingCarCollection$ = this.carStoreService.isLoadingCarCollection$;
   carCollectionError$ = this.carStoreService.carCollectionError$;
 
-  isLoadingDetailsPageData$ = this.carStoreService.isLoadingDetailsPageData$;
+  isLoadingSelectedCarData$ = this.carStoreService.isLoadingSelectedCarData$;
 
   constructor(
     private carStoreService: CarStoreService,
@@ -25,9 +25,18 @@ export class CarSelectorComponent implements OnInit {
   }
 
   async onCarSelected(car: Car) {
-    this.carStoreService.getDetailsPageData(car).subscribe(() => {
-      this.router.navigate(['/configurator/view']);
-    });
+    this.carStoreService
+      .getSelectedCarData(car)
+      .subscribe(([colors, wheels, interiors]) => {
+        this.carStoreService.setSelectedConfiguration({
+          documentId: '',
+          color: colors[0],
+          wheels: wheels[0],
+          interior: interiors[0],
+          car,
+        });
+        this.router.navigate(['configurator/view']);
+      });
   }
 
   handleNavigateHome() {

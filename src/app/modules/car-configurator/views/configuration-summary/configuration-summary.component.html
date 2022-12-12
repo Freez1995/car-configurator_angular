@@ -9,4 +9,13 @@
     [editLinkShown]="true"
   ></app-details-form>
 </div>
-<app-summary-footer></app-summary-footer>
+<app-summary-footer
+  [selectedConfiguration]="(selectedConfiguration$ | async)!"
+  [exteriorImages]="
+    (exteriors$ | async)!
+      | filterCarExteriors
+        : (selectedConfiguration$ | async)!.color.colorId
+        : (selectedConfiguration$ | async)!.wheels.wheelsId
+  "
+  (saveConfiguration)="handleSaveConfiguration($event)"
+></app-summary-footer>

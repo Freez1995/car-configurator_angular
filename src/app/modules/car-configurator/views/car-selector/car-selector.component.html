@@ -1,6 +1,6 @@
 <ng-container
   *ngIf="
-    (isLoadingCarCollection$ | async) || (isLoadingDetailsPageData$ | async);
+    (isLoadingCarCollection$ | async) || (isLoadingSelectedCarData$ | async);
     else showContent
   "
 >
@@ -14,7 +14,7 @@
     </p>
     <p
       class="loading-container-message"
-      *ngIf="isLoadingDetailsPageData$ | async"
+      *ngIf="isLoadingSelectedCarData$ | async"
     >
       Loading configuration details, please wait...
     </p>

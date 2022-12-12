@@ -13,6 +13,7 @@ import { ErrorTransformPipe } from '../shared/pipes/error-transform.pipe';
 import { HomeSavedConfigurationsComponent } from './components/home-saved-configurations/home-saved-configurations.component';
 import { HomeComponent } from './views/home/home.component';
 import { DateTransformPipe } from './pipes/date-transform.pipe';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { DateTransformPipe } from './pipes/date-transform.pipe';
     MatMenuModule,
     MatDividerModule,
     HomeRoutingModule,
+    MatProgressSpinnerModule,
   ],
   exports: [],
   providers: [ErrorTransformPipe, DateTransformPipe],

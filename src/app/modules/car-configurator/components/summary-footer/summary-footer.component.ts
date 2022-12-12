@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { CarStoreService } from '../../services/car-store.service';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Timestamp } from 'firebase/firestore';
+import { SavedCarConfiguration } from 'src/app/modules/shared/models';
 
 @Component({
   selector: 'app-summary-footer',
@@ -7,7 +8,15 @@ import { CarStoreService } from '../../services/car-store.service';
   styleUrls: ['./summary-footer.component.scss'],
 })
 export class SummaryFooterComponent {
-  selectedConfiguration$ = this.carStoreService.selectedConfiguration$;
+  @Input() selectedConfiguration?: SavedCarConfiguration;
+  @Input() exteriorImages?: string[];
+  @Output() saveConfiguration = new EventEmitter<SavedCarConfiguration>();
 
-  constructor(private readonly carStoreService: CarStoreService) {}
+  onSaveConfiguration(carConfiguration: SavedCarConfiguration) {
+    this.saveConfiguration.emit({
+      ...carConfiguration,
+      carSideImage: this.exteriorImages![2],
+      createdAt: Timestamp.now(),
+    });
+  }
 }

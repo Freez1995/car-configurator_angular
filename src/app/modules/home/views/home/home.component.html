@@ -1,25 +1,45 @@
 <div class="home-page">
-  <div class="home-page-heading-container">
-    <h2 class="home-page-heading">My saved configurations</h2>
-    <button
-      mat-button
-      color="primary"
-      class="home-page-heading-button"
-      (click)="handleNavigateCarSelector()"
-    >
-      Configure a car
-    </button>
-  </div>
-  <ng-container
-    *ngIf="isLoading || savedConfigurations.length; else emptyState"
-  >
-    <app-home-saved-configurations
-      class="home-page-configurations-screen"
-      [savedConfigurations]="savedConfigurations"
-      (onDeleteDocumentById)="handleDeleteDocumentById($event)"
-    ></app-home-saved-configurations>
+  <ng-container *ngIf="isSavedConfigurationsLoading$ | async; else showContent">
+    <div class="centered-container">
+      <mat-spinner color="primary" diameter="80"> </mat-spinner>
+      <p
+        class="loading-container-message"
+        *ngIf="isSavedConfigurationsLoading$ | async"
+      >
+        Loading saved configurations, please wait...
+      </p>
+      <p
+        class="loading-container-message"
+        *ngIf="isLoadingSelectedCarData$ | async"
+      >
+        Loading selected car configurations, please wait...
+      </p>
+    </div>
   </ng-container>
-  <ng-template #emptyState>
-    <app-home-empty-state></app-home-empty-state>
+  <ng-template #showContent>
+    <div class="home-page-heading-container">
+      <h2 class="home-page-heading">My saved configurations</h2>
+      <button
+        mat-button
+        color="primary"
+        class="home-page-heading-button"
+        (click)="handleNavigateCarSelector()"
+      >
+        Configure a car
+      </button>
+    </div>
+    <ng-container
+      *ngIf="(savedConfigurations$ | async)?.length; else emptyState"
+    >
+      <app-home-saved-configurations
+        class="home-page-configurations-screen"
+        [savedConfigurations]="(savedConfigurations$ | async)!"
+        (onDeleteDocumentById)="handleDeleteDocumentById($event)"
+        (onEditConfiguration)="handleGetSavedConfigurationData($event)"
+      ></app-home-saved-configurations>
+    </ng-container>
+    <ng-template #emptyState>
+      <app-home-empty-state></app-home-empty-state>
+    </ng-template>
   </ng-template>
 </div>

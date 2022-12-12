@@ -2,20 +2,26 @@
   <mat-toolbar-row class="footer-container">
     <div class="footer-car-details-container">
       <p class="footer-car-year">
-        {{ (selectedConfiguration$ | async)!.car.carYear }}
+        {{ selectedConfiguration?.car?.carId }}
       </p>
       <p class="footer-car-name">
-        {{ (selectedConfiguration$ | async)!.car.carModel }}
+        {{ selectedConfiguration?.car?.carModel }}
       </p>
     </div>
     <div class="footer-button-container">
       <div class="price-container">
         <app-price-container
           containerDirection="row"
-          [selectedConfiguration]="(selectedConfiguration$ | async)!"
+          [selectedConfiguration]="selectedConfiguration"
         ></app-price-container>
       </div>
-      <button mat-button class="footer-button">Save your configuration</button>
+      <button
+        mat-button
+        class="footer-button"
+        (click)="onSaveConfiguration(selectedConfiguration!)"
+      >
+        Save your configuration
+      </button>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>

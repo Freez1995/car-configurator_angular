@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { tap } from 'rxjs';
+import { AuthService } from 'src/app/modules/auth/services/auth-service.service';
+import { CarStoreService } from 'src/app/modules/car-configurator/services/car-store.service';
 import { SavedCarConfiguration } from 'src/app/modules/shared/models';
-import { ErrorTransformPipe } from 'src/app/modules/shared/pipes/error-transform.pipe';
-import { CarConfigurationService } from '../../services/car-configuration.service';
+import { HomeCarStoreService } from '../../services/home-car-store.service';
 
 @Component({
   selector: 'app-home',
@@ -12,49 +12,34 @@ import { CarConfigurationService } from '../../services/car-configuration.servic
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  isLoading = true;
-  error?: string;
-  savedConfigurations: SavedCarConfiguration[] = [];
-  subscription?: Subscription;
+  isLoadingSelectedCarData$ = this.carStoreService.isLoadingSelectedCarData$;
+  savedConfigurations$ = this.homeCarStore.savedConfigurations$;
+  isSavedConfigurationsLoading$ =
+    this.homeCarStore.isSavedConfigurationsLoading$;
+  savedConfigurationsError$ = this.homeCarStore.savedConfigurationsError$;
 
   constructor(
-    private configurationService: CarConfigurationService,
     private router: Router,
-    private snackBar: MatSnackBar,
-    private errorTransform: ErrorTransformPipe
+    private carStoreService: CarStoreService,
+    private homeCarStore: HomeCarStoreService,
+    private auth: AuthService
   ) {}
 
   ngOnInit(): void {
-    this.subscription = this.configurationService
-      .getCarConfigurations()
-      .valueChanges({ idField: 'documentId' })
-      .subscribe(
-        (carConfigurations) => {
-          this.savedConfigurations = carConfigurations;
-          this.isLoading = false;
-        },
-        (error) => {
-          this.isLoading = false;
-          this.snackBar.open(this.errorTransform.transform(error), 'Cancel', {
-            duration: 5000,
-          });
-        }
-      );
+    this.homeCarStore.getSavedCarConfigurations(this.auth.userId).subscribe();
   }
 
   handleDeleteDocumentById(documentId: string) {
-    this.configurationService
-      .deleteDocumentById(documentId)
-      .then(() =>
-        this.snackBar.open('Configuration successfully deleted.', 'Cancel', {
-          duration: 5000,
-        })
-      )
-      .catch((error) =>
-        this.snackBar.open(this.errorTransform.transform(error), 'Cancel', {
-          duration: 5000,
-        })
-      );
+    this.homeCarStore.deleteDocumentById(documentId);
+  }
+
+  handleGetSavedConfigurationData(savedConfiguration: SavedCarConfiguration) {
+    this.carStoreService
+      .getSelectedCarData(savedConfiguration.car)
+      .subscribe(() => {
+        this.carStoreService.setSelectedConfiguration(savedConfiguration);
+        this.router.navigate(['configurator/configuration-summary']);
+      });
   }
 
   handleNavigateCarSelector() {
