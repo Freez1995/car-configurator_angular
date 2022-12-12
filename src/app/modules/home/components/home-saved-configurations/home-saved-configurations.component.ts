@@ -10,12 +10,15 @@ export class HomeSavedConfigurationsComponent {
   @Input() savedConfigurations: SavedCarConfiguration[] = [];
 
   @Output() onDeleteDocumentById = new EventEmitter<string>();
-
-  constructor() {}
+  @Output() onEditConfiguration = new EventEmitter<SavedCarConfiguration>();
 
   getConfigurationDocumentId(documentId: string) {
     if (documentId.length) {
       this.onDeleteDocumentById.emit(documentId);
     }
+  }
+
+  getSavedConfigurationData(savedConfiguration: SavedCarConfiguration) {
+    this.onEditConfiguration.emit(savedConfiguration);
   }
 }

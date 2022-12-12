@@ -16,12 +16,12 @@
       <mat-label>Password</mat-label>
       <input
         matInput
-        [type]="passwordShown? 'text' : 'password'"
+        [type]="passwordShown ? 'text' : 'password'"
         formControlName="password"
       />
-      <mat-icon matSuffix (click)="passwordShown = !passwordShown"
-        >{{passwordShown? 'visibility' : 'visibility_off'}}</mat-icon
-      >
+      <mat-icon matSuffix (click)="passwordShown = !passwordShown">{{
+        passwordShown ? 'visibility' : 'visibility_off'
+      }}</mat-icon>
       <mat-error *ngIf="password?.hasError('required')"
         >This field is <strong>required</strong></mat-error
       >
@@ -45,7 +45,7 @@
     <hr />
     <div class="link-container">
       <p>Don't have an account?</p>
-      <a href="/sign-up">Sign up</a>
+      <a routerLink="/sign-up">Sign up</a>
     </div>
   </form>
 </div>

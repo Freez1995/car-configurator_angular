@@ -25,6 +25,7 @@ import { DrawerItemComponent } from './components/drawer-item/drawer-item.compon
 import { ConfigurationSidebarPicker } from './components/configuration-sidebar-picker/configuration-sidebar-picker.component';
 import { ConfigureInteriorComponent } from './views/configure-interior/configure-interior.component';
 import { ConfigurationSummaryComponent } from './views/configuration-summary/configuration-summary.component';
+import { SummaryFooterComponent } from './components/summary-footer/summary-footer.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { ConfigurationSummaryComponent } from './views/configuration-summary/con
     ConfigurationSidebarPicker,
     ConfigureInteriorComponent,
     ConfigurationSummaryComponent,
+    SummaryFooterComponent,
   ],
   imports: [
     CommonModule,

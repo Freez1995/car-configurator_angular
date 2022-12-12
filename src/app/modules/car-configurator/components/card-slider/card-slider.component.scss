@@ -74,7 +74,6 @@
 }
 
 .swiper-nav-pagination-container {
-  margin: 0 20px;
   font-family: "Inter";
   font-size: 20px;
   line-height: 28px;
@@ -113,6 +112,7 @@
   border: none;
   background-color: transparent;
   cursor: pointer;
+  padding: 0 20px;
 }
 
 .rotate-nav-button {

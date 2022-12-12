@@ -9,7 +9,6 @@ import { CarStoreService } from '../../services/car-store.service';
 })
 export class DetailsPageComponent {
   selectedConfiguration$ = this.carStoreService.selectedConfiguration$;
-  isLoadingDetailsPageData$ = this.carStoreService.isLoadingDetailsPageData$;
   detailsPageDataError$ = this.carStoreService.detailsPageDataError$;
 
   exteriors$ = this.carStoreService.exteriors$;

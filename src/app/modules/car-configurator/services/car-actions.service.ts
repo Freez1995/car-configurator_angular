@@ -5,13 +5,14 @@ import {
   Color,
   Exterior,
   Interior,
+  SavedCarConfiguration,
   Wheels,
 } from '../../shared/models';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CarSelectService {
+export class CarActionsService {
   constructor(private firestore: AngularFirestore) {}
 
   getCarCollection() {
@@ -44,5 +45,21 @@ export class CarSelectService {
         ref.where('carId', '==', carId)
       )
       .valueChanges({ idField: 'exteriorId' });
+  }
+
+  saveCarConfiguration(selectedConfiguration: SavedCarConfiguration) {
+    return this.firestore
+      .collection<SavedCarConfiguration>('savedConfigurations')
+      .add(selectedConfiguration);
+  }
+
+  updateCarConfiguration(
+    documentId: string,
+    selectedConfiguration: SavedCarConfiguration
+  ) {
+    return this.firestore
+      .collection<SavedCarConfiguration>('savedConfigurations')
+      .doc(documentId)
+      .update(selectedConfiguration);
   }
 }

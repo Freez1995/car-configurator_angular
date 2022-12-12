@@ -24,16 +24,18 @@
         [type]="passwordShown ? 'text' : 'password'"
         formControlName="password"
       />
-      <mat-icon matSuffix (click)="passwordShown = !passwordShown"
-        >{{passwordShown ? 'visibility' : 'visibility_off'}}</mat-icon
-      >
+      <mat-icon matSuffix (click)="passwordShown = !passwordShown">{{
+        passwordShown ? 'visibility' : 'visibility_off'
+      }}</mat-icon>
       <mat-error *ngIf="password?.hasError('required')">
         This field is <strong>required</strong>
       </mat-error>
       <mat-error
-        *ngIf="password?.hasError('passwordError') && !password?.hasError('required')"
+        *ngIf="
+          password?.hasError('passwordError') && !password?.hasError('required')
+        "
       >
-        {{password?.getError('passwordError')}}
+        {{ password?.getError('passwordError') }}
       </mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill">
@@ -43,16 +45,19 @@
         [type]="passwordShown ? 'text' : 'password'"
         formControlName="passwordConfirm"
       />
-      <mat-icon matSuffix (click)="passwordShown = !passwordShown"
-        >{{passwordShown ? 'visibility' : 'visibility_off'}}</mat-icon
-      >
+      <mat-icon matSuffix (click)="passwordShown = !passwordShown">{{
+        passwordShown ? 'visibility' : 'visibility_off'
+      }}</mat-icon>
       <mat-error *ngIf="passwordConfirm?.hasError('required')">
         This field is <strong>required</strong>
       </mat-error>
       <mat-error
-        *ngIf="passwordConfirm?.hasError('passwordConfirmError') && !passwordConfirm?.hasError('required')"
+        *ngIf="
+          passwordConfirm?.hasError('passwordConfirmError') &&
+          !passwordConfirm?.hasError('required')
+        "
       >
-        {{passwordConfirm?.getError('passwordConfirmError')}}
+        {{ passwordConfirm?.getError('passwordConfirmError') }}
       </mat-error>
     </mat-form-field>
     <button
@@ -74,7 +79,7 @@
     <hr />
     <div class="link-container">
       <p>Already have an account?</p>
-      <a href="/sign-in">Sign in</a>
+      <a routerLink="/sign-in">Sign in</a>
     </div>
   </form>
 </div>

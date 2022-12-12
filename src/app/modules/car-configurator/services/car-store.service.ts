@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { catchError, forkJoin, take, tap, throwError } from 'rxjs';
 import { Store } from '../../shared/classes/store.class';
 import {
@@ -11,7 +12,7 @@ import {
   Wheels,
 } from '../../shared/models';
 import { ErrorTransformPipe } from '../../shared/pipes/error-transform.pipe';
-import { CarSelectService } from './car-select.service';
+import { CarActionsService } from './car-actions.service';
 
 export interface CarConfigurationStore {
   carCollection: CarCollection[];
@@ -22,7 +23,7 @@ export interface CarConfigurationStore {
   interiors: Interior[];
   exteriors: Exterior[];
   selectedConfiguration: SavedCarConfiguration;
-  isLoadingDetailsPageData: boolean;
+  isLoadingSelectedCarData: boolean;
   detailsPageDataError: string;
   currentRoute: string;
 }
@@ -36,7 +37,7 @@ const initialState: CarConfigurationStore = {
   interiors: [],
   exteriors: [],
   selectedConfiguration: <SavedCarConfiguration>{},
-  isLoadingDetailsPageData: false,
+  isLoadingSelectedCarData: false,
   detailsPageDataError: '',
   currentRoute: '',
 };
@@ -57,16 +58,17 @@ export class CarStoreService extends Store<CarConfigurationStore> {
   exteriors$ = this.select((state) => state.exteriors);
 
   selectedConfiguration$ = this.select((state) => state.selectedConfiguration);
-  isLoadingDetailsPageData$ = this.select(
-    (state) => state.isLoadingDetailsPageData
+  isLoadingSelectedCarData$ = this.select(
+    (state) => state.isLoadingSelectedCarData
   );
   detailsPageDataError$ = this.select((state) => state.detailsPageDataError);
 
   currentRoute$ = this.select((state) => state.currentRoute);
 
   constructor(
-    private carSelectService: CarSelectService,
-    private errorTransform: ErrorTransformPipe
+    private carActionsService: CarActionsService,
+    private errorTransform: ErrorTransformPipe,
+    private snackBar: MatSnackBar
   ) {
     super(initialState);
   }
@@ -76,7 +78,7 @@ export class CarStoreService extends Store<CarConfigurationStore> {
       isLoadingCarCollection: true,
     });
 
-    return this.carSelectService
+    return this.carActionsService
       .getCarCollection()
       .valueChanges({ idField: 'carId' })
       .pipe(
@@ -99,16 +101,16 @@ export class CarStoreService extends Store<CarConfigurationStore> {
       );
   }
 
-  getDetailsPageData(car: Car) {
+  getSelectedCarData(car: Car) {
     this.setState({
-      isLoadingDetailsPageData: true,
+      isLoadingSelectedCarData: true,
     });
 
     return forkJoin([
-      this.carSelectService.getColorsByCarId(car.carId).pipe(take(1)),
-      this.carSelectService.getWheelsByCarId(car.carId).pipe(take(1)),
-      this.carSelectService.getInteriorByCarId(car.carId).pipe(take(1)),
-      this.carSelectService.getImagesByCarId(car.carId).pipe(take(1)),
+      this.carActionsService.getColorsByCarId(car.carId).pipe(take(1)),
+      this.carActionsService.getWheelsByCarId(car.carId).pipe(take(1)),
+      this.carActionsService.getInteriorByCarId(car.carId).pipe(take(1)),
+      this.carActionsService.getImagesByCarId(car.carId).pipe(take(1)),
     ]).pipe(
       tap(([colors, wheels, interiors, exteriors]) => {
         this.setState({
@@ -116,19 +118,12 @@ export class CarStoreService extends Store<CarConfigurationStore> {
           wheels,
           interiors,
           exteriors,
-          selectedConfiguration: {
-            ...this.state.selectedConfiguration,
-            color: colors[0],
-            wheels: wheels[0],
-            interior: interiors[0],
-            car,
-          },
-          isLoadingDetailsPageData: false,
+          isLoadingSelectedCarData: false,
         });
       }),
       catchError((error) => {
         this.setState({
-          isLoadingDetailsPageData: false,
+          isLoadingSelectedCarData: false,
           detailsPageDataError:
             'Failed to load configuration details, please try again later.',
         });
@@ -137,6 +132,39 @@ export class CarStoreService extends Store<CarConfigurationStore> {
         );
       })
     );
+  }
+
+  saveCarConfiguration(selectedConfiguration: SavedCarConfiguration) {
+    this.carActionsService
+      .saveCarConfiguration(selectedConfiguration)
+      .then(() =>
+        this.snackBar.open('Configuration successfully saved', 'Cancel', {
+          duration: 5000,
+        })
+      )
+      .catch((error) =>
+        this.snackBar.open(this.errorTransform.transform(error), 'Cancel', {
+          duration: 5000,
+        })
+      );
+  }
+
+  updateCarConfiguration(
+    documentId: string,
+    selectedConfiguration: SavedCarConfiguration
+  ) {
+    this.carActionsService
+      .updateCarConfiguration(documentId, selectedConfiguration)
+      .then(() =>
+        this.snackBar.open('Configuration successfully updated', 'Cancel', {
+          duration: 5000,
+        })
+      )
+      .catch((error) =>
+        this.snackBar.open(this.errorTransform.transform(error), 'Cancel', {
+          duration: 5000,
+        })
+      );
   }
 
   setSelectedConfiguration(carProps: Partial<SavedCarConfiguration>) {

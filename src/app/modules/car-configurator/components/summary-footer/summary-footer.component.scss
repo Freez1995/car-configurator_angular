@@ -1,0 +1,57 @@
+.summary-footer {
+  background-color: #fcfcfd;
+  border-top: 1px solid #c7c7d1;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: min-content;
+  padding-left: 40px;
+  padding-right: 0;
+}
+
+.footer-car-details-container {
+  display: flex;
+  gap: 12px;
+}
+
+.footer-car-year {
+  font-family: "Optician Sans";
+  font-size: 28px;
+  line-height: 32px;
+  letter-spacing: -2px;
+  color: #73738c;
+}
+
+.footer-car-name {
+  font-family: "Optician Sans";
+  font-size: 28px;
+  line-height: 32px;
+  letter-spacing: -2px;
+  color: #2e2e38;
+}
+
+.price-container {
+  min-width: 276px;
+}
+
+.footer-button-container {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.footer-button {
+  display: flex;
+  justify-content: center;
+  font-family: "Inter";
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  padding: 28px 0;
+  color: #fcfcfd;
+  background-color: #1e1ed2;
+  min-width: 356px;
+}
