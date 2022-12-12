@@ -1,12 +1,16 @@
 <mat-toolbar color="primary" class="main-toolbar">
   <mat-toolbar-row class="main-toolbar-row">
-    <img src="assets/shared/logoIcon.svg" class="google-image" />
+    <img
+      src="assets/logoIcon.svg"
+      class="logo-icon"
+      (click)="handleNavigateHome()"
+    />
     <div class="main-toolbar-button-container">
       <button
         mat-button
         class="main-toolbar-button"
         (click)="handleNavigateCarSelector()"
-        *ngIf="currentRoute === '/home'"
+        *ngIf="(currentRoute$ | async) === '/home'"
       >
         Configure a car
       </button>

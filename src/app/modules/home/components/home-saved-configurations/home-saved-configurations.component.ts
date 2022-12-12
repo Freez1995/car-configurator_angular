@@ -9,16 +9,16 @@ import { SavedCarConfiguration } from 'src/app/modules/shared/models';
 export class HomeSavedConfigurationsComponent {
   @Input() savedConfigurations: SavedCarConfiguration[] = [];
 
-  @Output() onDeleteDocumentById = new EventEmitter<string>();
-  @Output() onEditConfiguration = new EventEmitter<SavedCarConfiguration>();
+  @Output() documentDeleted = new EventEmitter<string>();
+  @Output() configurationEdit = new EventEmitter<SavedCarConfiguration>();
 
-  getConfigurationDocumentId(documentId: string) {
+  handleDocumentDeleted(documentId: string) {
     if (documentId.length) {
-      this.onDeleteDocumentById.emit(documentId);
+      this.documentDeleted.emit(documentId);
     }
   }
 
-  getSavedConfigurationData(savedConfiguration: SavedCarConfiguration) {
-    this.onEditConfiguration.emit(savedConfiguration);
+  handleConfigurationEdit(savedConfiguration: SavedCarConfiguration) {
+    this.configurationEdit.emit(savedConfiguration);
   }
 }

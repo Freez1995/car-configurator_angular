@@ -9,9 +9,10 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { ErrorTransformPipe } from './pipes/error-transform.pipe';
+import { DisableControlDirective } from './directives/disable-control.directive';
 
 @NgModule({
-  declarations: [LayoutComponent, ErrorTransformPipe],
+  declarations: [LayoutComponent, ErrorTransformPipe, DisableControlDirective],
   imports: [
     CommonModule,
     RouterModule,
@@ -22,7 +23,7 @@ import { ErrorTransformPipe } from './pipes/error-transform.pipe';
     MatDividerModule,
     MatIconModule,
   ],
-  exports: [LayoutComponent, ErrorTransformPipe],
+  exports: [LayoutComponent, ErrorTransformPipe, DisableControlDirective],
   providers: [],
 })
 export class SharedModule {}

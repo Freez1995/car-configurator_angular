@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Interior, SavedCarConfiguration } from 'src/app/modules/shared/models';
+import { Routes } from 'src/app/modules/shared/enums';
+import { SavedCarConfiguration } from 'src/app/modules/shared/models';
 import { ConfigurationSidebarPicker } from '../../components/configuration-sidebar-picker/configuration-sidebar-picker.component';
 import { CarStoreService } from '../../services/car-store.service';
 
@@ -18,7 +19,7 @@ export class ConfigureInteriorComponent {
 
   constructor(
     private readonly carStoreService: CarStoreService,
-    private router: Router
+    private readonly router: Router
   ) {}
 
   handleToggleConfiguratorPicker() {
@@ -29,10 +30,10 @@ export class ConfigureInteriorComponent {
     }
   }
 
-  handleUpdateConfiguration(configuration: SavedCarConfiguration) {
+  onConfigurationChanged(configuration: SavedCarConfiguration) {
     this.carStoreService.setSelectedConfiguration(configuration);
   }
   navigateSummary() {
-    this.router.navigate(['configurator/configuration-summary']);
+    this.router.navigate([Routes.ConfiguratorSummaryPage]);
   }
 }

@@ -6,7 +6,6 @@ import { CarStoreService } from '../../services/car-store.service';
 @Component({
   selector: 'app-car-configurator',
   templateUrl: './car-configurator.component.html',
-  styleUrls: ['./car-configurator.component.scss'],
 })
 export class CarConfiguratorComponent implements OnInit {
   selectedConfiguration$ = this.carStoreService.selectedConfiguration$;
@@ -14,8 +13,8 @@ export class CarConfiguratorComponent implements OnInit {
   subscription?: Subscription;
 
   constructor(
-    private router: Router,
-    private carStoreService: CarStoreService
+    private readonly router: Router,
+    private readonly carStoreService: CarStoreService
   ) {}
 
   ngOnInit(): void {

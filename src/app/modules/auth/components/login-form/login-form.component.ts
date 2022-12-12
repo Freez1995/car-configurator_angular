@@ -8,9 +8,10 @@ import { UserAuthCredentials } from '../../models/UserAuthCredentials';
   styleUrls: ['./login-form.component.scss'],
 })
 export class LoginFormComponent {
-  @Input() isLoading = false;
-
-  @Output() sendData = new EventEmitter<UserAuthCredentials>();
+  @Input() isSignInLoading?: boolean;
+  @Input() isGoogleAuthenticationLoading: boolean = false;
+  @Output() formSubmited = new EventEmitter<UserAuthCredentials>();
+  @Output() googleSignedIn = new EventEmitter();
 
   public passwordShown = false;
 
@@ -19,7 +20,7 @@ export class LoginFormComponent {
     password: ['', [Validators.required]],
   });
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private readonly fb: FormBuilder) {}
 
   get email() {
     return this.loginForm.get('email');
@@ -29,12 +30,16 @@ export class LoginFormComponent {
     return this.loginForm.get('password');
   }
 
-  sendLoginData() {
+  handleFormSubmited() {
     if (this.email?.value && this.password?.value) {
-      this.sendData.emit({
+      this.formSubmited.emit({
         email: this.email.value,
         password: this.password.value,
       });
     }
+  }
+
+  handleGoogleSignedIn() {
+    this.googleSignedIn.emit();
   }
 }

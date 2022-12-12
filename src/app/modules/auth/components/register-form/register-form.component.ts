@@ -13,9 +13,10 @@ import { UserAuthCredentials } from '../../models/UserAuthCredentials';
   styleUrls: ['./register-form.component.scss'],
 })
 export class RegisterFormComponent {
-  @Input() isLoading = false;
-
-  @Output() sendData = new EventEmitter<UserAuthCredentials>();
+  @Input() isSignUpLoading?: boolean;
+  @Input() isGoogleAuthenticationLoading: boolean = false;
+  @Output() formSubmited = new EventEmitter<UserAuthCredentials>();
+  @Output() googleSignedUp = new EventEmitter();
 
   public passwordShown = false;
 
@@ -28,7 +29,7 @@ export class RegisterFormComponent {
     { validators: this.matchPasswordValidation }
   );
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private readonly fb: FormBuilder) {}
 
   get email() {
     return this.registerForm.get('email');
@@ -42,13 +43,17 @@ export class RegisterFormComponent {
     return this.registerForm.get('passwordConfirm');
   }
 
-  sendRegistrationData() {
+  handleFormSubmited() {
     if (this.email?.value && this.password?.value) {
-      this.sendData.emit({
+      this.formSubmited.emit({
         email: this.email.value,
         password: this.password.value,
       });
     }
+  }
+
+  handleGoogleSignedUp() {
+    this.googleSignedUp.emit();
   }
 
   passwordValidation(control: AbstractControl): ValidationErrors | null {

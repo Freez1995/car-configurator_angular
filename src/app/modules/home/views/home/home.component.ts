@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { tap } from 'rxjs';
 import { AuthService } from 'src/app/modules/auth/services/auth-service.service';
 import { CarStoreService } from 'src/app/modules/car-configurator/services/car-store.service';
+import { Routes } from 'src/app/modules/shared/enums';
 import { SavedCarConfiguration } from 'src/app/modules/shared/models';
 import { HomeCarStoreService } from '../../services/home-car-store.service';
 
@@ -19,30 +19,30 @@ export class HomeComponent implements OnInit {
   savedConfigurationsError$ = this.homeCarStore.savedConfigurationsError$;
 
   constructor(
-    private router: Router,
-    private carStoreService: CarStoreService,
-    private homeCarStore: HomeCarStoreService,
-    private auth: AuthService
+    private readonly router: Router,
+    private readonly carStoreService: CarStoreService,
+    private readonly homeCarStore: HomeCarStoreService,
+    private readonly auth: AuthService
   ) {}
 
   ngOnInit(): void {
     this.homeCarStore.getSavedCarConfigurations(this.auth.userId).subscribe();
   }
 
-  handleDeleteDocumentById(documentId: string) {
+  onDocumentDeleted(documentId: string) {
     this.homeCarStore.deleteDocumentById(documentId);
   }
 
-  handleGetSavedConfigurationData(savedConfiguration: SavedCarConfiguration) {
+  onConfigurationEdit(savedConfiguration: SavedCarConfiguration) {
     this.carStoreService
       .getSelectedCarData(savedConfiguration.car)
       .subscribe(() => {
         this.carStoreService.setSelectedConfiguration(savedConfiguration);
-        this.router.navigate(['configurator/configuration-summary']);
+        this.router.navigate([Routes.ConfiguratorSummaryPage]);
       });
   }
 
   handleNavigateCarSelector() {
-    this.router.navigate(['configurator']);
+    this.router.navigate([Routes.ConfiguratorCarSelectPage]);
   }
 }

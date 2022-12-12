@@ -1,37 +1,23 @@
 import { Component } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
-import { ErrorTransformPipe } from 'src/app/modules/shared/pipes/error-transform.pipe';
 import { UserAuthCredentials } from '../../models/UserAuthCredentials';
-import { AuthService } from '../../services/auth-service.service';
+import { AuthStoreService } from '../../services/auth-store.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
 })
 export class LoginComponent {
-  public isLoading = false;
+  isSignInLoading$ = this.authStoreService.isSignInLoading$;
+  isGoogleAuthenticationLoading$ =
+    this.authStoreService.isGoogleAuthenticationLoading$;
 
-  constructor(
-    private firebaseAuth: AuthService,
-    private router: Router,
-    private snackBar: MatSnackBar,
-    private errorTransform: ErrorTransformPipe
-  ) {}
+  constructor(private readonly authStoreService: AuthStoreService) {}
 
-  handleLoginUser({ email, password }: UserAuthCredentials) {
-    this.isLoading = true;
-    this.firebaseAuth
-      .handleSignIn({ email, password })
-      .then(() => {
-        this.isLoading = false;
-        this.router.navigate(['home']);
-      })
-      .catch((error) => {
-        this.isLoading = false;
-        this.snackBar.open(this.errorTransform.transform(error), 'Cancel', {
-          duration: 5000,
-        });
-      });
+  onLoginFormSubmited({ email, password }: UserAuthCredentials) {
+    this.authStoreService.handleSignIn({ email, password });
+  }
+
+  onGoogleSignedIn() {
+    this.authStoreService.handleGoogleAuthentication();
   }
 }

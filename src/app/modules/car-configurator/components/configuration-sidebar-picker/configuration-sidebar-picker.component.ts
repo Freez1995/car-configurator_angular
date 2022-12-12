@@ -41,7 +41,7 @@ export class ConfigurationSidebarPicker implements OnInit {
   @Input() carWheels?: Wheels[];
   @Input() carInteriors?: Interior[];
   @Input() selectedConfiguration?: SavedCarConfiguration;
-  @Output() onUpdateConfiguration = new EventEmitter<SavedCarConfiguration>();
+  @Output() configurationChanged = new EventEmitter<SavedCarConfiguration>();
   sidebarPickerShown: 'shown' | 'hidden' = 'hidden';
   configurationPickerType?: 'color' | 'wheels' | 'interior';
   configurationOnPickerOpen?: SavedCarConfiguration;
@@ -50,8 +50,8 @@ export class ConfigurationSidebarPicker implements OnInit {
     this.configurationOnPickerOpen = { ...this.selectedConfiguration! };
   }
 
-  handleSelectProperty(property: Color | Wheels | Interior) {
-    this.onUpdateConfiguration.emit({
+  handleConfigurationChanged(property: Color | Wheels | Interior) {
+    this.configurationChanged.emit({
       ...this.configurationOnPickerOpen!,
       [this.configurationPickerType!]: property,
     });
@@ -60,11 +60,11 @@ export class ConfigurationSidebarPicker implements OnInit {
   close(isSaveNeeded: boolean) {
     if (isSaveNeeded) {
       this.configurationOnPickerOpen = { ...this.selectedConfiguration! };
-      this.onUpdateConfiguration.emit(this.configurationOnPickerOpen);
+      this.configurationChanged.emit(this.configurationOnPickerOpen);
       this.sidebarPickerShown = 'hidden';
       return;
     }
-    this.onUpdateConfiguration.emit(this.configurationOnPickerOpen);
+    this.configurationChanged.emit(this.configurationOnPickerOpen);
     this.sidebarPickerShown = 'hidden';
   }
 }

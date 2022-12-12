@@ -66,9 +66,9 @@ export class CarStoreService extends Store<CarConfigurationStore> {
   currentRoute$ = this.select((state) => state.currentRoute);
 
   constructor(
-    private carActionsService: CarActionsService,
-    private errorTransform: ErrorTransformPipe,
-    private snackBar: MatSnackBar
+    private readonly carActionsService: CarActionsService,
+    private readonly errorTransform: ErrorTransformPipe,
+    private readonly snackBar: MatSnackBar
   ) {
     super(initialState);
   }

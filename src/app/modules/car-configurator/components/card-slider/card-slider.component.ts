@@ -30,7 +30,7 @@ export class CardSliderComponent {
   currentIndex = 1;
   images?: string[];
 
-  emitSelectedCarData(selectedCar: Car) {
+  handleCarSelected(selectedCar: Car) {
     this.carSelected.emit(selectedCar);
   }
 

@@ -1,9 +1,18 @@
 <div class="form-container">
-  <form class="login-form" [formGroup]="loginForm" (submit)="sendLoginData()">
+  <form
+    class="login-form"
+    [formGroup]="loginForm"
+    (submit)="handleFormSubmited()"
+  >
     <h1>SIGN IN</h1>
     <mat-form-field appearance="fill">
       <mat-label>Email</mat-label>
-      <input matInput placeholder="example@gmail.com" formControlName="email" />
+      <input
+        matInput
+        placeholder="example@gmail.com"
+        formControlName="email"
+        [disabledControl]="isGoogleAuthenticationLoading"
+      />
       <mat-error *ngIf="email?.hasError('required')"
         >This field is <strong>required</strong></mat-error
       >
@@ -18,6 +27,7 @@
         matInput
         [type]="passwordShown ? 'text' : 'password'"
         formControlName="password"
+        [disabledControl]="isGoogleAuthenticationLoading"
       />
       <mat-icon matSuffix (click)="passwordShown = !passwordShown">{{
         passwordShown ? 'visibility' : 'visibility_off'
@@ -31,16 +41,17 @@
       class="login-form-button"
       color="primary"
       type="submit"
-      [disabled]="!loginForm.valid"
+      [disabled]="!loginForm.valid || isGoogleAuthenticationLoading"
     >
-      <mat-icon *ngIf="isLoading"
+      <mat-icon *ngIf="isSignInLoading"
         ><mat-spinner color="accent" diameter="20"> </mat-spinner
       ></mat-icon>
-      <span *ngIf="!isLoading">SIGN IN</span>
+      <span *ngIf="!isSignInLoading">SIGN IN</span>
     </button>
     <app-google-button
       label="Sign in with Google"
-      [isLoading]="isLoading"
+      [isGoogleAuthenticationLoading]="isGoogleAuthenticationLoading!"
+      (click)="handleGoogleSignedIn(); $event.preventDefault()"
     ></app-google-button>
     <hr />
     <div class="link-container">

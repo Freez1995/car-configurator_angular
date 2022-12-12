@@ -16,7 +16,9 @@ export class DateTransformPipe implements PipeTransform {
 
   setDayOrdinal(day: number) {
     let ordinal = '';
-    if (day > 10 && day < 14) return (ordinal = 'th');
+    if (day > 10 && day < 14) {
+      return (ordinal = 'th');
+    }
     switch (day % 10) {
       case 1:
         ordinal = 'st';

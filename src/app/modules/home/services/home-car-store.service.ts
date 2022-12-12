@@ -33,9 +33,9 @@ export class HomeCarStoreService extends Store<HomeCarStore> {
   );
 
   constructor(
-    private carConfigurationService: CarConfigurationService,
-    private errorTransform: ErrorTransformPipe,
-    private snackBar: MatSnackBar
+    private readonly carConfigurationService: CarConfigurationService,
+    private readonly errorTransform: ErrorTransformPipe,
+    private readonly snackBar: MatSnackBar
   ) {
     super(initialState);
   }

@@ -11,7 +11,7 @@
         }}
       </p>
       <button class="color-picker-header-button" (click)="close(false)">
-        <img src="assets/configurator/closeIcon.svg" />
+        <img src="assets/closeIcon.svg" />
       </button>
     </div>
 
@@ -27,7 +27,7 @@
           [itemName]="color.colorName"
           [itemPrice]="color.colorPrice"
           [isSelected]="color.colorId === selectedConfiguration?.color?.colorId"
-          (click)="handleSelectProperty(color)"
+          (click)="handleConfigurationChanged(color)"
         ></app-drawer-item>
       </ng-container>
       <ng-container *ngSwitchCase="'wheels'">
@@ -39,7 +39,7 @@
           [isSelected]="
             wheels.wheelsId === selectedConfiguration?.wheels?.wheelsId
           "
-          (click)="handleSelectProperty(wheels)"
+          (click)="handleConfigurationChanged(wheels)"
         ></app-drawer-item>
       </ng-container>
       <ng-container *ngSwitchDefault>
@@ -51,7 +51,7 @@
           [isSelected]="
             interior.interiorId === selectedConfiguration?.interior?.interiorId
           "
-          (click)="handleSelectProperty(interior)"
+          (click)="handleConfigurationChanged(interior)"
         ></app-drawer-item>
       </ng-container>
     </container-element>

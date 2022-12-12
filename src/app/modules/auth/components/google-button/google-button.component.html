@@ -1,13 +1,9 @@
-<button
-  mat-raised-button
-  class="google-button"
-  (click)="handleOnSubmit(); $event.preventDefault()"
->
-  <ng-container *ngIf="!isLoading">
-    <img src="assets/auth/googleIcon.svg" class="google-image" />
-    <span>{{label}}</span>
+<button mat-raised-button class="google-button">
+  <ng-container *ngIf="!isGoogleAuthenticationLoading">
+    <img src="assets/googleIcon.svg" class="google-image" />
+    <span>{{ label }}</span>
   </ng-container>
-  <mat-icon *ngIf="isLoading"
+  <mat-icon *ngIf="isGoogleAuthenticationLoading"
     ><mat-spinner color="accent" diameter="20"> </mat-spinner
   ></mat-icon>
 </button>

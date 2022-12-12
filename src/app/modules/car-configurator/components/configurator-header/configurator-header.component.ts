@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { Routes } from 'src/app/modules/shared/enums';
 import { SavedCarConfiguration } from 'src/app/modules/shared/models';
 import { CarStoreService } from '../../services/car-store.service';
 
@@ -14,19 +15,19 @@ export class ConfiguratorHeaderComponent {
   currentRoute$ = this.carStoreService.currentRoute$;
 
   constructor(
-    private router: Router,
+    private readonly router: Router,
     private readonly carStoreService: CarStoreService
   ) {}
 
   handleNavigateBack() {
-    this.router.navigate(['/configurator']);
+    this.router.navigate([Routes.ConfiguratorCarSelectPage]);
   }
 
   handleNavigateConfigureExterior() {
-    this.router.navigate(['configurator/configure-exterior']);
+    this.router.navigate([Routes.ConfiguratorExteriorPage]);
   }
 
   handleDelete() {
-    this.router.navigate(['/home']);
+    this.router.navigate([Routes.HomePage]);
   }
 }

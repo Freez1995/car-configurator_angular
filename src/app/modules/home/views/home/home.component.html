@@ -34,8 +34,8 @@
       <app-home-saved-configurations
         class="home-page-configurations-screen"
         [savedConfigurations]="(savedConfigurations$ | async)!"
-        (onDeleteDocumentById)="handleDeleteDocumentById($event)"
-        (onEditConfiguration)="handleGetSavedConfigurationData($event)"
+        (documentDeleted)="onDocumentDeleted($event)"
+        (configurationEdit)="onConfigurationEdit($event)"
       ></app-home-saved-configurations>
     </ng-container>
     <ng-template #emptyState>

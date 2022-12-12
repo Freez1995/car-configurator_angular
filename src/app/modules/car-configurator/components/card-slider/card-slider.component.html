@@ -22,7 +22,7 @@
           class="slide-button"
           color="primary"
           (click)="
-            emitSelectedCarData({
+            handleCarSelected({
               carId: car.carId,
               carModel: car.carModel,
               carPrice: car.carPrice,
@@ -58,7 +58,7 @@
 </swiper>
 <div class="slider-nav-container" *ngIf="!isCardSlider">
   <button class="slider-nav-button" (click)="navPrev()">
-    <img src="assets/configurator/sliderButtonIcon.svg" />
+    <img src="assets/sliderButtonIcon.svg" />
   </button>
   <p class="swiper-nav-pagination-container">
     {{ currentIndex
@@ -67,6 +67,6 @@
     >
   </p>
   <button class="slider-nav-button rotate-nav-button" (click)="navNext()">
-    <img src="assets/configurator/sliderButtonIcon.svg" />
+    <img src="assets/sliderButtonIcon.svg" />
   </button>
 </div>

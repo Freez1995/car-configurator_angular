@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import firebase from 'firebase/compat/app';
 import { CarStoreService } from '../../car-configurator/services/car-store.service';
+import { Routes } from '../../shared/enums';
 import { UserAuthCredentials } from '../models/UserAuthCredentials';
 
 @Injectable({
@@ -13,15 +14,15 @@ export class AuthService {
 
   constructor(
     public auth: AngularFireAuth,
-    private carStoreService: CarStoreService,
-    private router: Router
+    private readonly carStoreService: CarStoreService,
+    private readonly router: Router
   ) {
     this.auth.onAuthStateChanged((user) => {
       if (user) {
         this.userId = user.uid;
         this.carStoreService.setSelectedConfiguration({ userId: user.uid });
       }
-      this.router.navigate(['/']);
+      this.router.navigate([Routes.HomePage]);
     });
   }
 

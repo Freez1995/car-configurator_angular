@@ -1,9 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NavigationEnd, Router } from '@angular/router';
-import { filter, Subscription } from 'rxjs';
+import { filter, startWith, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/modules/auth/services/auth-service.service';
 import { CarStoreService } from 'src/app/modules/car-configurator/services/car-store.service';
+import { Routes } from '../../enums';
 import { ErrorTransformPipe } from '../../pipes/error-transform.pipe';
 
 @Component({
@@ -12,22 +13,24 @@ import { ErrorTransformPipe } from '../../pipes/error-transform.pipe';
   styleUrls: ['./layout.component.scss'],
 })
 export class LayoutComponent implements OnInit, OnDestroy {
-  currentRoute = this.router.url;
+  currentRoute$ = this.carStoreService.currentRoute$;
   subscription?: Subscription;
 
   constructor(
-    private auth: AuthService,
-    private router: Router,
-    private errorTransform: ErrorTransformPipe,
-    private snackBar: MatSnackBar,
+    private readonly auth: AuthService,
+    private readonly router: Router,
+    private readonly errorTransform: ErrorTransformPipe,
+    private readonly snackBar: MatSnackBar,
     private readonly carStoreService: CarStoreService
   ) {}
 
   ngOnInit(): void {
     this.subscription = this.router.events
-      .pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
+      .pipe(
+        filter((e): e is NavigationEnd => e instanceof NavigationEnd),
+        startWith(this.router)
+      )
       .subscribe((e) => {
-        this.currentRoute = e.url;
         this.carStoreService.setCurrentRoute(e.url);
       });
   }
@@ -40,7 +43,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
     this.auth
       .handleSignOut()
       .then(() => {
-        this.router.navigate(['sign-in']);
+        this.router.navigate([Routes.SignInPage]);
       })
       .catch((error) => {
         this.snackBar.open(this.errorTransform.transform(error), 'Cancel', {
@@ -50,10 +53,10 @@ export class LayoutComponent implements OnInit, OnDestroy {
   }
 
   handleNavigateHome() {
-    this.router.navigate(['home']);
+    this.router.navigate([Routes.HomePage]);
   }
 
   handleNavigateCarSelector() {
-    this.router.navigate(['configurator']);
+    this.router.navigate([Routes.ConfiguratorCarSelectPage]);
   }
 }

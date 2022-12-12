@@ -29,7 +29,7 @@ const routes: Routes = [
         component: ConfigureInteriorComponent,
       },
       {
-        path: 'configuration-summary',
+        path: 'summary',
         component: ConfigurationSummaryComponent,
       },
     ],
