@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/modules/auth/services/auth-service.service';
+import { switchMap } from 'rxjs';
+import { AuthStoreService } from 'src/app/modules/auth/services/auth-store.service';
 import { CarStoreService } from 'src/app/modules/car-configurator/services/car-store.service';
 import { Routes } from 'src/app/modules/shared/enums';
 import { SavedCarConfiguration } from 'src/app/modules/shared/models';
@@ -17,16 +18,23 @@ export class HomeComponent implements OnInit {
   isSavedConfigurationsLoading$ =
     this.homeCarStore.isSavedConfigurationsLoading$;
   savedConfigurationsError$ = this.homeCarStore.savedConfigurationsError$;
+  userId$ = this.authStoreSerivce.userId$;
 
   constructor(
     private readonly router: Router,
     private readonly carStoreService: CarStoreService,
     private readonly homeCarStore: HomeCarStoreService,
-    private readonly auth: AuthService
+    private readonly authStoreSerivce: AuthStoreService
   ) {}
 
   ngOnInit(): void {
-    this.homeCarStore.getSavedCarConfigurations(this.auth.userId).subscribe();
+    this.userId$
+      .pipe(
+        switchMap((userId) => {
+          return this.homeCarStore.getSavedCarConfigurations(userId);
+        })
+      )
+      .subscribe();
   }
 
   onDocumentDeleted(documentId: string) {

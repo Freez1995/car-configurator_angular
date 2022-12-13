@@ -121,7 +121,7 @@ export class AuthStoreService extends Store<AuthStore> {
       });
   }
 
-  handgleSignOut() {
+  handleSignOut() {
     this.authService
       .handleSignOut()
       .then(() => {

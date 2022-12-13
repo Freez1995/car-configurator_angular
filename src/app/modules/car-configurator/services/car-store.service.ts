@@ -77,7 +77,6 @@ export class CarStoreService extends Store<CarConfigurationStore> {
     this.setState({
       isLoadingCarCollection: true,
     });
-
     return this.carActionsService
       .getCarCollection()
       .valueChanges({ idField: 'carId' })
