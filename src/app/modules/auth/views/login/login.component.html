@@ -1,4 +1,6 @@
 <app-login-form
-  [isLoading]="isLoading"
-  (sendData)="handleLoginUser($event)"
+  [isGoogleAuthenticationLoading]="(isGoogleAuthenticationLoading$ | async)!"
+  [isSignInLoading]="(isSignInLoading$ | async)!"
+  (formSubmited)="onLoginFormSubmited($event)"
+  (googleSignedIn)="onGoogleSignedIn()"
 ></app-login-form>

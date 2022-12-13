@@ -17,5 +17,5 @@
         : (selectedConfiguration$ | async)!.color.colorId
         : (selectedConfiguration$ | async)!.wheels.wheelsId
   "
-  (saveConfiguration)="handleSaveConfiguration($event)"
+  (configurationSaved)="onConfigurationSaved($event)"
 ></app-summary-footer>

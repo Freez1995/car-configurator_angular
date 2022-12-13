@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { FirebaseError } from 'firebase/app';
-import { FIREBASE_AUTH_ERRORS } from '../../auth/const/FirebaseErrors';
+import { FIREBASE_AUTH_ERRORS } from '../../auth/constants/FirebaseErrors';
 
 @Pipe({
   name: 'errorTransform',
@@ -19,7 +19,9 @@ export class ErrorTransformPipe implements PipeTransform {
 
   isRenamedFirebaseError(errorCode: string) {
     for (const [key, value] of Object.entries(FIREBASE_AUTH_ERRORS)) {
-      if (errorCode === key) return value;
+      if (errorCode === key) {
+        return value;
+      }
     }
     return 'Something went wrong, please contact our support.';
   }

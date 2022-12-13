@@ -6,7 +6,7 @@ import { SavedCarConfiguration } from '../../shared/models';
   providedIn: 'root',
 })
 export class CarConfigurationService {
-  constructor(private firestore: AngularFirestore) {}
+  constructor(private readonly firestore: AngularFirestore) {}
 
   getCarConfigurations(userId: string) {
     return this.firestore.collection<SavedCarConfiguration>(

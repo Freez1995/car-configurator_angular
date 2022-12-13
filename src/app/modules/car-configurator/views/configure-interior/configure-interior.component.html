@@ -27,10 +27,7 @@
         </div>
         <button mat-button class="drawer-button" (click)="navigateSummary()">
           <span class="drawer-button-text">Summary</span>
-          <img
-            class="drawer-button-image"
-            src="assets/configurator/backArrowIcon.svg"
-          />
+          <img class="drawer-button-image" src="assets/backArrowIcon.svg" />
         </button>
       </div>
     </div>
@@ -48,5 +45,5 @@
   #configurationSidebarPickerComponent
   [carInteriors]="(interiors$ | async)!"
   [selectedConfiguration]="(selectedConfiguration$ | async)!"
-  (onUpdateConfiguration)="handleUpdateConfiguration($event)"
+  (configurationChanged)="onConfigurationChanged($event)"
 ></app-configuration-sidebar-picker>

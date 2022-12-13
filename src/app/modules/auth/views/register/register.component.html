@@ -1,4 +1,6 @@
 <app-register-form
-  [isLoading]="isLoading"
-  (sendData)="handleRegisterUser($event)"
+  [isSignUpLoading]="(isSignUpLoading$ | async)!"
+  [isGoogleAuthenticationLoading]="(isGoogleAuthenticationLoading$ | async)!"
+  (formSubmited)="onRegisterFormSubmited($event)"
+  (googleSignedUp)="onGoogleSignedUp()"
 ></app-register-form>

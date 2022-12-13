@@ -13,7 +13,7 @@ import {
   providedIn: 'root',
 })
 export class CarActionsService {
-  constructor(private firestore: AngularFirestore) {}
+  constructor(private readonly firestore: AngularFirestore) {}
 
   getCarCollection() {
     return this.firestore.collection<CarCollection>('cars');

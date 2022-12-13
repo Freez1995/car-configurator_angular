@@ -36,10 +36,7 @@
           (click)="navigateConfigureInterior()"
         >
           <span class="drawer-button-text">Interior</span>
-          <img
-            class="drawer-button-image"
-            src="assets/configurator/backArrowIcon.svg"
-          />
+          <img class="drawer-button-image" src="assets/backArrowIcon.svg" />
         </button>
       </div>
     </div>
@@ -63,5 +60,5 @@
   [carColors]="(colors$ | async)!"
   [carWheels]="(wheels$ | async)!"
   [selectedConfiguration]="(selectedConfiguration$ | async)!"
-  (onUpdateConfiguration)="handleUpdateConfiguration($event)"
+  (configurationChanged)="onConfigurationChanged($event)"
 ></app-configuration-sidebar-picker>

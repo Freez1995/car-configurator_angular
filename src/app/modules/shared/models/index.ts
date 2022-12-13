@@ -3,5 +3,5 @@ export * from './CarCollection';
 export * from './Color';
 export * from './Exterior';
 export * from './Interior';
-export * from './SavedConfiguration';
+export * from './SavedCarConfiguration';
 export * from './Wheels';

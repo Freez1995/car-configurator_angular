@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Routes } from 'src/app/modules/shared/enums';
 import { Car } from 'src/app/modules/shared/models';
 import { CarStoreService } from '../../services/car-store.service';
 
@@ -16,8 +17,8 @@ export class CarSelectorComponent implements OnInit {
   isLoadingSelectedCarData$ = this.carStoreService.isLoadingSelectedCarData$;
 
   constructor(
-    private carStoreService: CarStoreService,
-    private router: Router
+    private readonly carStoreService: CarStoreService,
+    private readonly router: Router
   ) {}
 
   ngOnInit(): void {
@@ -35,11 +36,11 @@ export class CarSelectorComponent implements OnInit {
           interior: interiors[0],
           car,
         });
-        this.router.navigate(['configurator/view']);
+        this.router.navigate([Routes.ConfiguratorViewPage]);
       });
   }
 
   handleNavigateHome() {
-    this.router.navigate(['']);
+    this.router.navigate([Routes.HomePage]);
   }
 }

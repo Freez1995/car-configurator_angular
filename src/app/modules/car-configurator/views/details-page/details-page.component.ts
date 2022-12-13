@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Routes } from 'src/app/modules/shared/enums';
 import { CarStoreService } from '../../services/car-store.service';
 
 @Component({
@@ -14,11 +15,11 @@ export class DetailsPageComponent {
   exteriors$ = this.carStoreService.exteriors$;
 
   constructor(
-    private carStoreService: CarStoreService,
+    private readonly carStoreService: CarStoreService,
     private readonly router: Router
   ) {}
 
   handleNavigateHome() {
-    this.router.navigate(['']);
+    this.router.navigate([Routes.HomePage]);
   }
 }

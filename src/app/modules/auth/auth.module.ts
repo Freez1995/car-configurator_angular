@@ -14,6 +14,7 @@ import { LoginFormComponent } from './components/login-form/login-form.component
 import { LoginComponent } from './views/login/login.component';
 import { AuthRoutingModule } from './auth-routing.module';
 import { ErrorTransformPipe } from '../shared/pipes/error-transform.pipe';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { ErrorTransformPipe } from '../shared/pipes/error-transform.pipe';
     MatProgressSpinnerModule,
     AuthRoutingModule,
     MatSnackBarModule,
+    SharedModule,
   ],
   exports: [RegisterComponent, LoginComponent],
   providers: [ErrorTransformPipe],
