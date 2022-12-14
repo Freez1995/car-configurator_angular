@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { CarStoreService } from '../../car-configurator/services/car-store.service';
 import { Store } from '../../shared/classes/store.class';
-import { Routes } from '../../shared/enums';
+import { CarConfigRoutes } from '../../shared/enums';
 import { ErrorTransformPipe } from '../../shared/pipes/error-transform.pipe';
 import { UserAuthCredentials } from '../models/UserAuthCredentials';
 import { AuthService } from './auth-service.service';
@@ -51,7 +51,7 @@ export class AuthStoreService extends Store<AuthStore> {
         });
         this.carStoreService.setSelectedConfiguration({ userId: user.uid });
       }
-      this.router.navigate([Routes.HomePage]);
+      this.router.navigate([CarConfigRoutes.HomePage]);
     });
   }
 
@@ -65,7 +65,7 @@ export class AuthStoreService extends Store<AuthStore> {
         this.setState({
           isSignInLoading: false,
         });
-        this.router.navigate([Routes.HomePage]);
+        this.router.navigate([CarConfigRoutes.HomePage]);
       })
       .catch((error) => {
         this.setState({
@@ -87,7 +87,7 @@ export class AuthStoreService extends Store<AuthStore> {
         this.setState({
           isSignUpLoading: false,
         });
-        this.router.navigate([Routes.HomePage]);
+        this.router.navigate([CarConfigRoutes.HomePage]);
       })
       .catch((error) => {
         this.setState({
@@ -109,7 +109,7 @@ export class AuthStoreService extends Store<AuthStore> {
         this.setState({
           isGoogleAuthenticationLoading: false,
         });
-        this.router.navigate([Routes.HomePage]);
+        this.router.navigate([CarConfigRoutes.HomePage]);
       })
       .catch((error) => {
         this.setState({
@@ -125,7 +125,7 @@ export class AuthStoreService extends Store<AuthStore> {
     this.authService
       .handleSignOut()
       .then(() => {
-        this.router.navigate([Routes.SignInPage]);
+        this.router.navigate([CarConfigRoutes.SignInPage]);
       })
       .catch((error) => {
         this.snackBar.open(this.errorTransform.transform(error), 'Cancel', {

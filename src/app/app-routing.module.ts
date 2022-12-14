@@ -6,12 +6,13 @@ import {
   redirectLoggedInTo,
 } from '@angular/fire/compat/auth-guard';
 import { LayoutComponent } from './modules/shared/components/layout/layout.component';
+import { CarConfigRoutes } from './modules/shared/enums';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['sign-in']);
 const redirectLoggedInToHome = () => redirectLoggedInTo(['home']);
 
 const routes: Routes = [
-  { path: '', redirectTo: 'sign-in', pathMatch: 'full' },
+  { path: '', redirectTo: CarConfigRoutes.SignInPage, pathMatch: 'full' },
   {
     path: '',
     loadChildren: () =>
@@ -24,12 +25,12 @@ const routes: Routes = [
     ...canActivate(redirectUnauthorizedToLogin),
     children: [
       {
-        path: 'home',
+        path: CarConfigRoutes.HomePage,
         loadChildren: () =>
           import('./modules/home/home.module').then((m) => m.HomeModule),
       },
       {
-        path: 'configurator',
+        path: CarConfigRoutes.ConfiguratorCarSelectPage,
         loadChildren: () =>
           import('./modules/car-configurator/car-configurator.module').then(
             (m) => m.CarConfiguratorModule

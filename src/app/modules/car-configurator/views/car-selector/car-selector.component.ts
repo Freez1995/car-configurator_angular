@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Routes } from 'src/app/modules/shared/enums';
+import { CarConfigRoutes } from 'src/app/modules/shared/enums';
 import { Car } from 'src/app/modules/shared/models';
 import { CarStoreService } from '../../services/car-store.service';
 
@@ -36,11 +36,11 @@ export class CarSelectorComponent implements OnInit {
           interior: interiors[0],
           car,
         });
-        this.router.navigate([Routes.ConfiguratorViewPage]);
+        this.router.navigate([CarConfigRoutes.ConfiguratorViewPage]);
       });
   }
 
   handleNavigateHome() {
-    this.router.navigate([Routes.HomePage]);
+    this.router.navigate([CarConfigRoutes.HomePage]);
   }
 }

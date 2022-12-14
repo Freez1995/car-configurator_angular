@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Routes } from 'src/app/modules/shared/enums';
+import { CarConfigRoutes } from 'src/app/modules/shared/enums';
 import { SavedCarConfiguration } from 'src/app/modules/shared/models';
 import { CarStoreService } from '../../services/car-store.service';
 
@@ -24,10 +24,10 @@ export class ConfigurationSummaryComponent {
         configuration.documentId,
         configuration
       );
-      this.router.navigate([Routes.HomePage]);
+      this.router.navigate([CarConfigRoutes.HomePage]);
       return;
     }
     this.carStoreService.saveCarConfiguration(configuration);
-    this.router.navigate([Routes.HomePage]);
+    this.router.navigate([CarConfigRoutes.HomePage]);
   }
 }

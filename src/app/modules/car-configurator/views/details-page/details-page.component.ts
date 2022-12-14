@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Routes } from 'src/app/modules/shared/enums';
+import { CarConfigRoutes } from 'src/app/modules/shared/enums';
 import { CarStoreService } from '../../services/car-store.service';
 
 @Component({
@@ -20,6 +20,6 @@ export class DetailsPageComponent {
   ) {}
 
   handleNavigateHome() {
-    this.router.navigate([Routes.HomePage]);
+    this.router.navigate([CarConfigRoutes.HomePage]);
   }
 }

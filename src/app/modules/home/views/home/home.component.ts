@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { AuthStoreService } from 'src/app/modules/auth/services/auth-store.service';
 import { CarStoreService } from 'src/app/modules/car-configurator/services/car-store.service';
-import { Routes } from 'src/app/modules/shared/enums';
+import { CarConfigRoutes } from 'src/app/modules/shared/enums';
 import { SavedCarConfiguration } from 'src/app/modules/shared/models';
 import { HomeCarStoreService } from '../../services/home-car-store.service';
 
@@ -46,11 +46,11 @@ export class HomeComponent implements OnInit {
       .getSelectedCarData(savedConfiguration.car)
       .subscribe(() => {
         this.carStoreService.setSelectedConfiguration(savedConfiguration);
-        this.router.navigate([Routes.ConfiguratorSummaryPage]);
+        this.router.navigate([CarConfigRoutes.ConfiguratorSummaryPage]);
       });
   }
 
   handleNavigateCarSelector() {
-    this.router.navigate([Routes.ConfiguratorCarSelectPage]);
+    this.router.navigate([CarConfigRoutes.ConfiguratorCarSelectPage]);
   }
 }

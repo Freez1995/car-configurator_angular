@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Routes } from 'src/app/modules/shared/enums';
+import { CarConfigRoutes } from 'src/app/modules/shared/enums';
 import { SavedCarConfiguration } from 'src/app/modules/shared/models';
 import { ConfigurationSidebarPicker } from '../../components/configuration-sidebar-picker/configuration-sidebar-picker.component';
 import { CarStoreService } from '../../services/car-store.service';
@@ -37,6 +37,6 @@ export class ConfigureExteriorComponent {
   }
 
   navigateConfigureInterior() {
-    this.router.navigate([Routes.ConfiguratorInteriorPage]);
+    this.router.navigate([CarConfigRoutes.ConfiguratorInteriorPage]);
   }
 }

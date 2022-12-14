@@ -1,37 +1,39 @@
-<mat-toolbar color="primary" class="main-toolbar">
-  <mat-toolbar-row class="main-toolbar-row">
-    <img
-      src="assets/logoIcon.svg"
-      class="logo-icon"
-      (click)="handleNavigateHome()"
-    />
-    <div class="main-toolbar-button-container">
-      <button
-        mat-button
-        class="main-toolbar-button"
-        (click)="handleNavigateCarSelector()"
-        *ngIf="(currentRoute$ | async) === '/home'"
-      >
-        Configure a car
-      </button>
-      <button
-        mat-button
-        class="hamburger-button"
-        [matMenuTriggerFor]="menu"
-        aria-label="Example icon-button with menu icon"
-      >
-        <mat-icon class="hamburger-button-image">menu</mat-icon>
-      </button>
-      <mat-menu #menu="matMenu" class="hamburger-button-dropdown">
-        <button mat-menu-item color="primary" (click)="handleNavigateHome()">
-          My saved configurations
+<div class="main-container">
+  <mat-toolbar color="primary" class="main-toolbar">
+    <mat-toolbar-row class="main-toolbar-row">
+      <img
+        src="assets/logoIcon.svg"
+        class="logo-icon"
+        (click)="handleNavigateHome()"
+      />
+      <div class="main-toolbar-button-container">
+        <button
+          mat-button
+          class="main-toolbar-button"
+          (click)="handleNavigateCarSelector()"
+          *ngIf="(currentRoute$ | async) === '/home'"
+        >
+          Configure a car
         </button>
-        <mat-divider></mat-divider>
-        <button mat-menu-item color="primary" (click)="handleSignOut()">
-          Logout
+        <button
+          mat-button
+          class="hamburger-button"
+          [matMenuTriggerFor]="menu"
+          aria-label="Example icon-button with menu icon"
+        >
+          <mat-icon class="hamburger-button-image">menu</mat-icon>
         </button>
-      </mat-menu>
-    </div>
-  </mat-toolbar-row>
-</mat-toolbar>
-<router-outlet></router-outlet>
+        <mat-menu #menu="matMenu" class="hamburger-button-dropdown">
+          <button mat-menu-item color="primary" (click)="handleNavigateHome()">
+            My saved configurations
+          </button>
+          <mat-divider></mat-divider>
+          <button mat-menu-item color="primary" (click)="handleSignOut()">
+            Logout
+          </button>
+        </mat-menu>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <router-outlet></router-outlet>
+</div>

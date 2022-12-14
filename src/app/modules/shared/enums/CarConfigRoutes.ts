@@ -1,4 +1,4 @@
-export enum Routes {
+export enum CarConfigRoutes {
   SignInPage = 'sign-in',
   SignUpPage = 'sign-up',
   HomePage = 'home',

@@ -3,7 +3,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { filter, startWith, Subscription } from 'rxjs';
 import { AuthStoreService } from 'src/app/modules/auth/services/auth-store.service';
 import { CarStoreService } from 'src/app/modules/car-configurator/services/car-store.service';
-import { Routes } from '../../enums';
+import { CarConfigRoutes } from '../../enums';
 
 @Component({
   selector: 'app-layout',
@@ -40,10 +40,10 @@ export class LayoutComponent implements OnInit, OnDestroy {
   }
 
   handleNavigateHome() {
-    this.router.navigate([Routes.HomePage]);
+    this.router.navigate([CarConfigRoutes.HomePage]);
   }
 
   handleNavigateCarSelector() {
-    this.router.navigate([Routes.ConfiguratorCarSelectPage]);
+    this.router.navigate([CarConfigRoutes.ConfiguratorCarSelectPage]);
   }
 }
