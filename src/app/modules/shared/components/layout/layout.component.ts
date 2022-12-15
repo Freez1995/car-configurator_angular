@@ -11,6 +11,7 @@ import { CarConfigRoutes } from '../../enums';
   styleUrls: ['./layout.component.scss'],
 })
 export class LayoutComponent implements OnInit, OnDestroy {
+  isSignOutLoading$ = this.authStoreSerivce.isSignOutLoading$;
   currentRoute$ = this.carStoreService.currentRoute$;
   subscription?: Subscription;
 
@@ -36,7 +37,9 @@ export class LayoutComponent implements OnInit, OnDestroy {
   }
 
   handleSignOut() {
-    this.authStoreSerivce.handleSignOut();
+    this.authStoreSerivce
+      .handleSignOut()
+      .subscribe(() => this.router.navigate([CarConfigRoutes.SignInPage]));
   }
 
   handleNavigateHome() {

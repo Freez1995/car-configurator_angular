@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { CarConfigRoutes } from 'src/app/modules/shared/enums';
 import { Exterior, SavedCarConfiguration } from 'src/app/modules/shared/models';
 
 @Component({
@@ -10,6 +11,8 @@ export class DetailsFormComponent {
   @Input() selectedConfiguration?: SavedCarConfiguration;
   @Input() exteriors?: Exterior[];
   @Input() editLinkShown?: boolean;
+
+  carConfigRoutes = CarConfigRoutes;
 
   getTotalPrice() {
     let totalPrice = 0;

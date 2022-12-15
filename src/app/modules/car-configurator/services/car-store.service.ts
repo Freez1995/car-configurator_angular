@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { catchError, forkJoin, take, tap, throwError } from 'rxjs';
+import { catchError, forkJoin, from, take, tap, throwError } from 'rxjs';
 import { Store } from '../../shared/classes/store.class';
 import {
   Car,
@@ -26,6 +26,7 @@ export interface CarConfigurationStore {
   isLoadingSelectedCarData: boolean;
   detailsPageDataError: string;
   currentRoute: string;
+  isLoadingSavingConfiguration: boolean;
 }
 
 const initialState: CarConfigurationStore = {
@@ -40,6 +41,7 @@ const initialState: CarConfigurationStore = {
   isLoadingSelectedCarData: false,
   detailsPageDataError: '',
   currentRoute: '',
+  isLoadingSavingConfiguration: false,
 };
 
 @Injectable({
@@ -62,6 +64,10 @@ export class CarStoreService extends Store<CarConfigurationStore> {
     (state) => state.isLoadingSelectedCarData
   );
   detailsPageDataError$ = this.select((state) => state.detailsPageDataError);
+
+  isLoadingSavingConfiguration$ = this.select(
+    (state) => state.isLoadingSavingConfiguration
+  );
 
   currentRoute$ = this.select((state) => state.currentRoute);
 
@@ -134,36 +140,67 @@ export class CarStoreService extends Store<CarConfigurationStore> {
   }
 
   saveCarConfiguration(selectedConfiguration: SavedCarConfiguration) {
-    this.carActionsService
-      .saveCarConfiguration(selectedConfiguration)
-      .then(() =>
+    this.setState({
+      isLoadingSavingConfiguration: true,
+    });
+    return from(
+      this.carActionsService.saveCarConfiguration(selectedConfiguration)
+    ).pipe(
+      tap(() => {
+        this.setState({
+          isLoadingSavingConfiguration: false,
+        });
         this.snackBar.open('Configuration successfully saved', 'Cancel', {
           duration: 5000,
-        })
-      )
-      .catch((error) =>
+        });
+      }),
+      catchError((error) => {
+        this.setState({
+          isLoadingSavingConfiguration: false,
+        });
         this.snackBar.open(this.errorTransform.transform(error), 'Cancel', {
           duration: 5000,
-        })
-      );
+        });
+        return throwError(
+          () => new Error(this.errorTransform.transform(error))
+        );
+      })
+    );
   }
 
   updateCarConfiguration(
     documentId: string,
     selectedConfiguration: SavedCarConfiguration
   ) {
-    this.carActionsService
-      .updateCarConfiguration(documentId, selectedConfiguration)
-      .then(() =>
+    this.setState({
+      isLoadingSavingConfiguration: true,
+    });
+    return from(
+      this.carActionsService.updateCarConfiguration(
+        documentId,
+        selectedConfiguration
+      )
+    ).pipe(
+      tap(() => {
+        this.setState({
+          isLoadingSavingConfiguration: false,
+        });
         this.snackBar.open('Configuration successfully updated', 'Cancel', {
           duration: 5000,
-        })
-      )
-      .catch((error) =>
+        });
+      }),
+      catchError((error) => {
+        this.setState({
+          isLoadingSavingConfiguration: false,
+        });
         this.snackBar.open(this.errorTransform.transform(error), 'Cancel', {
           duration: 5000,
-        })
-      );
+        });
+        return throwError(
+          () => new Error(this.errorTransform.transform(error))
+        );
+      })
+    );
   }
 
   setSelectedConfiguration(carProps: Partial<SavedCarConfiguration>) {

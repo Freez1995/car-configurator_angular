@@ -18,9 +18,16 @@
       <button
         mat-button
         class="footer-button"
-        (click)="handleConfigurationSaved()"
+        type="button"
+        (click)="handleConfigurationSave()"
+        [disabled]="isLoadingSavingConfiguration"
       >
-        Save your configuration
+        <mat-icon *ngIf="isLoadingSavingConfiguration"
+          ><mat-spinner color="accent" diameter="20"> </mat-spinner
+        ></mat-icon>
+        <span *ngIf="!isLoadingSavingConfiguration"
+          >Save your configuration
+        </span>
       </button>
     </div>
   </mat-toolbar-row>

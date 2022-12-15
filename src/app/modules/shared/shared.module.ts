@@ -10,6 +10,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { ErrorTransformPipe } from './pipes/error-transform.pipe';
 import { DisableControlDirective } from './directives/disable-control.directive';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 @NgModule({
   declarations: [LayoutComponent, ErrorTransformPipe, DisableControlDirective],
   imports: [
@@ -21,6 +22,7 @@ import { DisableControlDirective } from './directives/disable-control.directive'
     MatMenuModule,
     MatDividerModule,
     MatIconModule,
+    MatProgressSpinnerModule,
   ],
   exports: [LayoutComponent, ErrorTransformPipe, DisableControlDirective],
 })

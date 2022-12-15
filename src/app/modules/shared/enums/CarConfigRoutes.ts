@@ -3,8 +3,8 @@ export enum CarConfigRoutes {
   SignUpPage = 'sign-up',
   HomePage = 'home',
   ConfiguratorCarSelectPage = 'configurator',
-  ConfiguratorViewPage = 'configurator/view',
-  ConfiguratorExteriorPage = 'configurator/configure-exterior',
-  ConfiguratorInteriorPage = 'configurator/configure-interior',
-  ConfiguratorSummaryPage = '/configurator/summary',
+  ConfiguratorViewPage = 'view',
+  ConfiguratorExteriorPage = 'configure-exterior',
+  ConfiguratorInteriorPage = 'configure-interior',
+  ConfiguratorSummaryPage = 'summary',
 }

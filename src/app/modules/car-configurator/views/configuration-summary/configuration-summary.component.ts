@@ -11,6 +11,8 @@ import { CarStoreService } from '../../services/car-store.service';
 })
 export class ConfigurationSummaryComponent {
   selectedConfiguration$ = this.carStoreService.selectedConfiguration$;
+  isLoadingSavingConfiguration$ =
+    this.carStoreService.isLoadingSavingConfiguration$;
   exteriors$ = this.carStoreService.exteriors$;
 
   constructor(
@@ -20,14 +22,15 @@ export class ConfigurationSummaryComponent {
 
   onConfigurationSaved(configuration: SavedCarConfiguration) {
     if (configuration.documentId) {
-      this.carStoreService.updateCarConfiguration(
-        configuration.documentId,
-        configuration
-      );
-      this.router.navigate([CarConfigRoutes.HomePage]);
+      this.carStoreService
+        .updateCarConfiguration(configuration.documentId, configuration)
+        .subscribe(() => {
+          this.router.navigate([CarConfigRoutes.HomePage]);
+        });
       return;
     }
-    this.carStoreService.saveCarConfiguration(configuration);
-    this.router.navigate([CarConfigRoutes.HomePage]);
+    this.carStoreService.saveCarConfiguration(configuration).subscribe(() => {
+      this.router.navigate([CarConfigRoutes.HomePage]);
+    });
   }
 }

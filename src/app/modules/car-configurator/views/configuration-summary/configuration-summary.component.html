@@ -11,11 +11,12 @@
 </div>
 <app-summary-footer
   [selectedConfiguration]="(selectedConfiguration$ | async)!"
+  [isLoadingSavingConfiguration]="(isLoadingSavingConfiguration$ | async)!"
   [exteriorImages]="
     (exteriors$ | async)!
       | filterCarExteriors
         : (selectedConfiguration$ | async)!.color.colorId
         : (selectedConfiguration$ | async)!.wheels.wheelsId
   "
-  (configurationSaved)="onConfigurationSaved($event)"
+  (configurationSave)="onConfigurationSaved($event)"
 ></app-summary-footer>

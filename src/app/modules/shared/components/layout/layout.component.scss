@@ -49,3 +49,13 @@
 .logo-icon {
   cursor: pointer;
 }
+
+.hamburger-signout-button {
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+}
+
+mat-icon {
+  height: 18px;
+}

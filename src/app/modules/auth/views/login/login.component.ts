@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { CarConfigRoutes } from 'src/app/modules/shared/enums';
 import { UserAuthCredentials } from '../../models/UserAuthCredentials';
 import { AuthStoreService } from '../../services/auth-store.service';
 
@@ -11,13 +13,20 @@ export class LoginComponent {
   isGoogleAuthenticationLoading$ =
     this.authStoreService.isGoogleAuthenticationLoading$;
 
-  constructor(private readonly authStoreService: AuthStoreService) {}
+  constructor(
+    private readonly authStoreService: AuthStoreService,
+    private readonly router: Router
+  ) {}
 
   onLoginFormSubmited({ email, password }: UserAuthCredentials) {
-    this.authStoreService.handleSignIn({ email, password });
+    this.authStoreService.handleSignIn({ email, password }).subscribe(() => {
+      this.router.navigate([CarConfigRoutes.HomePage]);
+    });
   }
 
-  onGoogleSignedIn() {
-    this.authStoreService.handleGoogleAuthentication();
+  onGoogleSignIn() {
+    this.authStoreService.handleGoogleAuthentication().subscribe(() => {
+      this.router.navigate([CarConfigRoutes.HomePage]);
+    });
   }
 }

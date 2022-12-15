@@ -28,8 +28,17 @@
             My saved configurations
           </button>
           <mat-divider></mat-divider>
-          <button mat-menu-item color="primary" (click)="handleSignOut()">
-            Logout
+          <button
+            mat-menu-item
+            color="primary"
+            class="hamburger-signout-button"
+            (click)="handleSignOut()"
+          >
+            <span>Logout</span>
+            <mat-icon *ngIf="isSignOutLoading$ | async"
+              ><mat-spinner color="accent" diameter="18" class="mat-spinner">
+              </mat-spinner
+            ></mat-icon>
           </button>
         </mat-menu>
       </div>

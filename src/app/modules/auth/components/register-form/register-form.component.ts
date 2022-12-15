@@ -5,6 +5,7 @@ import {
   ValidationErrors,
   Validators,
 } from '@angular/forms';
+import { CarConfigRoutes } from 'src/app/modules/shared/enums';
 import { UserAuthCredentials } from '../../models/UserAuthCredentials';
 
 @Component({
@@ -14,10 +15,11 @@ import { UserAuthCredentials } from '../../models/UserAuthCredentials';
 })
 export class RegisterFormComponent {
   @Input() isSignUpLoading?: boolean;
-  @Input() isGoogleAuthenticationLoading: boolean = false;
+  @Input() isGoogleAuthenticationLoading?: boolean;
   @Output() formSubmited = new EventEmitter<UserAuthCredentials>();
-  @Output() googleSignedUp = new EventEmitter();
+  @Output() googleSignUp = new EventEmitter();
 
+  carConfigRoutes = CarConfigRoutes;
   public passwordShown = false;
 
   registerForm = this.fb.nonNullable.group(
@@ -52,8 +54,8 @@ export class RegisterFormComponent {
     }
   }
 
-  handleGoogleSignedUp() {
-    this.googleSignedUp.emit();
+  handleGoogleSignUp() {
+    this.googleSignUp.emit();
   }
 
   passwordValidation(control: AbstractControl): ValidationErrors | null {
