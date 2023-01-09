@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { AuthStoreService } from 'src/app/modules/auth/services/auth-store.service';
 import { CarStoreService } from 'src/app/modules/car-configurator/services/car-store.service';
-import { Routes } from 'src/app/modules/shared/enums';
+import { CarConfigRoutes } from 'src/app/modules/shared/enums';
 import { SavedCarConfiguration } from 'src/app/modules/shared/models';
 import { HomeCarStoreService } from '../../services/home-car-store.service';
 
@@ -24,7 +24,8 @@ export class HomeComponent implements OnInit {
     private readonly router: Router,
     private readonly carStoreService: CarStoreService,
     private readonly homeCarStore: HomeCarStoreService,
-    private readonly authStoreSerivce: AuthStoreService
+    private readonly authStoreSerivce: AuthStoreService,
+    private readonly activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -46,11 +47,14 @@ export class HomeComponent implements OnInit {
       .getSelectedCarData(savedConfiguration.car)
       .subscribe(() => {
         this.carStoreService.setSelectedConfiguration(savedConfiguration);
-        this.router.navigate([Routes.ConfiguratorSummaryPage]);
+        this.router.navigate([
+          CarConfigRoutes.ConfiguratorCarSelectPage,
+          CarConfigRoutes.ConfiguratorSummaryPage,
+        ]);
       });
   }
 
   handleNavigateCarSelector() {
-    this.router.navigate([Routes.ConfiguratorCarSelectPage]);
+    this.router.navigate([CarConfigRoutes.ConfiguratorCarSelectPage]);
   }
 }

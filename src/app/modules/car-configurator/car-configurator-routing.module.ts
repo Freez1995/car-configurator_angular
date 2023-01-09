@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CarConfigRoutes } from '../shared/enums';
 import { CarConfiguratorComponent } from './views/car-configurator/car-configurator.component';
 import { CarSelectorComponent } from './views/car-selector/car-selector.component';
 import { ConfigurationSummaryComponent } from './views/configuration-summary/configuration-summary.component';
@@ -17,19 +18,19 @@ const routes: Routes = [
         component: CarSelectorComponent,
       },
       {
-        path: 'view',
+        path: CarConfigRoutes.ConfiguratorViewPage,
         component: DetailsPageComponent,
       },
       {
-        path: 'configure-exterior',
+        path: CarConfigRoutes.ConfiguratorExteriorPage,
         component: ConfigureExteriorComponent,
       },
       {
-        path: 'configure-interior',
+        path: CarConfigRoutes.ConfiguratorInteriorPage,
         component: ConfigureInteriorComponent,
       },
       {
-        path: 'summary',
+        path: CarConfigRoutes.ConfiguratorSummaryPage,
         component: ConfigurationSummaryComponent,
       },
     ],

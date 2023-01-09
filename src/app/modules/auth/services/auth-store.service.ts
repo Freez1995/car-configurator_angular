@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { catchError, from, tap, throwError } from 'rxjs';
 import { CarStoreService } from '../../car-configurator/services/car-store.service';
 import { Store } from '../../shared/classes/store.class';
-import { Routes } from '../../shared/enums';
+import { CarConfigRoutes } from '../../shared/enums';
 import { ErrorTransformPipe } from '../../shared/pipes/error-transform.pipe';
 import { UserAuthCredentials } from '../models/UserAuthCredentials';
 import { AuthService } from './auth-service.service';
@@ -14,6 +15,7 @@ export interface AuthStore {
   isSignInLoading: boolean;
   isSignUpLoading: boolean;
   isGoogleAuthenticationLoading: boolean;
+  isSignOutLoading: boolean;
 }
 
 const initialState: AuthStore = {
@@ -21,6 +23,7 @@ const initialState: AuthStore = {
   isSignInLoading: false,
   isSignUpLoading: false,
   isGoogleAuthenticationLoading: false,
+  isSignOutLoading: false,
 };
 
 @Injectable({
@@ -33,6 +36,7 @@ export class AuthStoreService extends Store<AuthStore> {
   isGoogleAuthenticationLoading$ = this.select(
     (state) => state.isGoogleAuthenticationLoading
   );
+  isSignOutLoading$ = this.select((state) => state.isSignOutLoading);
 
   constructor(
     private readonly auth: AngularFireAuth,
@@ -51,7 +55,7 @@ export class AuthStoreService extends Store<AuthStore> {
         });
         this.carStoreService.setSelectedConfiguration({ userId: user.uid });
       }
-      this.router.navigate([Routes.HomePage]);
+      this.router.navigate([CarConfigRoutes.HomePage]);
     });
   }
 
@@ -59,78 +63,95 @@ export class AuthStoreService extends Store<AuthStore> {
     this.setState({
       isSignInLoading: true,
     });
-    this.authService
-      .handleSignIn({ email, password })
-      .then(() => {
+    return from(this.authService.handleSignIn({ email, password })).pipe(
+      tap(() => {
         this.setState({
           isSignInLoading: false,
         });
-        this.router.navigate([Routes.HomePage]);
-      })
-      .catch((error) => {
+      }),
+      catchError((error) => {
         this.setState({
           isSignInLoading: false,
         });
         this.snackBar.open(this.errorTransform.transform(error), 'Cancel', {
           duration: 5000,
         });
-      });
+        return throwError(
+          () => new Error(this.errorTransform.transform(error))
+        );
+      })
+    );
   }
 
   handleSignUp({ email, password }: UserAuthCredentials) {
     this.setState({
       isSignUpLoading: true,
     });
-    this.authService
-      .handleSignUp({ email, password })
-      .then(() => {
+    return from(this.authService.handleSignUp({ email, password })).pipe(
+      tap(() => {
         this.setState({
           isSignUpLoading: false,
         });
-        this.router.navigate([Routes.HomePage]);
-      })
-      .catch((error) => {
+      }),
+      catchError((error) => {
         this.setState({
           isSignUpLoading: false,
         });
         this.snackBar.open(this.errorTransform.transform(error), 'Cancel', {
           duration: 5000,
         });
-      });
+        return throwError(
+          () => new Error(this.errorTransform.transform(error))
+        );
+      })
+    );
   }
 
   handleGoogleAuthentication() {
     this.setState({
       isGoogleAuthenticationLoading: true,
     });
-    this.authService
-      .handleGoogleAuthentication()
-      .then(() => {
+    return from(this.authService.handleGoogleAuthentication()).pipe(
+      tap((user) => {
         this.setState({
           isGoogleAuthenticationLoading: false,
         });
-        this.router.navigate([Routes.HomePage]);
-      })
-      .catch((error) => {
+      }),
+      catchError((error) => {
         this.setState({
           isGoogleAuthenticationLoading: false,
         });
         this.snackBar.open(this.errorTransform.transform(error), 'Cancel', {
           duration: 5000,
         });
-      });
+        return throwError(
+          () => new Error(this.errorTransform.transform(error))
+        );
+      })
+    );
   }
 
   handleSignOut() {
-    this.authService
-      .handleSignOut()
-      .then(() => {
-        this.router.navigate([Routes.SignInPage]);
-      })
-      .catch((error) => {
+    this.setState({
+      isSignOutLoading: true,
+    });
+    return from(this.authService.handleSignOut()).pipe(
+      tap(() => {
+        this.setState({
+          isSignOutLoading: false,
+        });
+      }),
+      catchError((error) => {
+        this.setState({
+          isSignOutLoading: false,
+        });
         this.snackBar.open(this.errorTransform.transform(error), 'Cancel', {
           duration: 5000,
         });
-      });
+        return throwError(
+          () => new Error(this.errorTransform.transform(error))
+        );
+      })
+    );
   }
 }

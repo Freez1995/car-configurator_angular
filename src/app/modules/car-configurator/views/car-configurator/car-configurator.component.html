@@ -1,5 +1,5 @@
 <app-configurator-header
-  *ngIf="currentRoute !== '/configurator'"
+  *ngIf="(currentRoute$ | async) !== '/configurator'"
   [selectedConfiguration]="(selectedConfiguration$ | async)!"
 ></app-configurator-header>
 <router-outlet></router-outlet>

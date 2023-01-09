@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { CarConfigRoutes } from 'src/app/modules/shared/enums';
 import { UserAuthCredentials } from '../../models/UserAuthCredentials';
 
 @Component({
@@ -9,10 +10,11 @@ import { UserAuthCredentials } from '../../models/UserAuthCredentials';
 })
 export class LoginFormComponent {
   @Input() isSignInLoading?: boolean;
-  @Input() isGoogleAuthenticationLoading: boolean = false;
+  @Input() isGoogleAuthenticationLoading?: boolean;
   @Output() formSubmited = new EventEmitter<UserAuthCredentials>();
-  @Output() googleSignedIn = new EventEmitter();
+  @Output() googleSignIn = new EventEmitter();
 
+  carConfigRoutes = CarConfigRoutes;
   public passwordShown = false;
 
   loginForm = this.fb.nonNullable.group({
@@ -40,6 +42,6 @@ export class LoginFormComponent {
   }
 
   handleGoogleSignedIn() {
-    this.googleSignedIn.emit();
+    this.googleSignIn.emit();
   }
 }

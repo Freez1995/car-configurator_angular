@@ -10,10 +10,11 @@ import { SavedCarConfiguration } from 'src/app/modules/shared/models';
 export class SummaryFooterComponent {
   @Input() selectedConfiguration?: SavedCarConfiguration;
   @Input() exteriorImages?: string[];
-  @Output() configurationSaved = new EventEmitter<SavedCarConfiguration>();
+  @Input() isLoadingSavingConfiguration: boolean = false;
+  @Output() configurationSave = new EventEmitter<SavedCarConfiguration>();
 
-  handleConfigurationSaved() {
-    this.configurationSaved.emit({
+  handleConfigurationSave() {
+    this.configurationSave.emit({
       ...this.selectedConfiguration!,
       carSideImage: this.exteriorImages![2],
       createdAt: Timestamp.now(),

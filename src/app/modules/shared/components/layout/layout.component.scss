@@ -1,3 +1,9 @@
+.main-container {
+  position: relative;
+  overflow-x: hidden;
+  height: 100%;
+}
+
 .main-toolbar {
   background-color: #2e2e38;
   padding: 22px 40px 18px;
@@ -42,4 +48,14 @@
 
 .logo-icon {
   cursor: pointer;
+}
+
+.hamburger-signout-button {
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+}
+
+mat-icon {
+  height: 18px;
 }
